@@ -1,4 +1,4 @@
 *.swp
 *.swo
 .DS_Store
-/project/obj
+/haxelib/project/obj
