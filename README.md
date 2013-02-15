@@ -17,13 +17,12 @@ git clone https://github.com/proletariatgames/nmexpro.git DESTINATION-FOLDER
 2. Point haxelib to this directory:
 haxelib dev nmex DESTINATION-FOLDER
 3. Add the following to your application NMML file:
-  <haxelib name="nmex" if="ios" />
+  &lt;haxelib name="nmex" if="ios" /&gt;
 4. You may need to add the following framework dependencies:
-  <dependency name="GameKit.framework" if="ios" />
-  <dependency name="StoreKit.framework" if="ios" />
-  <dependency name="SystemConfiguration.framework" if="ios" />
-  <dependency name="Social.framework" if="ios" />
-  <dependency name="Accounts.framework" if="ios" />
-  <dependency name="AdSupport.framework" if="ios" />
-  <dependency name="MediaPlayer.framework" if="ios" />
-
+  &lt;dependency name="GameKit.framework" if="ios" /&gt;
+  &lt;dependency name="StoreKit.framework" if="ios" /&gt;
+  &lt;dependency name="SystemConfiguration.framework" if="ios" /&gt;
+  &lt;dependency name="Social.framework" if="ios" /&gt;
+  &lt;dependency name="Accounts.framework" if="ios" /&gt;
+  &lt;dependency name="AdSupport.framework" if="ios" /&gt;
+  &lt;dependency name="MediaPlayer.framework" if="ios" /&gt;
