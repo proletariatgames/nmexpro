@@ -1,0 +1,98 @@
+.user_info {
+  background: url(images/icon_white_disclosure.mdpi.png) transparent no-repeat right center;
+  overflow: hidden;
+  -webkit-background-size: 11px 17px; }
+  .user_info .notifications {
+    margin-top: 14px; }
+    .user_info .notifications .badge_button {
+      height: 40px;
+      margin-right: 10px;
+      padding-bottom: 7px;
+      text-align: center;
+      width: 45px; }
+      .user_info .notifications .badge_button .badge_icon {
+        height: 100%;
+        -webkit-background-size: 25px 25px; }
+    .user_info .notifications .friends .badge_icon {
+      background: url(images/icon_addFriends.mdpi.png) no-repeat center center; }
+    .user_info .notifications .wall .badge_icon {
+      background: url(images/icon_wall.mdpi.png) no-repeat center center; }
+
+ul.who_else_playing .players {
+  height: auto;
+  overflow: hidden; }
+ul.who_else_playing .view_all_players {
+  color: #25731f;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px; }
+
+.player {
+  float: left;
+  width: 25%; }
+  .player .small_profile_picture {
+    margin: 0 auto 5px; }
+  .player .username {
+    color: #595959;
+    font-size: 12px;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 0 2px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .player.online .username {
+    color: #25731f; }
+
+.additional {
+  display: none; }
+
+.orientation_landscape .player {
+  width: 14.28%; }
+.orientation_landscape .additional {
+  display: block; }
+
+.action_banner {
+  margin-top: 10px; }
+  .action_banner .message {
+    background: url(images/whiteDisclosure.mdpi.png) transparent no-repeat right center;
+    font-size: 15px;
+    line-height: 22px;
+    -webkit-background-size: 13px 19px;
+    text-shadow: 1px 1px 1px #b86c16; }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+body.hdpi .user_info {
+  background: url(images/icon_white_disclosure.hdpi.png) transparent no-repeat right center;
+}
+body.hdpi .action_banner .message {
+  background: url(images/whiteDisclosure.hdpi.png) transparent no-repeat right center;
+}
+body.hdpi .user_info .notifications .friends .badge_icon {
+  background: url(images/icon_addFriends.hdpi.png) no-repeat center center;
+}
+body.hdpi .user_info .notifications .wall .badge_icon {
+  background: url(images/icon_wall.hdpi.png) no-repeat center center;
+}
+
+/*
+ *    2x pixel scale
+ */
+
+body.udpi .user_info {
+  background: url(images/icon_white_disclosure.udpi.png) transparent no-repeat right center;
+}
+body.udpi .action_banner .message {
+  background: url(images/whiteDisclosure.udpi.png) transparent no-repeat right center;
+}
+body.udpi .user_info .notifications .friends .badge_icon {
+  background: url(images/icon_addFriends.udpi.png) no-repeat center center;
+}
+body.udpi .user_info .notifications .wall .badge_icon {
+  background: url(images/icon_wall.udpi.png) no-repeat center center;
+}

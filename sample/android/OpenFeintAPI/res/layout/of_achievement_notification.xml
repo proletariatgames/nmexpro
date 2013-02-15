@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="40dip" android:background="@drawable/of_achievement_notification_bkg" android:id="@+id/of_achievement_notification">
+  <ImageView android:id="@+id/of_achievement_icon" android:src="@drawable/of_achievement_icon_unlocked" android:layout_height="26dip" android:layout_marginTop="2dip" android:layout_width="26dip" android:layout_centerVertical="true" android:cropToPadding="true" android:scaleType="fitXY" android:layout_marginLeft="7dip"/>
+  <ImageView android:id="@+id/of_achievement_icon_frame" android:src="@drawable/of_achievement_icon_frame" android:layout_height="30dip" android:layout_width="30dip" android:layout_centerVertical="true" android:layout_marginLeft="5dip" android:scaleType="fitXY"/>
+  <TextView android:layout_width="wrap_content" android:layout_toRightOf="@+id/of_achievement_icon_frame" android:layout_height="wrap_content" android:id="@+id/of_achievement_text" android:text="You unlocked Chuck Norris in Arcade Hockey!" android:textSize="14dip" android:layout_centerVertical="true" android:layout_marginLeft="4dip"/>
+  <TextView android:layout_centerVertical="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:textSize="14dip" android:text="30" android:paddingRight="20dip" android:id="@+id/of_achievement_score"/>
+  <ImageView android:layout_centerVertical="true" android:layout_toLeftOf="@+id/of_achievement_score" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/of_achievement_score_icon" android:src="@drawable/of_feint_points_white" android:layout_marginRight="4dip" android:adjustViewBounds="true"/>
+  <ImageView android:layout_centerVertical="true" android:layout_toLeftOf="@+id/of_achievement_score" android:layout_width="wrap_content" android:layout_marginRight="4dip" android:adjustViewBounds="true" android:id="@+id/of_achievement_progress_icon" android:src="@drawable/of_achievement_notification_locked" android:layout_height="wrap_content" android:paddingTop="3dip"/>
+</RelativeLayout>

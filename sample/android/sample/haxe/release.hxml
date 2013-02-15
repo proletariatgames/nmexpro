@@ -1,0 +1,8 @@
+-main ApplicationMain 
+-cp ../../../src
+-cp ../../../framework
+-lib nme
+-lib nmex
+-cpp bin/
+-D android
+--remap flash:nme

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent"
+	android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<com.openfeint.internal.ui.PadLogoImageView android:layout_alignParentBottom="true"
+		android:id="@+id/of_ll_logo_image" android:layout_alignParentLeft="true"
+		android:src="@drawable/of_ll_logo" android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:layout_marginBottom="6sp"
+		android:layout_marginLeft="6sp" />
+
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="720sp" android:layout_height="460sp"
+		android:id="@+id/nested_window_root" android:layout_centerInParent="true"
+		android:background="@drawable/frame_layout_shape">
+
+		<FrameLayout android:visibility="invisible"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:id="@+id/frameLayout">
+
+			<WebView android:id="@+id/web_view" android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:visibility="invisible" />
+
+		</FrameLayout>
+	</RelativeLayout>
+
+</RelativeLayout>

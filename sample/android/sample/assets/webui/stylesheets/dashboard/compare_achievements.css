@@ -1,0 +1,166 @@
+/* --- dashboard/compare_achievements --- */
+.compare_achievements #game {
+  height: 60px;
+  padding: 8px;
+  background: #585858; }
+  .compare_achievements #game .icon {
+    float: left;
+    -webkit-background-size: 60px 60px;
+    width: 60px;
+    height: 60px; }
+  .compare_achievements #game .title {
+    float: left;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 34px;
+    height: 60px;
+    color: white;
+    padding-left: 12px;
+    text-shadow: rgba(0, 0, 0, 0.6) 0px 1px 2px; }
+.compare_achievements .users_row {
+  height: 85px; }
+  .compare_achievements .users_row .user {
+    -webkit-box-sizing: border-box;
+    float: left;
+    width: 50%;
+    margin: 0;
+    padding: 8px;
+    height: 85px; }
+    .compare_achievements .users_row .user .inner {
+      padding-right: 20px;
+      background: url(images/dashboard/icon.disclosure.mdpi.png) center right no-repeat;
+      -webkit-background-size: 9px 13px; }
+    .compare_achievements .users_row .user.touched {
+      background-color: rgba(0, 0, 0, 0.25); }
+    .compare_achievements .users_row .user#them {
+      border-right: 1px solid #c4c4c4; }
+    .compare_achievements .users_row .user .avatar {
+      float: left;
+      width: 46px;
+      height: 46px;
+      margin-right: 8px;
+      -webkit-border-radius: 12px;
+      -webkit-background-size: 46px 46px;
+      background: url(images/icon.user.male.mdpi.png) no-repeat; }
+      .compare_achievements .users_row .user .avatar .overlay {
+        width: 46px;
+        height: 46px;
+        background: url(images/frame.small.mdpi.png) no-repeat;
+        -webkit-background-size: 46px 46px; }
+    .compare_achievements .users_row .user .name {
+      font-weight: bold;
+      font-size: 14px;
+      color: #25731f;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden; }
+    .compare_achievements .users_row .user .score, .compare_achievements .users_row .user .progress {
+      font-weight: bold;
+      color: #777777;
+      font-size: 12px;
+      line-height: 14px;
+      padding-top: 1px;
+      padding-left: 74px;
+      height: 14px; }
+    .compare_achievements .users_row .user .score {
+      -webkit-background-size: 14px 14px;
+      background: url(images/icon.leaf.gray.mdpi.png) no-repeat 56px center; }
+    .compare_achievements .users_row .user .progress {
+      -webkit-background-size: 15px 13px;
+      background: url(images/dashboard/icon.achievement.small.mdpi.png) no-repeat 56px center; }
+    .compare_achievements .users_row .user .percent_complete {
+      clear: both !important;
+      position: static !important;
+      top: auto !important;
+      margin: 8px 14px 0 0 !important; }
+.compare_achievements #achievements_section h3.section_title {
+  padding-right: 2px;
+  display: -webkit-box;
+  display: box; }
+.compare_achievements #achievements_section .main {
+  -webkit-box-flex: 1;
+  box-flex: 1;
+  display: block; }
+.compare_achievements #achievements_section .me, .compare_achievements #achievements_section .them {
+  width: 40px;
+  text-align: center; }
+.compare_achievements #achievements_section li.achievement {
+  padding: 0;
+  display: -webkit-box;
+  display: box; }
+  .compare_achievements #achievements_section li.achievement .main {
+    padding: 8px 2px 8px 10px;
+    border-right: 1px solid #c4c4c4; }
+  .compare_achievements #achievements_section li.achievement .gamerscore {
+    float: none;
+    font-weight: bold;
+    color: #777777;
+    font-size: 14px;
+    line-height: 15px;
+    padding: 0 0 0 10px;
+    margin: 0;
+    height: 15px;
+    -webkit-background-size: 14px 14px;
+    background: url(images/icon.leaf.gray.mdpi.png) no-repeat 0px center; }
+  .compare_achievements #achievements_section li.achievement .me, .compare_achievements #achievements_section li.achievement .them {
+    margin: 8px 0; }
+  .compare_achievements #achievements_section li.achievement .them {
+    border-right: 1px solid #dedede; }
+  .compare_achievements #achievements_section li.achievement .checked {
+    background: url(images/dashboard/icon.check.green.mdpi.png) center center no-repeat;
+    -webkit-background-size: 18px 18px; }
+  .compare_achievements #achievements_section li.achievement .subtitle {
+    padding-top: 2px; }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+body.hdpi .compare_achievements .users_row .user .avatar {
+  background: url(images/icon.user.male.hdpi.png) no-repeat;
+}
+body.hdpi .compare_achievements #achievements_section li.achievement .checked {
+  background: url(images/dashboard/icon.check.green.hdpi.png) center center no-repeat;
+}
+body.hdpi .compare_achievements .users_row .user .inner {
+  background: url(images/dashboard/icon.disclosure.hdpi.png) center right no-repeat;
+}
+body.hdpi .compare_achievements #achievements_section li.achievement .gamerscore {
+  background: url(images/icon.leaf.gray.hdpi.png) no-repeat 0px center;
+}
+body.hdpi .compare_achievements .users_row .user .progress {
+  background: url(images/dashboard/icon.achievement.small.hdpi.png) no-repeat 56px center;
+}
+body.hdpi .compare_achievements .users_row .user .avatar .overlay {
+  background: url(images/frame.small.hdpi.png) no-repeat;
+}
+body.hdpi .compare_achievements .users_row .user .score {
+  background: url(images/icon.leaf.gray.hdpi.png) no-repeat 56px center;
+}
+
+/*
+ *    2x pixel scale
+ */
+
+body.udpi .compare_achievements .users_row .user .avatar {
+  background: url(images/icon.user.male.udpi.png) no-repeat;
+}
+body.udpi .compare_achievements #achievements_section li.achievement .checked {
+  background: url(images/dashboard/icon.check.green.udpi.png) center center no-repeat;
+}
+body.udpi .compare_achievements .users_row .user .inner {
+  background: url(images/dashboard/icon.disclosure.udpi.png) center right no-repeat;
+}
+body.udpi .compare_achievements #achievements_section li.achievement .gamerscore {
+  background: url(images/icon.leaf.gray.udpi.png) no-repeat 0px center;
+}
+body.udpi .compare_achievements .users_row .user .progress {
+  background: url(images/dashboard/icon.achievement.small.udpi.png) no-repeat 56px center;
+}
+body.udpi .compare_achievements .users_row .user .avatar .overlay {
+  background: url(images/frame.small.udpi.png) no-repeat;
+}
+body.udpi .compare_achievements .users_row .user .score {
+  background: url(images/icon.leaf.gray.udpi.png) no-repeat 56px center;
+}

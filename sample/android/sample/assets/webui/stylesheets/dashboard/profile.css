@@ -1,0 +1,248 @@
+#user_profile.profile_page #info_cell.user {
+  position: relative; }
+  #user_profile.profile_page #info_cell.user .user_basic {
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #8e8e8e), color-stop(1, #747474));
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%; }
+    #user_profile.profile_page #info_cell.user .user_basic .user_name {
+      float: left;
+      font-size: 15px;
+      margin: 5px 10px;
+      max-width: 170px;
+      text-shadow: 1px 1px 1px #545454; }
+    #user_profile.profile_page #info_cell.user .user_basic .user_score_container {
+      margin: 5px 10px;
+      overflow: hidden; }
+      #user_profile.profile_page #info_cell.user .user_basic .user_score_container .user_score {
+        background-position: left center;
+        float: right;
+        height: 15px;
+        line-height: 15px;
+        max-width: 75%;
+        overflow: hidden;
+        padding-left: 20px;
+        text-overflow: ellipsis; }
+  #user_profile.profile_page #info_cell.user .user_info {
+    background: none;
+    margin-top: 27px;
+    overflow: hidden; }
+    #user_profile.profile_page #info_cell.user .user_info .status_container {
+      font-size: 13px;
+      margin-left: 95px;
+      position: relative;
+      top: -3px;
+      text-shadow: none; }
+      #user_profile.profile_page #info_cell.user .user_info .status_container .status {
+        color: #818181;
+        margin-bottom: 10px;
+        word-break: break-all; }
+      #user_profile.profile_page #info_cell.user .user_info .status_container .update_status {
+        color: #25731f;
+        font-weight: bold; }
+#user_profile.profile_page .friend_action {
+  background-color: #e7e7e7;
+  border-bottom: 1px solid #c1c1c1;
+  font-size: 14px;
+  overflow: hidden;
+  padding: 5px 10px; }
+  #user_profile.profile_page .friend_action .action_button {
+    color: white;
+    float: right;
+    text-align: center; }
+  #user_profile.profile_page .friend_action .action_info {
+    color: #595959;
+    display: table;
+    height: 36px; }
+    #user_profile.profile_page .friend_action .action_info .action_info_inner {
+      display: table-cell;
+      vertical-align: middle; }
+#user_profile.profile_page .add_friend .action_button .message {
+  background: url(images/icon_plus_white.mdpi.png) no-repeat left center;
+  line-height: 20px;
+  padding-left: 30px; }
+#user_profile.profile_page .pending_friend .action_button {
+  padding: 12px 18px; }
+#user_profile.profile_page .game_friend {
+  background-color: white;
+  list-style: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 10px; }
+  #user_profile.profile_page .game_friend li {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 50%; }
+  #user_profile.profile_page .game_friend .games {
+    float: right;
+    padding-left: 7px; }
+    #user_profile.profile_page .game_friend .games .badge_button.button_container .icon {
+      background-image: url(images/icon_games_small.mdpi.png);
+      -webkit-background-size: 20px 20px; }
+  #user_profile.profile_page .game_friend .friends {
+    float: left;
+    padding-right: 7px;
+    position: relative; }
+    #user_profile.profile_page .game_friend .friends .badge_button.button_container .icon {
+      background-image: url(images/icon_friends_small.mdpi.png);
+      -webkit-background-size: 30px 20px; }
+#user_profile.profile_page ul.cells.wall li {
+  height: auto; }
+#user_profile.profile_page ul.cells.wall .action_container .action_button {
+  font-size: 14px;
+  padding: 15px 5px;
+  text-align: center; }
+#user_profile.profile_page ul.cells.wall .messages_wrapper {
+  padding: 0; }
+  #user_profile.profile_page ul.cells.wall .messages_wrapper .messages_container {
+    margin: 0;
+    -webkit-padding-start: 0; }
+#user_profile.profile_page ul.cells.wall .message {
+  position: relative; }
+  #user_profile.profile_page ul.cells.wall .message.new_message {
+    border-left: 3px solid #e99334;
+    padding-left: 7px; }
+  #user_profile.profile_page ul.cells.wall .message .message_wrapper {
+    overflow: hidden; }
+    #user_profile.profile_page ul.cells.wall .message .message_wrapper .right_column .badge_button {
+      height: 30px;
+      line-height: 20px;
+      margin-top: -15px;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      width: 30px; }
+      #user_profile.profile_page ul.cells.wall .message .message_wrapper .right_column .badge_button .icon_container {
+        background: url(images/icon_x.mdpi.png) no-repeat center center;
+        -webkit-background-size: 12px 13px; }
+    #user_profile.profile_page ul.cells.wall .message .message_wrapper .center_column p {
+      margin: 0; }
+    #user_profile.profile_page ul.cells.wall .message .message_wrapper .center_column .username {
+      color: #25731f;
+      font-size: 14px;
+      font-weight: bold; }
+    #user_profile.profile_page ul.cells.wall .message .message_wrapper .center_column .detail {
+      color: #595959;
+      font-size: 14px;
+      word-break: break-all; }
+    #user_profile.profile_page ul.cells.wall .message .message_wrapper .center_column .post_date {
+      color: #818181;
+      font-size: 12px; }
+#user_profile.profile_page ul.cells.wall .load_more {
+  color: #25731f;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 20px 10px;
+  text-align: center; }
+#user_profile.profile_page .no_access_wall {
+  backgrond-color: white;
+  color: #535353;
+  font-size: 16px;
+  padding: 20px 10px;
+  text-shadow: 0px 1px 1px white; }
+#user_profile.profile_page .more_options {
+  background: #595959;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px; }
+  #user_profile.profile_page .more_options .more_title {
+    background: url(images/dashboard/more_options_collapsed.png) 5px center no-repeat;
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding-left: 30px;
+    -webkit-background-size: 16px; }
+    #user_profile.profile_page .more_options .more_title.expanded {
+      background-image: url(images/dashboard/more_options_expanded.png);
+      border-bottom: 1px solid #646464; }
+  #user_profile.profile_page .more_options .more_action {
+    border-top: 1px solid #7a7a7a;
+    display: table;
+    margin: 0;
+    padding-top: 10px;
+    width: 100%;
+    -webkit-padding-start: 0px; }
+    #user_profile.profile_page .more_options .more_action.col3 li {
+      padding: 0 3px;
+      width: 33.33%; }
+      #user_profile.profile_page .more_options .more_action.col3 li:first-of-type {
+        padding: 0 6px 0 0; }
+      #user_profile.profile_page .more_options .more_action.col3 li:last-of-type {
+        padding: 0 0 0 6px; }
+    #user_profile.profile_page .more_options .more_action.col2 li {
+      padding: 0 7px 0 0;
+      width: 50%; }
+      #user_profile.profile_page .more_options .more_action.col2 li:last-of-type {
+        padding: 0 0 0 7px; }
+    #user_profile.profile_page .more_options .more_action li {
+      display: table-cell;
+      vertical-align: middle; }
+    #user_profile.profile_page .more_options .more_action .icon {
+      background-position-x: 0;
+      width: 23px;
+      -webkit-background-size: 18px; }
+    #user_profile.profile_page .more_options .more_action .subtitle {
+      color: #575757;
+      font-size: 14px; }
+  #user_profile.profile_page .more_options .remove_friend .icon {
+    background-image: url(images/dashboard/icon_profile_remove_friend.mdpi.png); }
+  #user_profile.profile_page .more_options .block_user .icon {
+    background-image: url(images/dashboard/icon_profile_block_user.mdpi.png); }
+  #user_profile.profile_page .more_options .report_user .icon {
+    background-image: url(images/dashboard/icon_profile_report_user.mdpi.png); }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+body.hdpi #user_profile.profile_page .more_options .remove_friend .icon {
+  background-image: url(images/dashboard/icon_profile_remove_friend.hdpi.png);
+}
+body.hdpi #user_profile.profile_page .game_friend .friends .badge_button.button_container .icon {
+  background-image: url(images/icon_friends_small.hdpi.png);
+}
+body.hdpi #user_profile.profile_page .more_options .report_user .icon {
+  background-image: url(images/dashboard/icon_profile_report_user.hdpi.png);
+}
+body.hdpi #user_profile.profile_page .add_friend .action_button .message {
+  background: url(images/icon_plus_white.hdpi.png) no-repeat left center;
+}
+body.hdpi #user_profile.profile_page .more_options .block_user .icon {
+  background-image: url(images/dashboard/icon_profile_block_user.hdpi.png);
+}
+body.hdpi #user_profile.profile_page .game_friend .games .badge_button.button_container .icon {
+  background-image: url(images/icon_games_small.hdpi.png);
+}
+body.hdpi #user_profile.profile_page ul.cells.wall .message .message_wrapper .right_column .badge_button .icon_container {
+  background: url(images/icon_x.hdpi.png) no-repeat center center;
+}
+
+/*
+ *    2x pixel scale
+ */
+
+body.udpi #user_profile.profile_page .more_options .remove_friend .icon {
+  background-image: url(images/dashboard/icon_profile_remove_friend.udpi.png);
+}
+body.udpi #user_profile.profile_page .game_friend .friends .badge_button.button_container .icon {
+  background-image: url(images/icon_friends_small.udpi.png);
+}
+body.udpi #user_profile.profile_page .more_options .report_user .icon {
+  background-image: url(images/dashboard/icon_profile_report_user.udpi.png);
+}
+body.udpi #user_profile.profile_page .add_friend .action_button .message {
+  background: url(images/icon_plus_white.udpi.png) no-repeat left center;
+}
+body.udpi #user_profile.profile_page .more_options .block_user .icon {
+  background-image: url(images/dashboard/icon_profile_block_user.udpi.png);
+}
+body.udpi #user_profile.profile_page .game_friend .games .badge_button.button_container .icon {
+  background-image: url(images/icon_games_small.udpi.png);
+}
+body.udpi #user_profile.profile_page ul.cells.wall .message .message_wrapper .right_column .badge_button .icon_container {
+  background: url(images/icon_x.udpi.png) no-repeat center center;
+}

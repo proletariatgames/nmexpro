@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<style name="OFLoading" parent="@android:style/Theme.Dialog">
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowBackground">@color/of_transparent</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+	<style name="OFNestedWindow" parent="@android:style/Theme.Translucent">
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowBackground">@color/of_transparent</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:backgroundDimEnabled">true</item>
+	</style>
+</resources>

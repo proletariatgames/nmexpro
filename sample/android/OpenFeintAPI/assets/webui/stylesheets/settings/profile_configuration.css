@@ -1,0 +1,47 @@
+.container {
+  margin: 20px; }
+
+.profile_picture {
+  margin-top: 4px;
+  overflow: hidden; }
+  .profile_picture .avatar {
+    background: url(images/icon.user.male.large.mdpi.png) no-repeat;
+    float: left;
+    height: 76px;
+    margin: 0 10px 0 0;
+    width: 76px;
+    -webkit-background-size: 76px 76px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; }
+    .profile_picture .avatar .overlay {
+      border: 14px solid transparent;
+      height: 76px;
+      -webkit-border-image: url(images/frame.profile.mdpi.png) 14 14 stretch stretch;
+      -webkit-box-sizing: border-box; }
+  .profile_picture .button {
+    float: left;
+    margin: 5px 0 0 5px;
+    width: 120px; }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+body.hdpi .profile_picture .avatar .overlay {
+  -webkit-border-image: url(images/frame.profile.hdpi.png) 21 21 stretch stretch;
+}
+body.hdpi .profile_picture .avatar {
+  background: url(images/icon.user.male.large.hdpi.png) no-repeat;
+}
+
+/*
+ *    2x pixel scale
+ */
+
+body.udpi .profile_picture .avatar .overlay {
+  -webkit-border-image: url(images/frame.profile.udpi.png) 28 28 stretch stretch;
+}
+body.udpi .profile_picture .avatar {
+  background: url(images/icon.user.male.large.udpi.png) no-repeat;
+}

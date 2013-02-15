@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home"
+          android:icon="@drawable/of_icon_dashboard_home"
+          android:title="@string/of_home" />
+    <item android:id="@+id/settings"
+          android:icon="@drawable/of_icon_dashboard_settings"
+          android:title="@string/of_settings" />
+    <item android:id="@+id/exit_feint"
+          android:icon="@drawable/of_icon_dashboard_exit"
+          android:title="@string/of_exit_feint" />
+</menu>

@@ -1,0 +1,1714 @@
+.jasmine_reporter {
+  padding-bottom: 50px; }
+  .jasmine_reporter .suite {
+    font-size: 12px; }
+  .jasmine_reporter a.run_spec {
+    display: none; }
+  .jasmine_reporter a.description {
+    text-decoration: none; }
+    .jasmine_reporter a.description:hover {
+      color: black; }
+
+/* --- index.html --- */
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg); }
+
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+.clearfix {
+  *display: inline-block; }
+  .clearfix:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+
+body.textured {
+  background: #e5e5e5 url(images/space.grid.mdpi.png?0261a425f90a87768b3f9b6d2f1cd5432f8ec49b) repeat;
+  -webkit-background-size: 8px 8px; }
+
+html, body {
+  background: transparent;
+  font-family: "Droid Sans", Helvetica, sans-serif;
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  color: #777777;
+  -webkit-user-select: none; }
+
+#page {
+  overflow: hidden; }
+
+.eventHandle {
+  display: none; }
+
+p {
+  font-weight: bold;
+  color: #25731f; }
+
+section {
+  display: block; }
+
+.button {
+  font-size: 16px;
+  font-weight: normal;
+  color: #3e3e3e;
+  height: 43px;
+  margin: 20px 0;
+  padding-top: 13px;
+  padding-bottom: 5px;
+  border-width: 0 10px;
+  -webkit-border-image: url(images/button.gray.mdpi.png?50e57593e6f83d1f3514d0771728013b1fae4576) 0 10 stretch stretch;
+  -webkit-box-sizing: border-box;
+  text-align: center;
+  text-shadow: none;
+  vertical-align: middle; }
+  .button.touched {
+    -webkit-border-image: url(images/button.gray.hit.mdpi.png?0c5663d62b725c249e156fd50cfe4724837ff05d) 0 10 stretch stretch; }
+  .button.default {
+    -webkit-border-image: url(images/button.green.mdpi.png?c754e3e817cd96916042abadd2a1c30f22f65855) 0 10 stretch stretch;
+    color: white;
+    text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.5);
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: bold; }
+    .button.default.touched {
+      -webkit-border-image: url(images/button.green.hit.mdpi.png?aecb488e449a89b8e04032c56d59c7375f3a4371) 0 10 stretch stretch; }
+    .button.default .start_openfeint {
+      background: url(images/icon_check.mdpi.png?de097b66b58518c297e9cc0c1eac345ab8e36cbb) no-repeat left top;
+      margin: 0 auto;
+      padding: 0 0 0 30px;
+      -webkit-background-size: 24px 22px; }
+  .button.disabled {
+    opacity: 0.5; }
+
+.button_row {
+  width: 100%; }
+  .button_row .pretty_wide_wrapper {
+    width: 280px;
+    margin: 0 auto; }
+  .button_row .button_wrapper {
+    width: 50%;
+    float: left;
+    padding: 0 5px;
+    -webkit-box-sizing: border-box; }
+    .button_row .button_wrapper .button {
+      margin-top: 0px;
+      width: 100%;
+      -webkit-box-sizing: border-box; }
+    .button_row .button_wrapper:first-child {
+      padding-left: 0px; }
+    .button_row .button_wrapper:last-child {
+      padding-right: 0px; }
+
+#header {
+  height: 30px;
+  margin: 0;
+  padding: 0 10px 0 30px;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 30px;
+  color: #4d4d4d;
+  text-shadow: #e3e3e3 0px 1px 1px;
+  border-bottom: 1px solid #2d3b2c;
+  background-image: url(images/OF_Leaf.mdpi.png?d335b112f89d4d8aa5663e3e41852ac428ff166f), url(images/header_bg.mdpi.png?7f5b553bbdb526a0aff09cb71149a3f9da67f1e4);
+  background-repeat: no-repeat, repeat-x;
+  background-position: 5px 3px, top left;
+  -webkit-background-size: 22px 22px, 2px 30px; }
+  #header + * {
+    margin-top: 0; }
+  #header #home_button {
+    height: 30px; }
+  #header .loading {
+    float: right;
+    display: none; }
+    #header .loading .text {
+      display: none; }
+    #header .loading .spinner {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      position: relative;
+      top: 2px; }
+
+.loading {
+  width: 18px;
+  height: 18px; }
+  .loading .spinner {
+    background: url(images/loading.spinner.mdpi.png?8e75329b207ad62a674a18f0328cc078ad48ac14) no-repeat center center;
+    -webkit-background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+    -webkit-animation-name: spinner;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear; }
+
+.content {
+  padding: 0 10px; }
+
+.input_field {
+  margin: 20px 0; }
+  .input_field label {
+    display: block;
+    font-weight: normal;
+    color: #555555;
+    margin-bottom: 4px; }
+  .input_field input[type=text], .input_field input[type=password] {
+    width: 100%;
+    height: 42px;
+    border-width: 0 10px;
+    padding: 0;
+    font-size: 18px;
+    line-height: 18px;
+    color: #3e3e3e;
+    background: transparent;
+    -webkit-box-sizing: border-box;
+    -webkit-border-image: url(images/input.text.mdpi.png?e2600689d673d2ff58a5f0bdece7813a30b83dee) 0 10 stretch stretch; }
+    .input_field input[type=text].prompt, .input_field input[type=password].prompt {
+      color: #888888; }
+
+.inset_cell {
+  padding: 10px;
+  border: 1px solid #cfcfcf;
+  background: #e4e4e4;
+  color: #777777;
+  font-size: 16px;
+  min-height: 56px;
+  *display: inline-block;
+  background: white;
+  -webkit-border-radius: 15px; }
+  .inset_cell .image {
+    width: 56px;
+    height: 56px;
+    background-image: url(images/icon.user.male.mdpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+    -webkit-background-size: 56px 56px;
+    float: left;
+    margin-right: 10px;
+    -webkit-border-radius: 12px; }
+    .inset_cell .image .overlay {
+      width: 56px;
+      height: 56px;
+      background: url(images/frame.small.mdpi.png?13c2c28d0988814d089db40602faee4de061ec15) no-repeat;
+      -webkit-background-size: 56px 56px; }
+  .inset_cell .title {
+    margin-top: 3px;
+    color: #25731f;
+    font-size: 22px;
+    font-weight: bold; }
+  .inset_cell .feint_score {
+    background: url(images/icon.leaf.gray.mdpi.png?1ad15dd1e798c61371287d91380a478771d767fc) no-repeat 66px center;
+    -webkit-background-size: 14px 15px;
+    padding: 4px 0 0 86px;
+    font-size: 14px; }
+  .inset_cell:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  .inset_cell .title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+
+.hidden {
+  display: none !important; }
+
+.section_title, ul.cells li.section_title {
+  padding: 0 10px;
+  margin: 0;
+  height: 22px;
+  line-height: 24px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  border-bottom: 1px solid #565656;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #7c7c7c), color-stop(1, #8e8e8e));
+  text-shadow: rgba(0, 0, 0, 0.15) 0px 0px 4px; }
+
+ul.cells {
+  padding: 0;
+  margin: 0;
+  list-style-type: none; }
+
+ul.cells li, .cell {
+  height: 56px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #bfbfbf;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ececec), color-stop(0.2, #f5f5f5), color-stop(1, #f7f7f7)); }
+  ul.cells li.touched, .cell.touched {
+    padding-top: 8px;
+    background: #c6e5c0;
+    border-bottom: 1px solid #22a025; }
+  ul.cells li.one_line .title, .cell.one_line .title {
+    line-height: 56px;
+    margin: 0;
+    padding: 0; }
+  ul.cells li.liquid, .cell.liquid {
+    height: auto; }
+  ul.cells li.no_data, .cell.no_data {
+    height: auto;
+    padding: 20px;
+    font-size: 13px;
+    text-align: center; }
+  ul.cells li.loading, ul.cells li .loading, .cell.loading, .cell .loading {
+    background: none;
+    border: 0;
+    width: auto;
+    height: auto;
+    padding: 20px; }
+    ul.cells li.loading .spinner, ul.cells li .loading .spinner, .cell.loading .spinner, .cell .loading .spinner {
+      display: block;
+      margin: 0 auto;
+      padding: 0;
+      height: 24px;
+      width: 24px;
+      -webkit-background-size: 24px 24px; }
+  ul.cells li .icon, .cell .icon {
+    width: 56px;
+    height: 57px;
+    margin: -1px 14px 0 0;
+    -webkit-background-size: 56px 57px;
+    background-position: center top;
+    float: left; }
+  ul.cells li .title, .cell .title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 9px;
+    color: #595959; }
+  ul.cells li .subtitle, .cell .subtitle {
+    font-size: 15px;
+    margin-top: 0px;
+    color: #777777; }
+
+ul.tabs {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border-top: solid 1px #8d8d8d;
+  border-bottom: solid 1px #474747;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f5f5f5), color-stop(0.73, #d9d9d9), color-stop(1, #e9e9e9));
+  -webkit-background-size: 1px 51px; }
+  ul.tabs li {
+    -webkit-box-sizing: border-box;
+    float: left;
+    padding: 0 0 0 15px;
+    line-height: 52px;
+    height: 52px;
+    background: url(images/tab.divider.mdpi.png?633269b74462750f5a395216dff2e09e597f7bdb) no-repeat top right, -webkit-gradient(linear, left top, left bottom, color-stop(0, #f5f5f5), color-stop(0.73, #d9d9d9), color-stop(1, #e9e9e9));
+    -webkit-background-size: 2px 52px, 1px 51px;
+    text-align: left;
+    display: inline-block;
+    padding-right: 18px; }
+    ul.tabs li .label {
+      display: inline-block;
+      padding-left: 18px;
+      font-size: 14px; }
+    ul.tabs li.active {
+      font-weight: bold;
+      color: #25731f; }
+      ul.tabs li.active .label {
+        background: url(images/tab.active_indicator.mdpi.png?a7c48d4c78847ff579993e27d152e2e399ea709b) no-repeat center left;
+        -webkit-background-size: 14px 13px; }
+    ul.tabs li.touched {
+      background: url(images/tab.divider.mdpi.png?633269b74462750f5a395216dff2e09e597f7bdb) no-repeat top right, -webkit-gradient(linear, left top, left bottom, color-stop(0, #dedede), color-stop(0.73, #c5c5c5), color-stop(1, #d2d2d2)); }
+    ul.tabs li:last-child {
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f5f5f5), color-stop(0.73, #d9d9d9), color-stop(1, #e9e9e9));
+      -webkit-background-size: 1px 51px; }
+    ul.tabs li.touched:last-child {
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dedede), color-stop(0.73, #c5c5c5), color-stop(1, #d2d2d2)); }
+
+/* --- intro/index --- */
+#intro #header {
+  height: 50px;
+  margin: 0;
+  padding: 0 18px 0 0;
+  text-align: right;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 46px;
+  color: #4f4f4f;
+  text-shadow: #e3e3e3 0px 1px 1px;
+  border-bottom: 1px solid #2d3b2c;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 8px 2px;
+  background-image: url(images/logo.mdpi.png?146b22003214e262d96018c1a6a2af9ebf86197b), url(images/header_bg.mdpi.png?7f5b553bbdb526a0aff09cb71149a3f9da67f1e4);
+  background-repeat: no-repeat, repeat-x;
+  background-position: 5px 3px, top left;
+  -webkit-background-size: 188px 41px, 2px 50px; }
+  #intro #header + * {
+    margin-top: 0; }
+  #intro #header #home_button {
+    height: 50px;
+    width: 150px;
+    float: left; }
+  #intro #header .loading {
+    display: inline-block; }
+    #intro #header .loading .spinner {
+      background: url(images/loading.spinner.mdpi.png?8e75329b207ad62a674a18f0328cc078ad48ac14) no-repeat; }
+#intro .content {
+  padding: 0 20px 20px; }
+  #intro .content #intro_index #new_account .intro_flow {
+    bottom: 0;
+    position: absolute; }
+#intro .inset_cell.user {
+  margin-top: 20px; }
+  #intro .inset_cell.user .avatar {
+    background-image: url(images/icon.user.male.mdpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+    -webkit-background-size: 56px 56px; }
+#intro p {
+  font-size: 18px;
+  color: #25731f; }
+#intro .switch_flow p {
+  color: #595959; }
+#intro #forgot_password {
+  float: right;
+  font-size: 12px;
+  text-decoration: underline; }
+#intro #intro_index p {
+  font-size: 18px;
+  color: #535353;
+  text-align: center;
+  text-shadow: white 0px 1px 1px;
+  margin-bottom: 0px; }
+#intro #intro_index .button_row .button_wrapper {
+  float: none;
+  margin: 0 auto;
+  width: 220px; }
+  #intro #intro_index .button_row .button_wrapper .button {
+    margin-bottom: 0;
+    padding: 13px 0; }
+#intro #intro_index .loading {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 70px 0 0;
+  -webkit-box-sizing: border-box; }
+  #intro #intro_index .loading .spinner {
+    display: inline-block; }
+  #intro #intro_index .loading span {
+    display: inline-block;
+    position: relative;
+    top: -4px; }
+#intro .button_row {
+  *display: inline-block; }
+  #intro .button_row:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  #intro .button_row .button_wrapper {
+    *display: inline-block; }
+    #intro .button_row .button_wrapper:after {
+      content: " ";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden; }
+    #intro .button_row .button_wrapper .button {
+      font-size: 15px; }
+#intro .features {
+  display: table;
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  color: #595959; }
+  #intro .features .feature_row {
+    display: table-row; }
+    #intro .features .feature_row .feature {
+      display: table-cell;
+      padding: 10px; }
+      #intro .features .feature_row .feature .icon {
+        height: 52px;
+        background: transparent center no-repeat;
+        -webkit-background-size: 68px 52px; }
+    #intro .features .feature_row #leaderboards .icon {
+      background-image: url(images/intro.leaderboards.mdpi.png?f49ea702bb6b9186c5d7b3ba49f8832592789193); }
+    #intro .features .feature_row #friends .icon {
+      background-image: url(images/intro.friends.mdpi.png?33e9e5c50a32c80c40c8a45b6dfcb4e5f9910895); }
+    #intro .features .feature_row #achievements .icon {
+      background-image: url(images/intro.achievements.mdpi.png?6c895b756600e661e2b372189f74ffaf2e6c86c5); }
+    #intro .features .feature_row #games {
+      display: none; }
+      #intro .features .feature_row #games .icon {
+        background-image: url(images/intro.games.mdpi.png?9f2e1d3d77bd22c164e18c45e3b25e25f9b6f777); }
+
+#intro_legal {
+  width: 100%;
+  margin: 0;
+  padding: 5px 0 15px;
+  font-size: 11px;
+  font-family: helvetica, sans-serif;
+  color: #595959; }
+  #intro_legal span {
+    text-decoration: underline; }
+
+body.orientation_portrait #intro .button_row .button_wrapper .button {
+  padding-top: 4px; }
+
+body.orientation_landscape #intro #intro_index #new_account .intro_flow {
+  margin-top: 20px;
+  position: static; }
+body.orientation_landscape #intro #intro_index p {
+  font-size: 17px;
+  margin-top: 10px; }
+body.orientation_landscape #intro #intro_index .features .feature_row .feature {
+  padding: 5px; }
+  body.orientation_landscape #intro #intro_index .features .feature_row .feature br {
+    display: none; }
+body.orientation_landscape #intro #intro_index .features .feature_row #games {
+  display: block; }
+body.orientation_landscape #intro #intro_index #submit, body.orientation_landscape #intro #intro_index .input_field {
+  margin: 10px 0; }
+body.orientation_landscape #intro #intro_index .button br {
+  display: none; }
+body.orientation_landscape .pretty_wide_wrapper {
+  width: 350px; }
+
+/* --- intro/tos --- */
+#terms_of_service h1 {
+  color: #25731f;
+  font-size: 18px; }
+#terms_of_service h2 {
+  font-size: 14px;
+  color: #595959; }
+#terms_of_service p, #terms_of_service ol li {
+  font-size: 13px;
+  color: #595959;
+  font-weight: normal; }
+#terms_of_service ol {
+  padding-left: 20px; }
+  #terms_of_service ol li {
+    margin-top: 10px; }
+    #terms_of_service ol li ol {
+      list-style-type: lower-alpha; }
+#terms_of_service strong {
+  color: #25731f; }
+
+#intro_login #submit {
+  margin-top: 27px; }
+
+#signup #submit {
+  margin-top: 27px; }
+
+/* --- dashboard/user --- */
+#user_profile #header {
+  height: 50px;
+  margin: 0;
+  padding: 0 18px 0 0;
+  text-align: right;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 46px;
+  color: #4f4f4f;
+  text-shadow: #e3e3e3 0px 1px 1px;
+  border-bottom: 1px solid #2d3b2c;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 8px 2px;
+  background-image: url(images/logo.mdpi.png?146b22003214e262d96018c1a6a2af9ebf86197b), url(images/header_bg.mdpi.png?7f5b553bbdb526a0aff09cb71149a3f9da67f1e4);
+  background-repeat: no-repeat, repeat-x;
+  background-position: 5px 3px, top left;
+  -webkit-background-size: 188px 41px, 2px 50px; }
+  #user_profile #header + * {
+    margin-top: 0; }
+  #user_profile #header #home_button {
+    height: 50px;
+    width: 150px;
+    float: left; }
+  #user_profile #header .loading {
+    display: inline-block; }
+    #user_profile #header .loading .spinner {
+      background: url(images/loading.spinner.mdpi.png?8e75329b207ad62a674a18f0328cc078ad48ac14) no-repeat; }
+#user_profile #unapproved {
+  padding: 5px;
+  font-size: 10px;
+  background-color: #888888;
+  color: white;
+  text-align: center; }
+#user_profile #info_cell {
+  background: #595959;
+  -webkit-background-size: 6px 6px;
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 10px;
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.6) 0px 1px 2px;
+  font-size: 14px; }
+  #user_profile #info_cell .loading {
+    width: 100%;
+    float: none;
+    margin: 0 0 -80px 0px;
+    border-left: 94px solid transparent;
+    height: 80px;
+    -webkit-box-sizing: border-box;
+    text-align: center; }
+    #user_profile #info_cell .loading .spinner {
+      display: inline-block;
+      background-image: url(images/loading.spinner.light.mdpi.png?38e429337fa63fdadf284b045d976265b0bc4cfb);
+      width: 24px;
+      height: 24px;
+      -webkit-background-size: 24px 24px;
+      padding: 28px 0; }
+  #user_profile #info_cell .avatar {
+    background: white url(images/icon.user.male.large.mdpi.png?3497a92aeae69d65ec6914756fe940aa3c102883) no-repeat;
+    -webkit-background-size: 84px 84px;
+    margin: 0 10px 0 0;
+    width: 76px;
+    height: 76px;
+    float: left;
+    border: 3px solid white;
+    -webkit-border-radius: 8px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); }
+  #user_profile #info_cell .user_name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-size: 18px; }
+  #user_profile #info_cell .user_score {
+    background: url(images/icon.leaf.white.mdpi.png?5946a4022cc02bcb0fc55f5875b28a3ae8da23e9) no-repeat 92px center;
+    -webkit-background-size: 16px 17px;
+    padding-left: 112px;
+    padding-top: 1px;
+    height: 37px;
+    line-height: 38px;
+    font-weight: bold;
+    font-size: 14px; }
+#user_profile ul.cells li .title {
+  font-size: 20px; }
+#user_profile ul.cells li#leaderboards .icon {
+  background-image: url(images/icon.leaderboard.mdpi.png?3482e4eecd5d150c307bf6dd926c1a2c58c4a5a5); }
+#user_profile ul.cells li#achievements .icon {
+  background-image: url(images/icon.achievement.mdpi.png?acc20d9575a454992c97ec64a42a8ffe37d9d555); }
+#user_profile ul.cells li#games .icon {
+  background-image: url(images/icon.game.mdpi.png?1684c59d358602b3eaebe2d732ee9c29697397e2); }
+#user_profile ul.cells li#friends .icon {
+  background-image: url(images/icon.friends.mdpi.png?fbdc0683d800a96e6ab25c7922a29cbab412e7fa); }
+
+body.android #main_loader {
+  margin: 10px auto; }
+body.android #user_profile #info_cell .avatar {
+  -webkit-box-shadow: none;
+  -webkit-border-radius: 10px;
+  border: 0;
+  width: 90px;
+  height: 90px;
+  background-position: 3px 3px !important; }
+  body.android #user_profile #info_cell .avatar .overlay {
+    -webkit-box-sizing: border-box;
+    height: 90px;
+    -webkit-border-image: url(images/frame.profile.mdpi.png?02a08335acb28c47505910f59818b588c9992824) 14 14 stretch stretch;
+    border: 14px; }
+body.android #user_profile #info_cell .button {
+  width: 150px;
+  max-height: 44px;
+  height: 40px;
+  padding: 0;
+  margin: 2px 0 0;
+  line-height: 40px;
+  display: inline-block; }
+
+#user_profile.other_user #info_cell .user_score {
+  height: 18px;
+  line-height: 18px; }
+
+/* --- spotlight/android/home --- */
+#spotlight #wrapper {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1, #137331), color-stop(0, #12843d));
+  -webkit-background-size: 320px 40px;
+  height: 40px;
+  border-bottom: 3px solid #096426; }
+#spotlight header.feint_spotlight, #spotlight .header.feint_spotlight {
+  background-image: url(images/circles.mdpi.png?435ca4528684f14f35d77a6bd47a6c2251197791);
+  -webkit-background-size: 320px 39px;
+  border-bottom: 3px solid #096426;
+  height: 39px; }
+  #spotlight header.feint_spotlight h1, #spotlight .header.feint_spotlight h1 {
+    margin-top: 4px;
+    background: url(images/feint_spotlight.mdpi.png?fc443651a875d8ced4cfe7483596aaada22019e3) no-repeat;
+    -webkit-background-size: 130px 32px;
+    width: 130px;
+    height: 32px; }
+#spotlight .cell#launch_feint {
+  position: relative;
+  min-height: 20px;
+  height: auto; }
+  #spotlight .cell#launch_feint.touched {
+    background: #c6e5c0; }
+  #spotlight .cell#launch_feint h3 {
+    margin-left: 38px; }
+  #spotlight .cell#launch_feint p {
+    margin-bottom: 0px;
+    margin-left: 38px; }
+  #spotlight .cell#launch_feint .icon {
+    width: 25px;
+    height: 28px;
+    position: absolute;
+    top: 50%;
+    margin-top: -13px;
+    -webkit-background-size: 25px 28px;
+    background-position: center center;
+    background-repeat: no-repeat; }
+  #spotlight .cell#launch_feint .leaf {
+    background: url(images/icon.leaf.green.mdpi.png?d62c5c3b6cc7e3bef0bab326b33f5e79b2f47cf7) no-repeat center center; }
+#spotlight hr {
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  background: #c2c2c2;
+  border: none; }
+#spotlight header, #spotlight .header {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #d7d7d7), color-stop(1, #c9c9c9));
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 1px solid #a4a4a4;
+  height: 18px;
+  padding-left: 10px;
+  padding-right: 10px; }
+  #spotlight header h2, #spotlight .header h2 {
+    color: #595959;
+    height: 18px;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+    height: auto;
+    text-shadow: 0px 1px 2px #eaeaea; }
+#spotlight #game_details #buy {
+  float: right;
+  margin: 0px;
+  padding-top: 3px; }
+#spotlight #game_details #game_info .title {
+  color: #25731f; }
+#spotlight #game_details .game_description {
+  font-size: 13px;
+  color: #595959;
+  font-family: Tahoma, sans-serif;
+  font-weight: normal; }
+#spotlight #game_details #screenshots #main {
+  text-align: center; }
+  #spotlight #game_details #screenshots #main img {
+    border: 1px solid silver;
+    max-width: 280px;
+    max-height: 320px; }
+#spotlight #game_details #thumbnails {
+  padding: 10px 0 5px 0;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  list-style-type: none; }
+  #spotlight #game_details #thumbnails .thumbnail, #spotlight #game_details #thumbnails li {
+    margin: 0 5px;
+    width: 22%;
+    position: relative; }
+    #spotlight #game_details #thumbnails .thumbnail img, #spotlight #game_details #thumbnails li img {
+      width: 100%;
+      border: 1px solid silver; }
+  #spotlight #game_details #thumbnails .youtube {
+    background: url(images/icon.play.mdpi.png?89e446eb6333bae9d316cd71282ee5e9e57301f0) no-repeat center center;
+    -webkit-background-size: 31px 31px;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+    top: 0px;
+    left: 0px; }
+  #spotlight #game_details #thumbnails .touched {
+    opacity: 0.5 !important; }
+#spotlight #more_great_games article img, #spotlight #more_great_games .article img, #spotlight #coming_soon article img, #spotlight #coming_soon .article img {
+  width: 112px;
+  height: 63px; }
+#spotlight #more_great_games article p, #spotlight #more_great_games .article p, #spotlight #coming_soon article p, #spotlight #coming_soon .article p {
+  margin-left: 122px; }
+#spotlight #games_list article img, #spotlight #games_list .article img {
+  width: 56px;
+  height: 56px; }
+#spotlight #games_list article span.small_button, #spotlight #games_list .article span.small_button {
+  left: 75px; }
+#spotlight #games_list article p, #spotlight #games_list .article p {
+  margin-left: 66px; }
+#spotlight #spotlight_home .banner {
+  position: relative; }
+  #spotlight #spotlight_home .banner .img, #spotlight #spotlight_home .banner .frame {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px; }
+  #spotlight #spotlight_home .banner .frame {
+    z-index: 5; }
+#spotlight article#featured_game, #spotlight .article#featured_game {
+  padding-top: 13px;
+  height: auto;
+  border: none; }
+  #spotlight article#featured_game .banner, #spotlight .article#featured_game .banner {
+    float: none; }
+    #spotlight article#featured_game .banner, #spotlight article#featured_game .banner .img, #spotlight article#featured_game .banner .frame, #spotlight .article#featured_game .banner, #spotlight .article#featured_game .banner .img, #spotlight .article#featured_game .banner .frame {
+      width: 300px;
+      height: 93px; }
+    #spotlight article#featured_game .banner img, #spotlight article#featured_game .banner .img, #spotlight .article#featured_game .banner img, #spotlight .article#featured_game .banner .img {
+      height: 92px; }
+    #spotlight article#featured_game .banner .frame, #spotlight .article#featured_game .banner .frame {
+      background: url(images/spotlight/frame.large_feature.mdpi.png?d9622f5aa821083af279b3063286b1e7f908afdf) no-repeat top left;
+      -webkit-background-size: 300px 93px; }
+  #spotlight article#featured_game p, #spotlight .article#featured_game p {
+    max-width: 300px;
+    margin-bottom: 0; }
+  #spotlight article#featured_game span.small_button, #spotlight .article#featured_game span.small_button {
+    left: 271px;
+    top: 108px;
+    bottom: auto; }
+#spotlight article, #spotlight .article {
+  position: relative;
+  padding: 7px 10px;
+  min-height: 64px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, white), color-stop(1, #f3f3f3));
+  border-bottom: 1px solid #c2c2c2;
+  clear: left; }
+  #spotlight article.touched, #spotlight .article.touched {
+    background: #d9d9d9; }
+  #spotlight article > img, #spotlight article > .img, #spotlight .article > img, #spotlight .article > .img {
+    float: left;
+    margin-right: 10px; }
+  #spotlight article .banner, #spotlight .article .banner {
+    float: left;
+    margin-right: 10px; }
+    #spotlight article .banner, #spotlight article .banner .frame, #spotlight .article .banner, #spotlight .article .banner .frame {
+      width: 112px;
+      height: 64px; }
+    #spotlight article .banner img, #spotlight article .banner .img, #spotlight .article .banner img, #spotlight .article .banner .img {
+      width: 112px;
+      height: 63px; }
+    #spotlight article .banner .frame, #spotlight .article .banner .frame {
+      background: url(images/spotlight/frame.small_feature.mdpi.png?b7977ccb41182e6f4038f0872b8dafa57574d350) no-repeat top left;
+      -webkit-background-size: 112px 64px; }
+  #spotlight article img, #spotlight article .img, #spotlight .article img, #spotlight .article .img {
+    -webkit-border-radius: 10px; }
+  #spotlight article h3, #spotlight article h4, #spotlight .article h3, #spotlight .article h4 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    color: #137432;
+    font-weight: bold;
+    margin: 0 0 1px 0; }
+  #spotlight article h3, #spotlight .article h3 {
+    margin: 5px 0 5px 0; }
+  #spotlight article p, #spotlight .article p {
+    font-size: 12px;
+    color: #777777;
+    font-weight: normal;
+    margin: 0 0 20px 0;
+    line-height: 14px; }
+  #spotlight article span.small_button, #spotlight .article span.small_button {
+    color: #595959;
+    height: 44px;
+    border-width: 0 10px;
+    -webkit-border-image: url(images/button.gray_price.mdpi.png?2f4dbc6c219eae3c546b3a405c8fb78e71d8be39) 0 3 stretch stretch;
+    -webkit-box-sizing: border-box;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    float: left;
+    margin: 0;
+    padding: 2px 3px 2px 3px;
+    height: auto;
+    border-width: medium;
+    position: absolute;
+    bottom: 4px;
+    left: 132px; }
+#spotlight .special_msg {
+  height: auto;
+  min-height: 0;
+  padding: 20px 10px;
+  font-size: 13px;
+  color: #137432;
+  font-weight: bold;
+  margin: 0; }
+
+/* --- dashboard/achievements --- */
+#achievements .percent_complete {
+  height: 11px;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bababa), to(#dddddd));
+  border: 1px solid #a2a2a2;
+  -webkit-border-radius: 5px;
+  position: relative;
+  top: -30px;
+  clear: left;
+  margin: 0px 40px -28px 70px; }
+  #achievements .percent_complete .ach_bar_percentage {
+    height: 11px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#24971a), to(#1d7f15));
+    float: left; }
+  #achievements .percent_complete .percentage_ammount {
+    position: absolute;
+    top: -9px;
+    border: 1px solid #a2a2a2;
+    -webkit-border-radius: 5px;
+    background: white;
+    font-size: 11px;
+    text-align: center;
+    margin-left: -12px;
+    padding: 0 2px; }
+#achievements ul.cells li .icon {
+  height: 56px;
+  -webkit-border-radius: 12px;
+  -webkit-background-size: 56px 56px; }
+  #achievements ul.cells li .icon .overlay {
+    width: 56px;
+    height: 56px;
+    background: url(images/frame.small.mdpi.png?13c2c28d0988814d089db40602faee4de061ec15) no-repeat;
+    -webkit-background-size: 56px 56px; }
+#achievements ul.cells li .title {
+  margin-top: 0px;
+  font-size: 16px;
+  color: #25731f; }
+#achievements ul.cells li .subtitle {
+  font-size: 13px;
+  padding-left: 70px;
+  margin-right: 40px; }
+#achievements ul.cells li .gamerscore {
+  text-align: right;
+  float: right;
+  display: inline-block;
+  padding-top: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 8px 0 0 10px;
+  padding-right: 2px;
+  min-width: 25px;
+  background: url(images/icon.achievement.gamerscore_coin.mdpi.png?5106a28bd171e2ce1f1b0bd0ddf9a91a129e1e15) no-repeat top right;
+  -webkit-background-size: 21px 21px; }
+#achievements ul.cells li.unlocked .icon {
+  background-image: url(images/icon.achievement.unlocked.mdpi.png?55b74b050b6ca27b75066c423fcde8172d9330ea); }
+#achievements ul.cells li.locked .icon {
+  background-image: url(images/icon.achievement.locked.mdpi.png?822a0a50984a2a1b1303e6f6a7767e0bb0a975a7); }
+
+/* --- dashboard/games --- */
+#games ul.cells li .icon {
+  -webkit-border-radius: 10px;
+  background-image: url(images/icon.game.mdpi.png?1684c59d358602b3eaebe2d732ee9c29697397e2); }
+#games ul.cells li .title {
+  color: #25731f; }
+#games ul.cells li.game_description {
+  font-size: 13px;
+  color: #595959;
+  font-family: Tahoma, sans-serif;
+  font-weight: normal; }
+#games #game_info .title {
+  font-size: 18px;
+  color: #25731f; }
+#games #game_info #buy.button {
+  padding-top: 6px;
+  font-size: 16px;
+  min-width: 76px;
+  float: right;
+  margin: 0;
+  line-height: 33px; }
+  #games #game_info #buy.button .price {
+    display: inline; }
+#games .button.disabled {
+  padding-top: 14px !important; }
+#games #screenshots {
+  padding: 8px; }
+
+#local_game ul.cells li .icon {
+  -webkit-border-radius: 10px;
+  background-image: url(images/icon.game.mdpi.png?1684c59d358602b3eaebe2d732ee9c29697397e2); }
+#local_game ul.cells li .title {
+  color: white; }
+#local_game ul.cells li .subtitle {
+  color: white; }
+#local_game #game_info {
+  background: #7c7c7c;
+  -webkit-background-size: 6px 6px;
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 10px;
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.6) 0px 1px 2px;
+  font-size: 14px; }
+  #local_game #game_info .title {
+    font-size: 18px; }
+
+#games #screenshots #main {
+  -webkit-background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  height: 320px;
+  border: 1px solid silver; }
+  #games #screenshots #main.landscape {
+    padding: 0;
+    -webkit-background-size: 100% auto; }
+  #games #screenshots #main.portrait {
+    padding: 0 10px; }
+  #games #screenshots #main .loading {
+    width: 100%;
+    text-align: center; }
+    #games #screenshots #main .loading .spinner {
+      display: inline-block;
+      margin: 40px;
+      width: 24px;
+      height: 24px;
+      -webkit-background-size: 24px 24px; }
+#games #screenshots #thumbnails {
+  padding: 10px 0 5px 0;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  list-style-type: none; }
+  #games #screenshots #thumbnails .thumbnail, #games #screenshots #thumbnails li {
+    -webkit-box-sizing: border-box;
+    margin: 0;
+    padding: 0 5px;
+    width: 25%;
+    position: relative; }
+    #games #screenshots #thumbnails .thumbnail.touched, #games #screenshots #thumbnails li.touched {
+      opacity: 0.5; }
+    #games #screenshots #thumbnails .thumbnail img, #games #screenshots #thumbnails li img {
+      width: 100%;
+      border: 1px solid silver; }
+    #games #screenshots #thumbnails .thumbnail .movie_play_overlay, #games #screenshots #thumbnails li .movie_play_overlay {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url(images/icon.play.mdpi.png?89e446eb6333bae9d316cd71282ee5e9e57301f0) no-repeat center center;
+      -webkit-background-size: 30px 30px; }
+
+body.orientation_landscape #games #screenshots #main {
+  width: 76%;
+  -webkit-box-sizing: border-box;
+  float: left;
+  height: 280px; }
+body.orientation_landscape #games #screenshots #thumbnails {
+  display: block;
+  height: 280px;
+  width: auto;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  float: left; }
+  body.orientation_landscape #games #screenshots #thumbnails .thumbnail, body.orientation_landscape #games #screenshots #thumbnails li {
+    display: block;
+    float: none;
+    position: relative;
+    width: auto;
+    height: 60px;
+    padding: 5px; }
+    body.orientation_landscape #games #screenshots #thumbnails .thumbnail img, body.orientation_landscape #games #screenshots #thumbnails li img {
+      width: auto;
+      height: 100%; }
+
+/* --- dashboard/leaderboards, dashboard/leaderboard --- */
+#leaderboards ul.cells li .icon, #leaderboard ul.cells li .icon {
+  background-image: url(images/icon.leaderboard.mdpi.png?3482e4eecd5d150c307bf6dd926c1a2c58c4a5a5);
+  -webkit-border-radius: 12px;
+  height: 56px; }
+#leaderboards ul.cells li .title, #leaderboard ul.cells li .title {
+  font-size: 18px;
+  color: #25731f; }
+  #leaderboards ul.cells li .title .rank, #leaderboard ul.cells li .title .rank {
+    color: #595959; }
+    #leaderboards ul.cells li .title .rank:after, #leaderboard ul.cells li .title .rank:after {
+      content: ". "; }
+#leaderboards ul.cells li .subtitle, #leaderboard ul.cells li .subtitle {
+  font-weight: bold;
+  font-size: 16px; }
+#leaderboards ul.cells .high_score_blob_icon, #leaderboard ul.cells .high_score_blob_icon {
+  float: right;
+  margin-right: 0px;
+  margin-top: -73px; }
+  #leaderboards ul.cells .high_score_blob_icon .button, #leaderboard ul.cells .high_score_blob_icon .button {
+    margin-top: 6px;
+    width: 48px;
+    height: 48px;
+    padding: 6px;
+      padding-right: 36px;
+      padding-left: 0px; }
+  #leaderboards ul.cells .high_score_blob_icon .icon, #leaderboard ul.cells .high_score_blob_icon .icon {
+    margin-right: 6px;
+    background: url(images/replay.mdpi.png?544c7042650403b89a24a9f30c95106d8159d067) no-repeat !important;
+    -webkit-background-size: 37px 37px;
+    -webkit-border-radius: 0px; }
+#leaderboards ul.scores li.high_score .icon, #leaderboard ul.scores li.high_score .icon {
+  background-image: url(images/icon.user.male.mdpi.png?287367cd272cb5eda6c7141434c256dde1f60814); }
+  #leaderboards ul.scores li.high_score .icon .overlay, #leaderboard ul.scores li.high_score .icon .overlay {
+    width: 56px;
+    height: 56px;
+    background: url(images/frame.small.mdpi.png?13c2c28d0988814d089db40602faee4de061ec15) no-repeat;
+    -webkit-background-size: 56px 56px; }
+#leaderboards ul.scores li.high_score .subtitle, #leaderboard ul.scores li.high_score .subtitle {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+#time_frame li {
+  width: 33%; }
+  #time_frame li:last-child {
+    width: 34%;
+    padding-right: 10px; }
+
+/* --- dashboard/friends --- */
+#friends li .title {
+  color: #25731f; }
+#friends .cell .title {
+  font-size: 18px;
+  color: #25731f;
+  height: 100%;
+  vertical-align: middle;
+  line-height: 56px; }
+#friends #find_friends .icon {
+  background: url(images/icon.search.mdpi.png?5d51201868d67c07d64e34ef3c2d51989cf289b5) no-repeat; }
+#friends #requests .icon {
+  background: url(images/icon.friend.mdpi.png?e597e90e41eea2319a06434b541d30c57de29331) no-repeat; }
+#friends #facebook_search .icon {
+  background: url(images/icon_facebook_large.mdpi.png?3b3e44febf922ff93cf3dcde113b997e9368f4e9) no-repeat !important;
+  -webkit-background-size: 56px 56px; }
+#friends #fb_friend_count_bar .icon {
+  background: url(images/icon_facebook_large.mdpi.png?3b3e44febf922ff93cf3dcde113b997e9368f4e9) no-repeat !important;
+  -webkit-background-size: 56px 56px; }
+#friends #fb_friend_count_bar .cell div.content {
+  padding-top: 20px; }
+#friends li.user {
+  padding: 10px;
+  border: 1px solid #cfcfcf;
+  background: #e4e4e4;
+  color: #777777;
+  font-size: 16px;
+  min-height: 56px;
+  background: #fbfbfb;
+  border: 0;
+  border-bottom: 1px solid #c2c2c2; }
+  #friends li.user .image {
+    width: 56px;
+    height: 56px;
+    background-image: url(images/icon.user.male.mdpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+    -webkit-background-size: 56px 56px;
+    float: left;
+    margin-right: 10px;
+    -webkit-border-radius: 12px; }
+    #friends li.user .image .overlay {
+      width: 56px;
+      height: 56px;
+      background: url(images/frame.small.mdpi.png?13c2c28d0988814d089db40602faee4de061ec15) no-repeat;
+      -webkit-background-size: 56px 56px; }
+  #friends li.user .title {
+    margin-top: 3px;
+    color: #25731f;
+    font-size: 22px;
+    font-weight: bold; }
+  #friends li.user .feint_score {
+    background: url(images/icon.leaf.gray.mdpi.png?1ad15dd1e798c61371287d91380a478771d767fc) no-repeat 66px center;
+    -webkit-background-size: 14px 15px;
+    padding: 4px 0 0 86px;
+    font-size: 14px; }
+  #friends li.user.touched {
+    padding-top: 8px;
+    background: #c6e5c0;
+    border-bottom: 1px solid #22a025; }
+  #friends li.user .title {
+    font-size: 18px; }
+  #friends li.user .avatar {
+    background: url(images/icon.user.male.mdpi.png?287367cd272cb5eda6c7141434c256dde1f60814); }
+  #friends li.user .facebook_name {
+    background: url(images/icon_facebook_sm.mdpi.png?32cf3dce42d04fd497ca47eddaeb2f4c1c7d8fda) no-repeat 65px !important;
+    -webkit-background-size: 14px 14px;
+    padding-left: 82px;
+    padding-top: 2px;
+    font-size: 14px; }
+#friends #add_all_friends_button {
+  margin-top: 6px;
+  float: right;
+  display: block;
+  font-size: 16px;
+  padding: 0 2px;
+    padding-top: 13px; }
+#friends #requests li.friend_request {
+  padding: 10px;
+  border: 1px solid #cfcfcf;
+  background: #e4e4e4;
+  color: #777777;
+  font-size: 16px;
+  min-height: 56px;
+  height: 72px;
+  background: white; }
+  #friends #requests li.friend_request .image {
+    width: 56px;
+    height: 56px;
+    background-image: url(images/icon.user.male.mdpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+    -webkit-background-size: 56px 56px;
+    float: left;
+    margin-right: 10px;
+    -webkit-border-radius: 12px; }
+    #friends #requests li.friend_request .image .overlay {
+      width: 56px;
+      height: 56px;
+      background: url(images/frame.small.mdpi.png?13c2c28d0988814d089db40602faee4de061ec15) no-repeat;
+      -webkit-background-size: 56px 56px; }
+  #friends #requests li.friend_request .title {
+    margin-top: 3px;
+    color: #25731f;
+    font-size: 22px;
+    font-weight: bold; }
+  #friends #requests li.friend_request .feint_score {
+    background: url(images/icon.leaf.gray.mdpi.png?1ad15dd1e798c61371287d91380a478771d767fc) no-repeat 66px center;
+    -webkit-background-size: 14px 15px;
+    padding: 4px 0 0 86px;
+    font-size: 14px; }
+  #friends #requests li.friend_request .button {
+    display: inline-block;
+    width: 100px;
+    margin: 4px; }
+#friends #buttons_for_all {
+  text-align: center;
+  border: 1px solid #565656;
+  border-width: 1px 0;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #5a5a5a), color-stop(1, #7c7c7c)); }
+  #friends #buttons_for_all .button {
+    margin: 5px;
+    width: 46%;
+    display: inline-block; }
+#friends li#search_cell {
+  width: 100%;
+  -webkit-box-sizing: border-box; }
+  #friends li#search_cell form table {
+    width: 100%; }
+    #friends li#search_cell form table td.button_cell {
+      width: 70px; }
+  #friends li#search_cell form .input_field {
+    margin: 0;
+    padding: 0; }
+    #friends li#search_cell form .input_field input {
+      display: block;
+      font-size: 16px; }
+    #friends li#search_cell form .input_field .button {
+      margin: 0 0 0 10px;
+      padding-top: 6px; }
+      #friends li#search_cell form .input_field .button .icon {
+        width: 100%;
+        background: url(images/icon.search.button.mdpi.png?a41ba0592a40d409d79b48f4043fbf9cfc0f0fda) no-repeat center center;
+        -webkit-background-size: 32px 32px;
+        height: 32px; }
+
+body.fixed_position #friends #requests ul {
+  margin-bottom: 54px; }
+body.fixed_position #friends #buttons_for_all {
+  width: 100%;
+  position: fixed;
+  bottom: 0; }
+
+/* --- settings/index --- */
+#settings #header, #settings #subheader {
+  border-bottom: 1px solid #565656;
+  height: 22px;
+  padding: 1px 0 0 10px;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #5a5a5a), color-stop(1, #7c7c7c));
+  -webkit-background-size: auto;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  line-height: 20px;
+  text-shadow: #545454 0px 1px 1px; }
+#settings #subheader {
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9e9e9e), color-stop(1, #acacac));
+  border-bottom: 1px solid #949494;
+  text-shadow: #959595 0px 1px 1px;
+  font-size: 14px; }
+#settings ul#settings_list.cells li {
+  padding: 8px 20px; }
+  #settings ul#settings_list.cells li .title {
+    font-weight: normal;
+    color: black;
+    margin-top: 6px;
+    font-size: 20px; }
+  #settings ul#settings_list.cells li .title:only-child {
+    padding: 0;
+    margin: 0;
+    line-height: 56px; }
+#settings ul#settings_list.cells #subscribe {
+  position: relative; }
+  #settings ul#settings_list.cells #subscribe .title {
+    padding: 0;
+    margin: 0;
+    line-height: 56px; }
+  #settings ul#settings_list.cells #subscribe span {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    width: 32px;
+    height: 33px;
+    background: url(images/button_check.mdpi.png?92feabc881cc2a2b4c2d14946e843e2e58ab4756) no-repeat;
+    -webkit-background-size: 32px 33px; }
+  #settings ul#settings_list.cells #subscribe span.subscribed {
+    background: url(images/button_checked.mdpi.png?4a90df57f1cf7a5a90405138f8440f9851a96533) no-repeat; }
+#settings .current_info {
+  height: 76px;
+  padding: 0 20px;
+  background-color: white;
+  border-bottom: 1px solid #bcbcbc; }
+  #settings .current_info .label {
+    padding: 16px 0 2px;
+    font-size: 15px;
+    color: #595959; }
+  #settings .current_info .value {
+    font-size: 22px;
+    color: #3e3e3e; }
+#settings form {
+  margin: 20px 15px; }
+  #settings form p {
+    font-weight: normal;
+    font-size: 15px;
+    color: #595959; }
+
+/* --- Multiple user accounts page --- */
+#multiple_user_accounts {
+  margin-bottom: 20px; }
+  #multiple_user_accounts .divider {
+    margin-bottom: 10px; }
+  #multiple_user_accounts .user .title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+
+#google_analytics_frame, #action_frame, .frame_channel {
+  height: 1px;
+  position: absolute;
+  left: -1000px; }
+
+#tabbed_friend_navigation ul {
+  width: 100%; }
+#tabbed_friend_navigation li {
+  width: 50%; }
+
+.add_friend_button {
+  float: right;
+  margin-top: 6px; }
+
+/* Slide indicator is used in game_channel */
+.slide_indicator {
+  position: relative;
+  bottom: 6px;
+  padding: 0;
+  left: 50%;
+  margin: 0; }
+  .slide_indicator li {
+    height: 8px;
+    width: 8px;
+    background: #bababa;
+    -webkit-border-radius: 5px;
+    border: 1px solid #656565;
+    display: inline-block;
+    margin-right: 6px; }
+  .slide_indicator .current {
+    background: #50ad5a; }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+body.hdpi #settings ul#settings_list.cells #subscribe span {
+  background: url(images/button_check.hdpi.png?d0ec20700053b4c02fb35e4fef05b134335e8748) no-repeat;
+}
+body.hdpi #friends #requests li.friend_request .image {
+  background-image: url(images/icon.user.male.hdpi.png?752e172730ae8de31e95b2b6464051ac3a99e4ec);
+}
+body.hdpi #achievements ul.cells li .gamerscore {
+  background: url(images/icon.achievement.gamerscore_coin.hdpi.png?fa8f4c2449ee41c17f8775f10dc25949ccb45f9f) no-repeat top right;
+}
+body.hdpi #spotlight header.feint_spotlight, body.hdpi #spotlight .header.feint_spotlight {
+  background-image: url(images/circles.hdpi.png?59a2a911f0e54a24d2a6fde6f808818d740435e6);
+}
+body.hdpi #intro #header {
+  background-image: url(images/logo.hdpi.png?723563bdf657d8cedcc32b835c2bb95852fcc420), url(images/header_bg.hdpi.png?b9666720fef693c40c0988bce5370aff094dc88e);
+}
+body.hdpi .inset_cell .feint_score {
+  background: url(images/icon.leaf.gray.hdpi.png?9197726b0e5d0360ac917ec3d69a5f98c026db6b) no-repeat 66px center;
+}
+body.hdpi #leaderboards ul.cells .high_score_blob_icon .icon, body.hdpi #leaderboard ul.cells .high_score_blob_icon .icon {
+  background: url(images/replay.hdpi.png?9569d83f8b4a76b64045468998091f82f05812fb) no-repeat !important;
+}
+body.hdpi #intro #header .loading .spinner {
+  background: url(images/loading.spinner.hdpi.png?437681a7c6e8a8a332346613d666df9f3eb2f581) no-repeat;
+}
+body.hdpi #friends li.user .facebook_name {
+  background: url(images/icon_facebook_sm.hdpi.png?5fdc0c320b4c5202d56a177d693079443f3336d1) no-repeat 65px !important;
+}
+body.hdpi #friends #fb_friend_count_bar .icon {
+  background: url(images/icon_facebook_large.hdpi.png?78fa32cd84908fa75956cca6f0db8e0a1a640e24) no-repeat !important;
+}
+body.hdpi #friends #requests .icon {
+  background: url(images/icon.friend.hdpi.png?12a05c8c3016efbd4f038db1957ae3d14eec54c5) no-repeat;
+}
+body.hdpi #games ul.cells li .icon {
+  background-image: url(images/icon.game.hdpi.png?a855adf758d4174fc8e5295a24e2698b1d1af4e2);
+}
+body.hdpi #spotlight article .banner .frame, body.hdpi #spotlight .article .banner .frame {
+  background: url(images/spotlight/frame.small_feature.hdpi.png?eb29b120824efb6957516ecf35895698acef596e) no-repeat top left;
+}
+body.hdpi #spotlight article#featured_game .banner .frame, body.hdpi #spotlight .article#featured_game .banner .frame {
+  background: url(images/spotlight/frame.large_feature.hdpi.png?8bdc7e6703239df890164c4b855eac0c8f0e1226) no-repeat top left;
+}
+body.hdpi #user_profile ul.cells li#games .icon {
+  background-image: url(images/icon.game.hdpi.png?a855adf758d4174fc8e5295a24e2698b1d1af4e2);
+}
+body.hdpi #user_profile #info_cell .loading .spinner {
+  background-image: url(images/loading.spinner.light.hdpi.png?783ec51b5c73dccefa9a0f4a834135c6efc24c9a);
+}
+body.hdpi.textured {
+  background: #e5e5e5 url(images/space.grid.hdpi.png?ce7752a84f572bc2748e8ecd062e020e325a28f2) repeat;
+}
+body.hdpi #friends #requests li.friend_request .feint_score {
+  background: url(images/icon.leaf.gray.hdpi.png?9197726b0e5d0360ac917ec3d69a5f98c026db6b) no-repeat 66px center;
+}
+body.hdpi #friends li.user .image {
+  background-image: url(images/icon.user.male.hdpi.png?752e172730ae8de31e95b2b6464051ac3a99e4ec);
+}
+body.hdpi #leaderboards ul.scores li.high_score .icon .overlay, body.hdpi #leaderboard ul.scores li.high_score .icon .overlay {
+  background: url(images/frame.small.hdpi.png?707193f1193670643c02a090e4130e6c7a8b83d2) no-repeat;
+}
+body.hdpi #user_profile ul.cells li#friends .icon {
+  background-image: url(images/icon.friends.hdpi.png?fda31f7681f495572efdcd00949398ba883c5f27);
+}
+body.hdpi #user_profile #info_cell .avatar {
+  background: white url(images/icon.user.male.large.hdpi.png?11d11f5b125f519956eee9449518881b03d9e100) no-repeat;
+}
+body.hdpi #friends li.user .avatar {
+  background: url(images/icon.user.male.hdpi.png?752e172730ae8de31e95b2b6464051ac3a99e4ec);
+}
+body.hdpi #local_game ul.cells li .icon {
+  background-image: url(images/icon.game.hdpi.png?a855adf758d4174fc8e5295a24e2698b1d1af4e2);
+}
+body.hdpi #achievements ul.cells li.locked .icon {
+  background-image: url(images/icon.achievement.locked.hdpi.png?d7eded963e9f0edf93c010e3337a1504707f874d);
+}
+body.hdpi #user_profile ul.cells li#achievements .icon {
+  background-image: url(images/icon.achievement.hdpi.png?4e1db560cefa91b5e3c5f43ff8e34e45c8b63a6c);
+}
+body.hdpi #intro .features .feature_row #friends .icon {
+  background-image: url(images/intro.friends.hdpi.png?f92d94f34e29970125350265cb846a516e33bf5a);
+}
+body.hdpi .button.default {
+  -webkit-border-image: url(images/button.green.hdpi.png?b07c6b27880a1ae8d4d7c0bdc5b46b17e9657aa8) 0 15 stretch stretch;
+}
+body.hdpi #user_profile #header .loading .spinner {
+  background: url(images/loading.spinner.hdpi.png?437681a7c6e8a8a332346613d666df9f3eb2f581) no-repeat;
+}
+body.hdpi #intro .features .feature_row #achievements .icon {
+  background-image: url(images/intro.achievements.hdpi.png?8a1ed41da3ebb3433e62f04b0343ff6899a86f52);
+}
+body.hdpi #intro .inset_cell.user .avatar {
+  background-image: url(images/icon.user.male.hdpi.png?752e172730ae8de31e95b2b6464051ac3a99e4ec);
+}
+body.hdpi .inset_cell .image .overlay {
+  background: url(images/frame.small.hdpi.png?707193f1193670643c02a090e4130e6c7a8b83d2) no-repeat;
+}
+body.hdpi .loading .spinner {
+  background: url(images/loading.spinner.hdpi.png?437681a7c6e8a8a332346613d666df9f3eb2f581) no-repeat center center;
+}
+body.hdpi #header {
+  background-image: url(images/OF_Leaf.hdpi.png?ec37a6c7141b6bdc3d40feaf0f0b3af9b827558f), url(images/header_bg.hdpi.png?b9666720fef693c40c0988bce5370aff094dc88e);
+}
+body.hdpi #settings ul#settings_list.cells #subscribe span.subscribed {
+  background: url(images/button_checked.hdpi.png?fbca670f1bac4e42b3739c66b98e795f65d8fe92) no-repeat;
+}
+body.hdpi #friends #facebook_search .icon {
+  background: url(images/icon_facebook_large.hdpi.png?78fa32cd84908fa75956cca6f0db8e0a1a640e24) no-repeat !important;
+}
+body.hdpi #leaderboards ul.scores li.high_score .icon, body.hdpi #leaderboard ul.scores li.high_score .icon {
+  background-image: url(images/icon.user.male.hdpi.png?752e172730ae8de31e95b2b6464051ac3a99e4ec);
+}
+body.hdpi #spotlight article span.small_button, body.hdpi #spotlight .article span.small_button {
+  -webkit-border-image: url(images/button.gray_price.hdpi.png?a5d324f0820c9a1c6317f0134e8a6c57746d0197) 0 5 stretch stretch;
+}
+body.hdpi #spotlight header.feint_spotlight h1, body.hdpi #spotlight .header.feint_spotlight h1 {
+  background: url(images/feint_spotlight.hdpi.png?4960994b0265d0ced984cb78ac5f92995be4a433) no-repeat;
+}
+body.hdpi #user_profile #header {
+  background-image: url(images/logo.hdpi.png?723563bdf657d8cedcc32b835c2bb95852fcc420), url(images/header_bg.hdpi.png?b9666720fef693c40c0988bce5370aff094dc88e);
+}
+body.hdpi ul.tabs li {
+  background: url(images/tab.divider.hdpi.png?f1a3f8d591f63140af92c8dddb8354bcf7503a8b) no-repeat top right, -webkit-gradient(linear, left top, left bottom, color-stop(0, #f5f5f5), color-stop(0.73, #d9d9d9), color-stop(1, #e9e9e9));
+}
+body.hdpi .input_field input[type=text], body.hdpi .input_field input[type=password] {
+  -webkit-border-image: url(images/input.text.hdpi.png?81b673bb3b34a2fc8cae50398696601615d437d3) 0 15 stretch stretch;
+}
+body.hdpi .button.default .start_openfeint {
+  background: url(images/icon_check.hdpi.png?5dbc3c3e2d68eb3f9b2c54c1e8c13fb0eb057549) no-repeat left top;
+}
+body.hdpi #friends li#search_cell form .input_field .button .icon {
+  background: url(images/icon.search.button.hdpi.png?818771cf47933ab96a2660db16b2c7ac48e1575d) no-repeat center center;
+}
+body.hdpi #friends li.user .feint_score {
+  background: url(images/icon.leaf.gray.hdpi.png?9197726b0e5d0360ac917ec3d69a5f98c026db6b) no-repeat 66px center;
+}
+body.hdpi #friends li.user .image .overlay {
+  background: url(images/frame.small.hdpi.png?707193f1193670643c02a090e4130e6c7a8b83d2) no-repeat;
+}
+body.hdpi #achievements ul.cells li.unlocked .icon {
+  background-image: url(images/icon.achievement.unlocked.hdpi.png?a9903e92d10449bbb578a3f7099c541cc52f1399);
+}
+body.hdpi #spotlight .cell#launch_feint .leaf {
+  background: url(images/icon.leaf.green.hdpi.png?16d2b8785cf8b4f0c6e87f3f20c80abcef3d34a5) no-repeat center center;
+}
+body.hdpi #user_profile ul.cells li#leaderboards .icon {
+  background-image: url(images/icon.leaderboard.hdpi.png?f8d4b48c6bb5b785482b4888a605d396f178a95f);
+}
+body.hdpi .inset_cell .image {
+  background-image: url(images/icon.user.male.hdpi.png?752e172730ae8de31e95b2b6464051ac3a99e4ec);
+}
+body.hdpi .button.default.touched {
+  -webkit-border-image: url(images/button.green.hit.hdpi.png?516530bba651f24e5f707e704f83b5336380990b) 0 15 stretch stretch;
+}
+body.hdpi .button.touched {
+  -webkit-border-image: url(images/button.gray.hit.hdpi.png?5280189b738e6b66efb64ca4a1fc20076ef1a5c3) 0 15 stretch stretch;
+}
+body.hdpi #achievements ul.cells li .icon .overlay {
+  background: url(images/frame.small.hdpi.png?707193f1193670643c02a090e4130e6c7a8b83d2) no-repeat;
+}
+body.hdpi.android #user_profile #info_cell .avatar .overlay {
+  -webkit-border-image: url(images/frame.profile.hdpi.png?8908a898ea47a85bf36cd938cb48d4f1d4aeefdf) 21 21 stretch stretch;
+}
+body.hdpi #intro .features .feature_row #leaderboards .icon {
+  background-image: url(images/intro.leaderboards.hdpi.png?2bf71aa62d1b327387041f69de97f88f9cd7a51e);
+}
+body.hdpi ul.tabs li.touched {
+  background: url(images/tab.divider.hdpi.png?f1a3f8d591f63140af92c8dddb8354bcf7503a8b) no-repeat top right, -webkit-gradient(linear, left top, left bottom, color-stop(0, #dedede), color-stop(0.73, #c5c5c5), color-stop(1, #d2d2d2));
+}
+body.hdpi ul.tabs li.active .label {
+  background: url(images/tab.active_indicator.hdpi.png?d3d6799f778e8a3839bba4b2f9476c26c83bed45) no-repeat center left;
+}
+body.hdpi #leaderboards ul.cells li .icon, body.hdpi #leaderboard ul.cells li .icon {
+  background-image: url(images/icon.leaderboard.hdpi.png?f8d4b48c6bb5b785482b4888a605d396f178a95f);
+}
+body.hdpi #games #screenshots #thumbnails .thumbnail .movie_play_overlay, body.hdpi #games #screenshots #thumbnails li .movie_play_overlay {
+  background: url(images/icon.play.hdpi.png?3cb3608b14a1af14c505328656c05fa5d96f7b6a) no-repeat center center;
+}
+body.hdpi .button {
+  -webkit-border-image: url(images/button.gray.hdpi.png?dd4f8a60a60ad4e1c003d325026e65fc639723ce) 0 15 stretch stretch;
+}
+body.hdpi #friends #requests li.friend_request .image .overlay {
+  background: url(images/frame.small.hdpi.png?707193f1193670643c02a090e4130e6c7a8b83d2) no-repeat;
+}
+body.hdpi #friends #find_friends .icon {
+  background: url(images/icon.search.hdpi.png?ecbeee4635597667ef6af536252ee00c27032c14) no-repeat;
+}
+body.hdpi #spotlight #game_details #thumbnails .youtube {
+  background: url(images/icon.play.hdpi.png?3cb3608b14a1af14c505328656c05fa5d96f7b6a) no-repeat center center;
+}
+body.hdpi #user_profile #info_cell .user_score {
+  background: url(images/icon.leaf.white.hdpi.png?d6ad735dbd75af152d38c7133512116cc541f6a4) no-repeat 92px center;
+}
+body.hdpi #intro .features .feature_row #games .icon {
+  background-image: url(images/intro.games.hdpi.png?b17def5769a765c0991d8d9df71718be36265b63);
+}
+
+/*
+ *    2x pixel scale
+ */
+
+body.udpi #settings ul#settings_list.cells #subscribe span {
+  background: url(images/button_check.udpi.png) no-repeat;
+}
+body.udpi #friends #requests li.friend_request .image {
+  background-image: url(images/icon.user.male.udpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+}
+body.udpi #achievements ul.cells li .gamerscore {
+  background: url(images/icon.achievement.gamerscore_coin.udpi.png) no-repeat top right;
+}
+body.udpi #spotlight header.feint_spotlight, body.udpi #spotlight .header.feint_spotlight {
+  background-image: url(images/circles.udpi.png);
+}
+body.udpi #intro #header {
+  background-image: url(images/logo.udpi.png), url(images/header_bg.udpi.png);
+}
+body.udpi .inset_cell .feint_score {
+  background: url(images/icon.leaf.gray.udpi.png) no-repeat 66px center;
+}
+body.udpi #leaderboards ul.cells .high_score_blob_icon .icon, body.udpi #leaderboard ul.cells .high_score_blob_icon .icon {
+  background: url(images/replay.udpi.png) no-repeat !important;
+}
+body.udpi #intro #header .loading .spinner {
+  background: url(images/loading.spinner.udpi.png?437681a7c6e8a8a332346613d666df9f3eb2f581) no-repeat;
+}
+body.udpi #friends li.user .facebook_name {
+  background: url(images/icon_facebook_sm.udpi.png) no-repeat 65px !important;
+}
+body.udpi #friends #fb_friend_count_bar .icon {
+  background: url(images/icon_facebook_large.udpi.png) no-repeat !important;
+}
+body.udpi #friends #requests .icon {
+  background: url(images/icon.friend.udpi.png) no-repeat;
+}
+body.udpi #games ul.cells li .icon {
+  background-image: url(images/icon.game.udpi.png);
+}
+body.udpi #spotlight article .banner .frame, body.udpi #spotlight .article .banner .frame {
+  background: url(images/spotlight/frame.small_feature.udpi.png) no-repeat top left;
+}
+body.udpi #spotlight article#featured_game .banner .frame, body.udpi #spotlight .article#featured_game .banner .frame {
+  background: url(images/spotlight/frame.large_feature.udpi.png) no-repeat top left;
+}
+body.udpi #user_profile ul.cells li#games .icon {
+  background-image: url(images/icon.game.udpi.png);
+}
+body.udpi #user_profile #info_cell .loading .spinner {
+  background-image: url(images/loading.spinner.light.udpi.png);
+}
+body.udpi.textured {
+  background: #e5e5e5 url(images/space.grid.udpi.png) repeat;
+}
+body.udpi #friends #requests li.friend_request .feint_score {
+  background: url(images/icon.leaf.gray.udpi.png) no-repeat 66px center;
+}
+body.udpi #friends li.user .image {
+  background-image: url(images/icon.user.male.udpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+}
+body.udpi #leaderboards ul.scores li.high_score .icon .overlay, body.udpi #leaderboard ul.scores li.high_score .icon .overlay {
+  background: url(images/frame.small.udpi.png) no-repeat;
+}
+body.udpi #user_profile ul.cells li#friends .icon {
+  background-image: url(images/icon.friends.udpi.png);
+}
+body.udpi #user_profile #info_cell .avatar {
+  background: white url(images/icon.user.male.large.udpi.png) no-repeat;
+}
+body.udpi #friends li.user .avatar {
+  background: url(images/icon.user.male.udpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+}
+body.udpi #local_game ul.cells li .icon {
+  background-image: url(images/icon.game.udpi.png);
+}
+body.udpi #achievements ul.cells li.locked .icon {
+  background-image: url(images/icon.achievement.locked.udpi.png);
+}
+body.udpi #user_profile ul.cells li#achievements .icon {
+  background-image: url(images/icon.achievement.udpi.png);
+}
+body.udpi #intro .features .feature_row #friends .icon {
+  background-image: url(images/intro.friends.udpi.png);
+}
+body.udpi .button.default {
+  -webkit-border-image: url(images/button.green.udpi.png) 0 20 stretch stretch;
+}
+body.udpi #user_profile #header .loading .spinner {
+  background: url(images/loading.spinner.udpi.png?437681a7c6e8a8a332346613d666df9f3eb2f581) no-repeat;
+}
+body.udpi #intro .features .feature_row #achievements .icon {
+  background-image: url(images/intro.achievements.udpi.png);
+}
+body.udpi #intro .inset_cell.user .avatar {
+  background-image: url(images/icon.user.male.udpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+}
+body.udpi .inset_cell .image .overlay {
+  background: url(images/frame.small.udpi.png) no-repeat;
+}
+body.udpi .loading .spinner {
+  background: url(images/loading.spinner.udpi.png?437681a7c6e8a8a332346613d666df9f3eb2f581) no-repeat center center;
+}
+body.udpi #header {
+  background-image: url(images/OF_Leaf.udpi.png), url(images/header_bg.udpi.png);
+}
+body.udpi #settings ul#settings_list.cells #subscribe span.subscribed {
+  background: url(images/button_checked.udpi.png) no-repeat;
+}
+body.udpi #friends #facebook_search .icon {
+  background: url(images/icon_facebook_large.udpi.png) no-repeat !important;
+}
+body.udpi #leaderboards ul.scores li.high_score .icon, body.udpi #leaderboard ul.scores li.high_score .icon {
+  background-image: url(images/icon.user.male.udpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+}
+body.udpi #spotlight article span.small_button, body.udpi #spotlight .article span.small_button {
+  -webkit-border-image: url(images/button.gray_price.udpi.png) 0 6 stretch stretch;
+}
+body.udpi #spotlight header.feint_spotlight h1, body.udpi #spotlight .header.feint_spotlight h1 {
+  background: url(images/feint_spotlight.udpi.png) no-repeat;
+}
+body.udpi #user_profile #header {
+  background-image: url(images/logo.udpi.png), url(images/header_bg.udpi.png);
+}
+body.udpi ul.tabs li {
+  background: url(images/tab.divider.udpi.png) no-repeat top right, -webkit-gradient(linear, left top, left bottom, color-stop(0, #f5f5f5), color-stop(0.73, #d9d9d9), color-stop(1, #e9e9e9));
+}
+body.udpi .input_field input[type=text], body.udpi .input_field input[type=password] {
+  -webkit-border-image: url(images/input.text.udpi.png) 0 20 stretch stretch;
+}
+body.udpi .button.default .start_openfeint {
+  background: url(images/icon_check.udpi.png) no-repeat left top;
+}
+body.udpi #friends li#search_cell form .input_field .button .icon {
+  background: url(images/icon.search.button.udpi.png) no-repeat center center;
+}
+body.udpi #friends li.user .feint_score {
+  background: url(images/icon.leaf.gray.udpi.png) no-repeat 66px center;
+}
+body.udpi #friends li.user .image .overlay {
+  background: url(images/frame.small.udpi.png) no-repeat;
+}
+body.udpi #achievements ul.cells li.unlocked .icon {
+  background-image: url(images/icon.achievement.unlocked.udpi.png);
+}
+body.udpi #spotlight .cell#launch_feint .leaf {
+  background: url(images/icon.leaf.green.udpi.png) no-repeat center center;
+}
+body.udpi #user_profile ul.cells li#leaderboards .icon {
+  background-image: url(images/icon.leaderboard.udpi.png);
+}
+body.udpi .inset_cell .image {
+  background-image: url(images/icon.user.male.udpi.png?287367cd272cb5eda6c7141434c256dde1f60814);
+}
+body.udpi .button.default.touched {
+  -webkit-border-image: url(images/button.green.hit.udpi.png) 0 20 stretch stretch;
+}
+body.udpi .button.touched {
+  -webkit-border-image: url(images/button.gray.hit.udpi.png) 0 20 stretch stretch;
+}
+body.udpi #achievements ul.cells li .icon .overlay {
+  background: url(images/frame.small.udpi.png) no-repeat;
+}
+body.udpi.android #user_profile #info_cell .avatar .overlay {
+  -webkit-border-image: url(images/frame.profile.udpi.png) 28 28 stretch stretch;
+}
+body.udpi #intro .features .feature_row #leaderboards .icon {
+  background-image: url(images/intro.leaderboards.udpi.png);
+}
+body.udpi ul.tabs li.touched {
+  background: url(images/tab.divider.udpi.png) no-repeat top right, -webkit-gradient(linear, left top, left bottom, color-stop(0, #dedede), color-stop(0.73, #c5c5c5), color-stop(1, #d2d2d2));
+}
+body.udpi ul.tabs li.active .label {
+  background: url(images/tab.active_indicator.udpi.png) no-repeat center left;
+}
+body.udpi #leaderboards ul.cells li .icon, body.udpi #leaderboard ul.cells li .icon {
+  background-image: url(images/icon.leaderboard.udpi.png);
+}
+body.udpi #games #screenshots #thumbnails .thumbnail .movie_play_overlay, body.udpi #games #screenshots #thumbnails li .movie_play_overlay {
+  background: url(images/icon.play.udpi.png) no-repeat center center;
+}
+body.udpi .button {
+  -webkit-border-image: url(images/button.gray.udpi.png) 0 20 stretch stretch;
+}
+body.udpi #friends #requests li.friend_request .image .overlay {
+  background: url(images/frame.small.udpi.png) no-repeat;
+}
+body.udpi #friends #find_friends .icon {
+  background: url(images/icon.search.udpi.png) no-repeat;
+}
+body.udpi #spotlight #game_details #thumbnails .youtube {
+  background: url(images/icon.play.udpi.png) no-repeat center center;
+}
+body.udpi #user_profile #info_cell .user_score {
+  background: url(images/icon.leaf.white.udpi.png) no-repeat 92px center;
+}
+body.udpi #intro .features .feature_row #games .icon {
+  background-image: url(images/intro.games.udpi.png);
+}

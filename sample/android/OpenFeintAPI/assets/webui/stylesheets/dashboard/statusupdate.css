@@ -1,0 +1,16 @@
+ul.cells.status li {
+  height: auto; }
+ul.cells.status .update_status .action_button {
+  font-size: 14px;
+  padding: 15px 5px;
+  text-align: center; }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+
+/*
+ *    2x pixel scale
+ */

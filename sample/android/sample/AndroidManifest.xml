@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0.0" package="com.nmex.sample">
+    
+
+	<application android:icon="@drawable/icon" android:label="NMEX" android:debuggable="true" android:name="org.haxe.nme.OpenFeintApplication">
+
+		<activity android:screenOrientation="portrait" android:name="MainActivity" android:label="NMEX" android:configChanges="keyboard|keyboardHidden|orientation">
+			
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		
+		<activity android:screenOrientation="portrait" android:name="com.google.ads.AdActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize">
+		</activity>
+		
+		<activity android:name="com.openfeint.internal.ui.IntroFlow"
+  			android:label="OpenFeint"
+  			android:configChanges="orientation|keyboardHidden"/>
+  		<activity
+  			android:name="com.openfeint.api.ui.Dashboard"
+  			android:label="Dashboard"
+  			android:configChanges="orientation|keyboardHidden"/>
+		<activity android:name="com.openfeint.internal.ui.Settings"
+  			android:label="Settings"
+  			android:configChanges="orientation|keyboardHidden"/>
+		<activity android:name="com.openfeint.internal.ui.NativeBrowser"
+  			android:label="NativeBrowser"
+  			android:configChanges="orientation|keyboardHidden"/>
+	</application>
+	    
+
+	<uses-sdk android:minSdkVersion="4"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+</manifest> 

@@ -1,0 +1,284 @@
+/* --- common --- */
+/* --- dashboard/user,  dashboard/profile --- */
+.badge_button {
+  border-width: 0px 5px 0px 5px;
+  -webkit-border-image: url("images/button_gray.mdpi.png") 0 5 0 5 stretch;
+  -webkit-box-sizing: border-box;
+  display: inline-block;
+  padding: 5px 0;
+  position: relative; }
+  .badge_button.touched {
+    border-width: 0px 5px 0px 5px;
+    -webkit-border-image: url("images/button_gray_hit.mdpi.png") 0 5 0 5 stretch;
+    -webkit-box-sizing: border-box; }
+  .badge_button.button_container {
+    display: table;
+    width: 100%; }
+    .badge_button.button_container .icon {
+      background: no-repeat center center;
+      border-right: 1px solid #cccccc;
+      display: table-cell;
+      height: 32px;
+      width: 40px; }
+    .badge_button.button_container .subtitle {
+      border-left: 1px solid #ededed;
+      color: #25731f;
+      display: table-cell;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 16px;
+      text-align: center;
+      text-shadow: 1px 1px 1px #f9f9f9;
+      vertical-align: middle; }
+  .badge_button .badge {
+    border-width: 0px 7px 0px 7px;
+    -webkit-border-image: url("images/badge.mdpi.png") 0 7 0 7 stretch;
+    -webkit-box-sizing: border-box;
+    color: white;
+    font-size: 14px;
+    height: 19px;
+    padding-top: 1px;
+    position: absolute;
+    right: -16px;
+    text-align: center;
+    top: -8px;
+    text-shadow: #545454 1px 1px 1px; }
+
+.action_button {
+  border-width: 0px 8px 0px 8px;
+  -webkit-border-image: url("images/button_orange.mdpi.png") 0 8 0 8 stretch;
+  -webkit-box-sizing: border-box;
+  color: white;
+  font-weight: bold;
+  padding: 10px 0; }
+  .action_button.touched {
+    border-width: 0px 8px 0px 8px;
+    -webkit-border-image: url("images/button_orange_hit.mdpi.png") 0 8 0 8 stretch;
+    -webkit-box-sizing: border-box; }
+  .action_button.disabled {
+    opacity: 0.5; }
+  .action_button.has_maxwidth {
+    border-width: 0px 7px 0px 7px;
+    -webkit-border-image: url("images/button_orange.mdpi.png") 0 7 0 7 stretch;
+    -webkit-box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 290px; }
+  .action_button.has_maxwidth.touched {
+    border-width: 0px 7px 0px 7px;
+    -webkit-border-image: url("images/button_orange_hit.mdpi.png") 0 7 0 7 stretch;
+    -webkit-box-sizing: border-box; }
+
+.bubble {
+  border-width: 0px 10px 0px 16px;
+  -webkit-border-image: url("images/statusBubble_Portrait.mdpi.png") 0 10 0 16 stretch;
+  -webkit-box-sizing: border-box;
+  padding: 13px 3px; }
+  .bubble.touched {
+    border-width: 0px 10px 0px 16px;
+    -webkit-border-image: url("images/statusBubble_Portrait_Hit.mdpi.png") 0 10 0 16 stretch;
+    -webkit-box-sizing: border-box; }
+  .bubble .status {
+    min-height: 45px; }
+
+body.orientation_landscape .bubble {
+  border-width: 0px 10px 0px 16px;
+  -webkit-border-image: url("images/statusBubble_Portrait.mdpi.png") 0 10 0 16 stretch;
+  -webkit-box-sizing: border-box; }
+  body.orientation_landscape .bubble.touched {
+    border-width: 0px 10px 0px 16px;
+    -webkit-border-image: url("images/statusBubble_Portrait_Hit.mdpi.png") 0 10 0 16 stretch;
+    -webkit-box-sizing: border-box; }
+  body.orientation_landscape .bubble .status {
+    min-height: 20px; }
+
+.text_field {
+  margin-bottom: 10px; }
+  .text_field label {
+    color: #777777;
+    display: block;
+    margin-bottom: 5px; }
+  .text_field .input_area {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #595b59;
+    border-color: #595b59 #c6c3c6 #fffbff #c9c6c9;
+    color: #3e3e3e;
+    font-size: 14px;
+    height: 73px;
+    outline: none;
+    padding: 5px;
+    resize: none;
+    width: 100%;
+    background: url("images/textarea_bg.png") repeat-x left top;
+    -webkit-box-sizing: border-box; }
+
+ul.cells .left_column {
+  float: left;
+  width: 60px; }
+ul.cells .right_column {
+  float: right;
+  width: 35px; }
+ul.cells .center_column {
+  margin: 0 40px 0 65px; }
+
+.small_profile_picture {
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  background: url(images/icon.user.male.large.mdpi.png?3497a92aeae69d65ec6914756fe940aa3c102883) no-repeat center center;
+  height: 56px;
+  width: 56px;
+  -webkit-background-size: 56px 56px; }
+  .small_profile_picture .overlay {
+    border-width: 8px 8px 8px 8px;
+    -webkit-border-image: url("images/smallFrame.mdpi.png") 8 8 8 8 stretch;
+    -webkit-box-sizing: border-box;
+    height: 58px; }
+
+.online .small_profile_picture {
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  border: 2px solid #2a8233; }
+
+.offline .small_profile_picture {
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  border: 2px solid #6e6e6e; }
+
+/* --- settings page --- */
+#settings #header .loader .spinner {
+  background: url(images/loading.spinner.light.mdpi.png?38e429337fa63fdadf284b045d976265b0bc4cfb) no-repeat; }
+
+fieldset {
+  border: none;
+  border-bottom: 1px solid #a8a8a8;
+  color: #595959;
+  margin: 0 0 15px 0;
+  padding: 5px 0 10px; }
+  fieldset legend {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0; }
+  fieldset .radio_container {
+    padding: 5px 0; }
+    fieldset .radio_container .radio_button {
+      background: url(images/settings/button_radio_off.mdpi.png?c1bf97725474b17c994c4d9a209f8752e6e99610) 1px 1px no-repeat;
+      display: inline-block;
+      font-size: 14px;
+      height: 33px;
+      line-height: 33px;
+      padding-left: 40px;
+      -webkit-background-size: 32px; }
+      fieldset .radio_container .radio_button.on {
+        background-image: url(images/settings/button_radio_on.mdpi.png?b8783d594424da53d5d96a317c8f8a22b6f7534e); }
+
+form fieldset:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0; }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+body.hdpi .badge_button .badge {
+  -webkit-border-image: url("images/badge.hdpi.png") 0 11 0 11 stretch;
+}
+body.hdpi .badge_button.touched {
+  -webkit-border-image: url("images/button_gray_hit.hdpi.png") 0 8 0 8 stretch;
+}
+body.hdpi fieldset .radio_container .radio_button {
+  background: url(images/settings/button_radio_off.hdpi.png?e50b2e150e59552f95b82db2573e140d96225874) 1px 1px no-repeat;
+}
+body.hdpi .small_profile_picture .overlay {
+  -webkit-border-image: url("images/smallFrame.hdpi.png") 12 12 12 12 stretch;
+}
+body.hdpi.orientation_landscape .bubble.touched {
+  -webkit-border-image: url("images/statusBubble_Portrait_Hit.hdpi.png") 0 15 0 24 stretch;
+}
+body.hdpi .bubble.touched {
+  -webkit-border-image: url("images/statusBubble_Portrait_Hit.hdpi.png") 0 15 0 24 stretch;
+}
+body.hdpi .action_button.has_maxwidth {
+  -webkit-border-image: url("images/button_orange.hdpi.png") 0 11 0 11 stretch;
+}
+body.hdpi #settings #header .loader .spinner {
+  background: url(images/loading.spinner.light.hdpi.png?783ec51b5c73dccefa9a0f4a834135c6efc24c9a) no-repeat;
+}
+body.hdpi .action_button.touched {
+  -webkit-border-image: url("images/button_orange_hit.hdpi.png") 0 12 0 12 stretch;
+}
+body.hdpi .badge_button {
+  -webkit-border-image: url("images/button_gray.hdpi.png") 0 8 0 8 stretch;
+}
+body.hdpi.orientation_landscape .bubble {
+  -webkit-border-image: url("images/statusBubble_Portrait.hdpi.png") 0 15 0 24 stretch;
+}
+body.hdpi .bubble {
+  -webkit-border-image: url("images/statusBubble_Portrait.hdpi.png") 0 15 0 24 stretch;
+}
+body.hdpi fieldset .radio_container .radio_button.on {
+  background-image: url(images/settings/button_radio_on.hdpi.png?b22b6a48ce0dad4fc2289d5393e3433ecd04d5b8);
+}
+body.hdpi .small_profile_picture {
+  background: url(images/icon.user.male.large.hdpi.png?11d11f5b125f519956eee9449518881b03d9e100) no-repeat center center;
+}
+body.hdpi .action_button.has_maxwidth.touched {
+  -webkit-border-image: url("images/button_orange_hit.hdpi.png") 0 11 0 11 stretch;
+}
+body.hdpi .action_button {
+  -webkit-border-image: url("images/button_orange.hdpi.png") 0 12 0 12 stretch;
+}
+
+/*
+ *    2x pixel scale
+ */
+
+body.udpi .badge_button .badge {
+  -webkit-border-image: url("images/badge.udpi.png") 0 14 0 14 stretch;
+}
+body.udpi .badge_button.touched {
+  -webkit-border-image: url("images/button_gray_hit.udpi.png") 0 10 0 10 stretch;
+}
+body.udpi fieldset .radio_container .radio_button {
+  background: url(images/settings/button_radio_off.udpi.png) 1px 1px no-repeat;
+}
+body.udpi .small_profile_picture .overlay {
+  -webkit-border-image: url("images/smallFrame.udpi.png") 16 16 16 16 stretch;
+}
+body.udpi.orientation_landscape .bubble.touched {
+  -webkit-border-image: url("images/statusBubble_Portrait_Hit.udpi.png") 0 20 0 32 stretch;
+}
+body.udpi .bubble.touched {
+  -webkit-border-image: url("images/statusBubble_Portrait_Hit.udpi.png") 0 20 0 32 stretch;
+}
+body.udpi .action_button.has_maxwidth {
+  -webkit-border-image: url("images/button_orange.udpi.png") 0 14 0 14 stretch;
+}
+body.udpi #settings #header .loader .spinner {
+  background: url(images/loading.spinner.light.udpi.png) no-repeat;
+}
+body.udpi .action_button.touched {
+  -webkit-border-image: url("images/button_orange_hit.udpi.png") 0 16 0 16 stretch;
+}
+body.udpi .badge_button {
+  -webkit-border-image: url("images/button_gray.udpi.png") 0 10 0 10 stretch;
+}
+body.udpi.orientation_landscape .bubble {
+  -webkit-border-image: url("images/statusBubble_Portrait.udpi.png") 0 20 0 32 stretch;
+}
+body.udpi .bubble {
+  -webkit-border-image: url("images/statusBubble_Portrait.udpi.png") 0 20 0 32 stretch;
+}
+body.udpi fieldset .radio_container .radio_button.on {
+  background-image: url(images/settings/button_radio_on.udpi.png);
+}
+body.udpi .small_profile_picture {
+  background: url(images/icon.user.male.large.udpi.png) no-repeat center center;
+}
+body.udpi .action_button.has_maxwidth.touched {
+  -webkit-border-image: url("images/button_orange_hit.udpi.png") 0 14 0 14 stretch;
+}
+body.udpi .action_button {
+  -webkit-border-image: url("images/button_orange.udpi.png") 0 16 0 16 stretch;
+}

@@ -1,0 +1,8 @@
+android
+cpp
+haxe_208
+hxcpp
+nme
+nmex
+true
+/usr/lib/haxe/lib/hxcpp/2,08,1/

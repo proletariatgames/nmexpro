@@ -1,0 +1,17 @@
+.button_container {
+  text-align: center; }
+  .button_container .button {
+    display: inline-block;
+    font-size: 18px;
+    margin: 0 5px;
+    width: 120px; }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+
+/*
+ *    2x pixel scale
+ */

@@ -1,0 +1,59 @@
+ul.players {
+  font-size: 14px;
+  font-weight: bold; }
+  ul.players .player_wrapper {
+    overflow: hidden; }
+  ul.players .game_player {
+    height: auto; }
+  ul.players .center_column {
+    margin-right: 0; }
+  ul.players .user_basic {
+    overflow: hidden; }
+  ul.players .user_name {
+    color: #595959;
+    float: left;
+    margin: 0 0 5px 0;
+    max-width: 170px; }
+  ul.players .online .user_name {
+    color: #25731f; }
+  ul.players .user_score_container {
+    margin: 0 0 5px 0;
+    overflow: hidden; }
+    ul.players .user_score_container .user_score {
+      background: url(images/icon.leaf.gray.mdpi.png) no-repeat left center;
+      float: right;
+      font-size: 12px;
+      height: 12px;
+      line-height: 12px;
+      max-width: 75%;
+      overflow: hidden;
+      padding: 1px 0 0 12px;
+      text-overflow: ellipsis;
+      -webkit-background-size: 11px 12px; }
+  ul.players .status {
+    color: #777777;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0; }
+  ul.players li.load_more {
+    color: #25731f;
+    height: auto;
+    padding: 20px 10px;
+    text-align: center; }
+
+
+/*
+ *    1.5x pixel scale
+ */
+
+body.hdpi ul.players .user_score_container .user_score {
+  background: url(images/icon.leaf.gray.hdpi.png) no-repeat left center;
+}
+
+/*
+ *    2x pixel scale
+ */
+
+body.udpi ul.players .user_score_container .user_score {
+  background: url(images/icon.leaf.gray.udpi.png) no-repeat left center;
+}

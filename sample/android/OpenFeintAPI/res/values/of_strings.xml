@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="of_key_cannot_be_null">OpenFeintSettings.key cannot be null. Please specify your application\'s product key during construction.</string>
+    <string name="of_secret_cannot_be_null">OpenFeintSettings.secret cannot be null. Please specify your application\'s product secret during construction.</string>
+    <string name="of_id_cannot_be_null">OpenFeintSettings.id cannot be null. Please specify your application id during construction.</string>
+    <string name="of_name_cannot_be_null">OpenFeintSettings.name cannot be null. Please specify your application\'s name during construction.</string>
+    <string name="of_unexpected_response_format">Unexpected response format.</string>
+	<string name="of_unknown_server_error">Unknown server error.</string>
+
+    <string name="of_null_icon_url">iconUrl is null - make sure to load() this Achievement before calling downloadIcon.</string>
+	<string name="of_achievement_unlock_null">Can\'t unlock an achievement with a null resourceID.</string>
+	<string name="of_achievement_load_null">Can\'t load an achievement with a null resourceID.</string>
+	<string name="of_profile_url_null">profilePictureUrl is null - make sure to load() this User before calling downloadProfilePicture.</string>
+	<string name="of_low_memory_profile_pic">Your device may not have enough memory to complete this operation. Restarting may free up enough memory.</string>
+	<string name="of_profile_picture_download_failed">Sorry - there was a problem downloading this profile picture.  Please try again.</string>
+	<string name="of_nodisk">Not enough room on your %1$s. Please free up some disk space and try again.</string>
+	<string name="of_operation_not_permitted_due_to_parental_controls">This operation is not permitted due to parental controls being enabled on this device.</string>
+	
+	<string name="of_sdcard">sdcard</string>
+	<string name="of_device">device</string>
+	<string name="of_loading_feint">Loading Feint...</string>
+
+	<string name="of_no">No</string>
+	<string name="of_yes">Yes</string>
+	<string name="of_ok">OK</string>
+	<string name="of_cancel">Cancel</string>
+	
+	<string name="of_io_exception_on_download">I/O exception reading download</string>
+	<string name="of_cant_compress_blob">Error compressing blob.</string>
+	<string name="of_no_blob">Score has no blob to download</string>
+
+	<string name="of_achievement_unlocked">Achievement Unlocked!</string>
+
+	<string name="of_timeout">The request didn\'t complete in time.</string>
+	<string name="of_bitmap_decode_error">Error decoding bitmap.</string>
+	<string name="of_file_not_found">File not found</string>
+	<string name="of_error_parsing_error_message">Error parsing error message.</string>
+	<string name="of_server_error_code_format">Server responded with code %1$d</string>
+	<string name="of_ioexception_reading_body">IOException reading response body.</string>
+	<string name="of_switched_accounts">Switched Accounts</string>
+	<string name="of_now_logged_in_as_format">You are now logged as: %1$s</string>
+	<string name="of_profile_pic_changed">Your profile picture has been changed.</string>
+	<string name="of_crash_report_query">Feint couldn\'t initialize\nWould you like to send a crash report and wait for recovery?</string>
+	<string name="of_no_video">Your device doesn\'t support video playback.</string>
+
+    <string name="of_home">Home</string>
+    <string name="of_banned_dialog">This user or application has been banned.  All Feint functionality is disabled.</string>
+    <string name="of_settings">Settings</string>
+    <string name="of_exit_feint">Exit Feint</string>
+    <string name="of_offline_notification">You are offline.</string>
+    <string name="of_offline_notification_line2">Feint requires an active network connection.</string>
+    <string name="of_score_submitted_notification">High Score submitted</string>
+    <string name="of_malformed_request_error">Your request contains the string "//" - please check to make sure you didn\'t omit any resourceID.</string>
+</resources>
