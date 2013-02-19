@@ -8,5 +8,5 @@ enum AudioSessionCategory
   Record;
   PlayAndRecord;
   AudioProcessing;
-  MultiRoute;
+  //MultiRoute; Commented out for iOS5 support
 }

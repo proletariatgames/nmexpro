@@ -82,7 +82,7 @@ namespace nmeExtensions {
     case 3: avCat = AVAudioSessionCategoryRecord; break;
     case 4: avCat = AVAudioSessionCategoryPlayAndRecord; break;
     case 5: avCat = AVAudioSessionCategoryAudioProcessing; break;
-    case 6: avCat = AVAudioSessionCategoryMultiRoute; break;
+    //case 6: avCat = AVAudioSessionCategoryMultiRoute; break; Commented out for iOS5 support
     }
     [[AVAudioSession sharedInstance] setCategory:avCat error:nil];
   }
