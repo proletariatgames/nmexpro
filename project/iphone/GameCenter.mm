@@ -219,6 +219,7 @@ namespace nmeExtensions{
           mmvc.matchmakerDelegate = ViewDelegate;
 
           nme::PauseAnimation();
+          UIWindow* window = [UIApplication sharedApplication].keyWindow;
           [[window rootViewController] presentModalViewController: mmvc animated:NO];
           [pool drain];
         }
