@@ -214,19 +214,12 @@ namespace nmeExtensions{
         // Insert game-specific code here to clean up any game in progress.
         if (acceptedInvite)
         {
+          NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
           GKMatchmakerViewController *mmvc = [[GKMatchmakerViewController alloc] initWithInvite:acceptedInvite];
           mmvc.matchmakerDelegate = ViewDelegate;
 
-          NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-          UIViewController* glView2;
-          UIWindow* window = [UIApplication sharedApplication].keyWindow;
-          if([[[UIDevice currentDevice] localizedModel] isEqualToString:@"iPad"]){
-            glView2 = [window rootViewController];
-          } else {
-            glView2 = [[UIViewController alloc] init];
-            [window addSubview: glView2.view];
-          }
-          [glView2 presentModalViewController: mmvc animated:YES];
+          nme::PauseAnimation();
+          [[window rootViewController] presentModalViewController: mmvc animated:NO];
           [pool drain];
         }
         else if (playersToInvite)
