@@ -114,11 +114,19 @@ typedef void (*DataFunctionType)(NSString*, NSString*);
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)match
 {
-  printf("matchmakerViewController didFindMatch\n");
+  printf("matchmakerViewController didFindMatch OK\n");
   [viewController dismissViewControllerAnimated:YES completion:nil];
   match.delegate = self;
   nme::ResumeAnimation();
-  onMatchmakingFinished(match);
+  if ( match.expectedPlayerCount == 0 && [match.playerIDs count] != 0 ) {
+    onMatchmakingFinished(match);
+  } else {
+    printf("matchmakerViewController found match, but no players!\n");
+    if ( match != nil ) {
+      [match disconnect];
+    }
+    onMatchmakingFinished(nil);
+  }
 }
 
 - (void)match:(GKMatch *)match player:(NSString *)playerID didChangeState:(GKPlayerConnectionState)state

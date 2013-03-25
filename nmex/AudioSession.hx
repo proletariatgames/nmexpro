@@ -5,7 +5,7 @@ class AudioSession extends NXObject
   private static var instance:AudioSession;
 
   public var musicPlayerState(get_musicPlayerState, never) : MusicPlayerState;
-  public var audioSessionCategory(get_audioSessionCategory, set_audioSessionCategory) : AudioSessionCategory;
+  @:isVar public var audioSessionCategory(get_audioSessionCategory, set_audioSessionCategory) : AudioSessionCategory;
 
   private function new(){
     super();
