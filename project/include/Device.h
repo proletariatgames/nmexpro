@@ -13,6 +13,7 @@ namespace nmeExtensions{
 	const char *deviceName();
 	const char *model();
 	bool isRetina();
+	bool isIPad();
 	bool networkAvailable();
 	void Vibrate(float milliseconds);
 	

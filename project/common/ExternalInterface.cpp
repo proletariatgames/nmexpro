@@ -46,7 +46,7 @@ extern "C"{
 		alloc_field(o,val_id("code"),alloc_int(inEvent.code));
 		alloc_field(o,val_id("value"),alloc_int(inEvent.value));
 		alloc_field(o,val_id("data"),alloc_string(inEvent.data));
-		  
+		
 		val_call1(nmexEventHandle->get(),o);
 	}
 }
@@ -62,7 +62,7 @@ DEFINE_PRIM(nmex_set_event_handle,1);
 
 #ifdef GOOGLE_LIBS
 
-/* AD 
+/* AD
 *************************************************/
 value nmex_ad_init(value id,value x, value y, value sizeType){
 	initAd(val_string(id),val_int(x),val_int(y),val_int(sizeType) );
@@ -124,6 +124,12 @@ value nmex_device_is_retina()
 	return alloc_bool(isRetina());
 }
 DEFINE_PRIM(nmex_device_is_retina,0);
+
+value nmex_device_is_ipad()
+{
+	return alloc_bool(isIPad());
+}
+DEFINE_PRIM(nmex_device_is_ipad,0);
 
 value nmex_device_network_available()
 {
@@ -283,7 +289,7 @@ DEFINE_PRIM(nmex_system_in_app_purchase_restore_purchases,0);
 //inAppPurchase end
 #endif
 
-/* Native UI 
+/* Native UI
 ***********************************************************/
 #ifdef IPHONE
 value nmex_system_ui_show_alert(value title,value message){
@@ -363,7 +369,7 @@ DEFINE_PRIM(nmex_set_audio_session_category,1);
 
 #ifdef GOOGLE_LIBS
 
-/* GA 
+/* GA
 ********************************************************************************/
 value nmex_tracker_start_tracker(value acountID,int disPatchPeriod)
 {
@@ -411,7 +417,7 @@ value nmex_tracker_stop_tracker()
 DEFINE_PRIM(nmex_tracker_stop_tracker,0);
 
 
-/* Utiles 
+/* Utiles
 *******************************************************************************/
 /*
 value nmex_utils_merge_alpha(value inSurface1, value inSurface2){
@@ -455,4 +461,4 @@ DEFINE_PRIM(nmex_device_get_rec_path,0);
 #endif
 
 ///////////////////////////////////////////////////////////////////
- 
+

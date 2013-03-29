@@ -48,7 +48,11 @@ namespace nmeExtensions {
 		}
 		return retina;
 	}
-	
+
+  bool isIPad() {
+    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+  }
+
     bool networkAvailable(){
 	
         // Create zero addy

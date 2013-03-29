@@ -43,7 +43,11 @@ class Device{
 		
 		return nmex_device_is_retina();
 	}
-	
+
+  public static function isIPad():Bool {
+    return nmex_device_is_ipad();
+  }
+
 	public static function scaleFactor():Float{
 		
 		if(contentScaleFactor == 0){
@@ -73,6 +77,7 @@ class Device{
 	static var nmex_device_name = nme.Loader.load("nmex_device_name",0);
 	static var nmex_device_model = nme.Loader.load("nmex_device_model",0);
 	static var nmex_device_is_retina = nme.Loader.load("nmex_device_is_retina",0);
+	static var nmex_device_is_ipad = nme.Loader.load("nmex_device_is_ipad",0);
 	static var nmex_device_network_available = nme.Loader.load("nmex_device_network_available",0);
 	static var nmex_device_vibrate = nme.Loader.load("nmex_device_vibrate",1);
 
