@@ -49,6 +49,18 @@ extern "C"{
 		
 		val_call1(nmexEventHandle->get(),o);
 	}
+
+	void nme_extensions_send_event_with_len(Event &inEvent, int len){
+		//printf("Send Event: %i\n",inEvent.type);
+		
+		value o = alloc_empty_object();
+		alloc_field(o,val_id("type"),alloc_int(inEvent.type));
+		alloc_field(o,val_id("code"),alloc_int(inEvent.code));
+		alloc_field(o,val_id("value"),alloc_int(inEvent.value));
+		alloc_field(o,val_id("data"),alloc_string_len(inEvent.data, len));
+		  
+		val_call1(nmexEventHandle->get(),o);
+	}
 }
 
 /* init Event handle
@@ -203,6 +215,77 @@ static value show_matchmaking_ui(){
 }
 DEFINE_PRIM(show_matchmaking_ui,0);
 
+// turn based matches
+
+static value start_turn_based_match(){
+  hxStartTurnBasedMatch();
+  return alloc_null();
+}
+DEFINE_PRIM(start_turn_based_match,0);
+
+static value load_turn_based_matches(value requestID) {
+  hxLoadTurnBasedMatches(val_int(requestID));
+  return alloc_null();
+}
+DEFINE_PRIM(load_turn_based_matches,1);
+
+static value get_match_data(value id, value requestID) {
+  hxGetMatchData(val_string(id), val_int(requestID));
+  return alloc_null();
+}
+DEFINE_PRIM(get_match_data,2);
+
+static value advance_match(value matchID, value message, value matchData, value requestID) {
+  hxAdvanceTurnBasedMatch(val_string(matchID), val_string(message), val_string(matchData), val_strlen(matchData), val_int(requestID));
+  return alloc_null();
+}
+DEFINE_PRIM(advance_match,4);
+
+static value pause_match(value matchID, value matchData, value requestID) {
+  hxPauseTurnBasedMatch(val_string(matchID), val_string(matchData), val_strlen(matchData), val_int(requestID)); 
+  return alloc_null();
+}
+DEFINE_PRIM(pause_match,3);
+
+static value end_match(value matchID, value winningPlayerID, value matchData, value requestID) {
+  hxEndTurnBasedMatch(val_string(matchID), val_string(winningPlayerID), val_string(matchData), val_strlen(matchData), val_int(requestID));
+  return alloc_null();
+}
+DEFINE_PRIM(end_match,4);
+
+static value quit_match(value matchID, value matchData, value requestID) {
+  hxQuitTurnBasedMatch(val_string(matchID), val_string(matchData), val_strlen(matchData), val_int(requestID));
+  return alloc_null();
+}
+DEFINE_PRIM(quit_match, 3);
+
+static value remove_match(value matchID, value requestID) {
+  hxRemoveTurnBasedMatch(val_string(matchID), val_int(requestID));
+  return alloc_null();
+}
+DEFINE_PRIM(remove_match,2);
+
+static value load_player_data(value ids, value request_id) {
+  hxLoadPlayerData(val_string(ids), val_int(request_id));
+  return alloc_null();
+}
+DEFINE_PRIM(load_player_data,2);
+
+static value get_player_png(value id) {
+  int length;
+  char* buffer = hxGetPlayerPhotoPNG(val_string(id), &length);
+  if ( buffer != NULL ) {
+    value output = alloc_string_len(buffer, length);
+    free(buffer);
+    return output;
+  } else {
+    return alloc_null();
+  }
+}
+DEFINE_PRIM(get_player_png,1);
+
+// turn based matches end
+
 static value broadcast_match_data(value data){
   hxBroadcastMatchData(val_string(data));
   return alloc_null();
@@ -214,10 +297,21 @@ static value is_match_started() {
 }
 DEFINE_PRIM(is_match_started,0);
 
-static value in_match() {
-  return alloc_bool(hxInMatch());
+static value in_live_match() {
+  return alloc_bool(hxInLiveMatch());
 }
-DEFINE_PRIM(in_match,0);
+DEFINE_PRIM(in_live_match,0);
+
+static value in_turn_based_match() {
+  return alloc_bool(hxInTurnBasedMatch());
+}
+DEFINE_PRIM(in_turn_based_match,0);
+
+static value set_current_turn_based_match(value matchID) {
+  hxSetCurrentTurnBasedMatch(val_string(matchID));
+  return alloc_null();
+}
+DEFINE_PRIM(set_current_turn_based_match,1);
 
 static value disconnect_match() {
   hxDisconnectMatch();
@@ -227,6 +321,7 @@ DEFINE_PRIM(disconnect_match, 0);
 
 static value get_player_id() {
   char playerID[256];
+  playerID[0] = 0;
   hxGetPlayerID(playerID, 256);
   return alloc_string(playerID);
 }
@@ -239,6 +334,7 @@ DEFINE_PRIM(get_match_num_players, 0);
 
 static value get_match_player_id(value index) {
   char playerID[256];
+  playerID[0] = 0;
   if ( hxGetMatchPlayerID(val_int(index), playerID, 256) ) {
     return alloc_string(playerID);
   }
@@ -461,4 +557,3 @@ DEFINE_PRIM(nmex_device_get_rec_path,0);
 #endif
 
 ///////////////////////////////////////////////////////////////////
-

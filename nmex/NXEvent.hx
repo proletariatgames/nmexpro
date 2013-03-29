@@ -34,6 +34,15 @@ class NXEvent extends Event{
   public static inline var MATCH_PLAYER_DISCONNECTED:String = "matchPlayerDisconnected";
 
   public static inline var AUDIO_PLAYBACK_STATE_CHANGED:String ="audioPlaybackStateChanged";
+
+  public static inline var LOAD_TURN_BASED_MATCHES_SUCCESS:String = "loadTurnBasedMatchesSuccess";
+  public static inline var LOAD_TURN_BASED_MATCHES_FAIL:String = "loadTurnBasedMatchesFail";
+  public static inline var LOAD_PLAYER_DATA_SUCCESS:String = "loadPlayerDataSuccess";
+  public static inline var LOAD_PLAYER_DATA_FAIL:String = "loadPlayerDataFail";
+  public static inline var UPDATE_MATCH_SUCCESS:String = "updateMatchSuccess";
+  public static inline var UPDATE_MATCH_FAIL:String = "updateMatchFail";
+  public static inline var GET_MATCH_DATA_SUCCESS:String = "getMatchDataSuccess";
+  public static inline var GET_MATCH_DATA_FAIL:String = "getMatchDataFail";
 	
 	public var EventID:Int;
 	public var code:Int;

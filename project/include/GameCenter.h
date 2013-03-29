@@ -35,13 +35,26 @@ namespace nmeExtensions {
 	void hxReportAchievement(const char *achievementId, float percent);
 	void hxShowLeaderBoardForCategory(const char *category);
   void hxShowMatchmakingUI();
+  void hxStartTurnBasedMatch();
   void hxBroadcastMatchData(const char *data);
   bool hxIsMatchStarted();
-  bool hxInMatch();
+  bool hxInLiveMatch();
+  bool hxInTurnBasedMatch();
+  void hxSetCurrentTurnBasedMatch(const char* matchID);
   void hxGetPlayerID(char* output, int maxLen);
   void hxDisconnectMatch();
   int hxGetNumMatchPlayers();
+  void hxLoadPlayerData(const char* ids, int requestID);
+  char* hxGetPlayerPhotoPNG(const char* idStr, int* len);
+
+  void hxLoadTurnBasedMatches(int requestID);
   bool hxGetMatchPlayerID(int index, char* output, int maxLen);
+  void hxGetMatchData(const char* matchID, int requestID);
+  void hxAdvanceTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID);
+  void hxPauseTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
+  void hxEndTurnBasedMatch(const char* matchID, const char* winningPlayerID, const char* matchData, int matchDataLen, int requestID);
+  void hxQuitTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
+  void hxRemoveTurnBasedMatch(const char* matchID, int requestID);
 }
 
 #endif

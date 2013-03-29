@@ -41,16 +41,26 @@ namespace nme {
  */
 typedef void (*FunctionType)();
 typedef void (*MatchFunctionType)(GKMatch*);
+typedef void (*TurnBasedMatchFunctionType)(GKTurnBasedMatch*);
 typedef void (*MatchPlayerFunctionType)(GKMatch*, NSString*);
 typedef void (*DataFunctionType)(NSString*, NSString*);
 
-@interface GKViewDelegate : NSObject <GKAchievementViewControllerDelegate,GKLeaderboardViewControllerDelegate,GKMatchmakerViewControllerDelegate,GKMatchDelegate>{
+@interface GKViewDelegate 
+  : NSObject <GKAchievementViewControllerDelegate,
+              GKLeaderboardViewControllerDelegate,
+              GKMatchmakerViewControllerDelegate,
+              GKTurnBasedMatchmakerViewControllerDelegate,
+              GKMatchDelegate>{
 }
 
 - (void)achievementViewControllerDidFinish:(GKAchievementViewController *)viewController;
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController;
 - (void)matchmakerViewControllerWasCancelled:(GKMatchmakerViewController*)viewController;
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error;
+- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFailWithError:(NSError *)error;
+- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)match;
+- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController playerQuitForMatch:(GKTurnBasedMatch *)match;
+- (void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController;
 - (void)match:(GKMatch *)match player:(NSString *)playerID didChangeState:(GKPlayerConnectionState)state;
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 
@@ -59,6 +69,7 @@ typedef void (*DataFunctionType)(NSString*, NSString*);
 @property (nonatomic) MatchFunctionType onPlayerConnectedToMatch;
 @property (nonatomic) MatchPlayerFunctionType onPlayerDisconnectedFromMatch;
 @property (nonatomic) MatchFunctionType onMatchmakingFinished;
+@property (nonatomic) TurnBasedMatchFunctionType onTurnBasedMatchmakingFinished;
 @property (nonatomic) DataFunctionType onDataReceived;
 
 @end
@@ -71,6 +82,7 @@ typedef void (*DataFunctionType)(NSString*, NSString*);
 @synthesize onPlayerConnectedToMatch;
 @synthesize onPlayerDisconnectedFromMatch;
 @synthesize onDataReceived;
+@synthesize onTurnBasedMatchmakingFinished;
 
 - (id)init {
     self = [super init];
@@ -150,6 +162,42 @@ typedef void (*DataFunctionType)(NSString*, NSString*);
   onDataReceived(playerID, string);
 }
 
+- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFailWithError:(NSError *)error
+{
+  printf("matchmakerViewController didFailWithError: %s\n", [[error localizedDescription] UTF8String]);
+  [viewController dismissViewControllerAnimated:YES completion:nil];
+	[viewController release];
+  nme::ResumeAnimation();
+  onTurnBasedMatchmakingFinished(nil);
+}
+
+- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)match
+{
+  printf("turnBasedMatchmakerViewController didFindMatch\n");
+  [viewController dismissViewControllerAnimated:YES completion:nil];
+	[viewController release];
+  nme::ResumeAnimation();
+  onTurnBasedMatchmakingFinished(match);
+}
+
+- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController playerQuitForMatch:(GKTurnBasedMatch *)match
+{
+  // !!FIXME!! this is not handled currently
+  printf("turnBasedMatchmakerViewController playerQuitForMatch\n");
+  [viewController dismissViewControllerAnimated:YES completion:nil];
+	[viewController release];
+  nme::ResumeAnimation();
+}
+
+- (void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController
+{
+  printf("turnBasedMatchmakerViewControllerWasCancelled\n");
+  [viewController dismissViewControllerAnimated:YES completion:nil];
+	[viewController release];
+  nme::ResumeAnimation();
+  onTurnBasedMatchmakingFinished(nil);
+}
+
 @end
 
 namespace nmeExtensions{
@@ -165,14 +213,25 @@ namespace nmeExtensions{
 	void hxReportAchievement(const char *achievementId, float percent);
 	void hxShowLeaderBoardForCategory(const char *category);
   void hxShowMatchmakingUI();
+  void hxStartTurnBasedMatch();
+  void hxLoadTurnBasedMatches(int requestID);
   void hxBroadcastMatchData(const char* data);
   bool hxIsMatchStarted();
-  bool hxInMatch();
+  bool hxInLiveMatch();
+  bool hxInTurnBasedMatch();
+  void hxSetCurrentTurnBasedMatch(const char* matchID);
   void hxGetPlayerID(char* output, int maxLen);
+  void hxLoadPlayerData(const char* ids, int requestID);
+  char* hxGetPlayerPhotoPNG(const char* idStr, int* len);
   void hxDisconnectMatch();
   int hxGetNumMatchPlayers();
   bool hxGetMatchPlayerID(int index, char* output, int maxLen);
-
+  void hxGetMatchData(const char* matchID, int requestID);
+  void hxAdvanceTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID);
+  void hxPauseTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
+  void hxEndTurnBasedMatch(const char* matchID, const char* winningPlayerID, const char* matchData, int matchDataLen, int requestID);
+  void hxQuitTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
+  void hxRemoveTurnBasedMatch(const char* matchID, int requestID);
 
 	static void authenticationChanged(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo);
 	void achievementViewDismissed();
@@ -181,8 +240,10 @@ namespace nmeExtensions{
   void playerConnectToMatch(GKMatch* match);
   void playerDisconnectFromMatch(GKMatch* match, NSString* player);
   void matchDataReceived(NSString* player, NSString* data);
+  void turnBasedMatchmakingFinished(GKTurnBasedMatch* match);
 	void dispatchHaxeEvent(EventType eventId);
 	extern "C" void nme_extensions_send_event(Event &inEvent);
+	extern "C" void nme_extensions_send_event_with_len(Event &inEvent, int len);
 	
 	//
 	// Variables
@@ -192,10 +253,16 @@ namespace nmeExtensions{
 	static int isInitialized=0;
 	
 	/** View Delegate */
-	GKViewDelegate *ViewDelegate;
+	static GKViewDelegate *ViewDelegate;
 	
-  GKMatch* currentMatch;
-  bool currentMatchStarted = false;
+  static GKMatch* currentMatch;
+  static NSMutableDictionary* playerPhotos = nil;
+  static GKTurnBasedMatch* currentTurnBasedMatch;
+  static bool currentMatchStarted = false;
+  
+  static NSArray* loadedTurnBasedMatches;
+
+  static int MAX_PACKET_SIZE = 64*1024;
 	
 	//
 	// Public Methods
@@ -214,6 +281,7 @@ namespace nmeExtensions{
 			ViewDelegate.onAchievementFinished=&achievementViewDismissed;
 			ViewDelegate.onLeaderboardFinished=&leaderboardViewDismissed;
       ViewDelegate.onMatchmakingFinished=&matchmakingFinished;
+      ViewDelegate.onTurnBasedMatchmakingFinished=&turnBasedMatchmakingFinished;
       ViewDelegate.onPlayerConnectedToMatch=&playerConnectToMatch;
       ViewDelegate.onPlayerDisconnectedFromMatch=&playerDisconnectFromMatch;
       ViewDelegate.onDataReceived=&matchDataReceived;
@@ -285,6 +353,84 @@ namespace nmeExtensions{
   void hxGetPlayerID(char* output, int maxLen) {
     [[GKLocalPlayer localPlayer].playerID getCString:output maxLength:maxLen encoding:NSUTF8StringEncoding];
   }
+
+  void hxLoadPlayerData(const char* idsStr, int requestID) {
+    if ( !playerPhotos ) {
+      playerPhotos = [[NSMutableDictionary alloc] init];
+    }
+
+    NSString* strIds = [[NSString alloc] initWithUTF8String:idsStr];
+    NSArray* ids = [strIds componentsSeparatedByString:@","];
+
+    [GKPlayer loadPlayersForIdentifiers:ids withCompletionHandler:^(NSArray* players, NSError* error) {
+      if ( error == nil ) {
+        NSMutableArray* returnData = [[NSMutableArray alloc] init];
+        for ( GKPlayer* player in players ) {
+          [player loadPhotoForSize:GKPhotoSizeNormal withCompletionHandler:^(UIImage* photo, NSError* picError) {
+            if ( picError != nil ) {
+              NSLog(@"Could not load photo for player %@ : %@", [player playerID], picError);
+            } else if ( photo != nil ) {
+              [playerPhotos setValue:photo forKey:[player playerID]];
+            }
+
+            NSDictionary* playerData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                          [player playerID], @"id",
+                                          [NSNumber numberWithBool:[player isFriend]], @"isFriend",
+                                          [player alias], @"alias",
+                                          nil];
+            [returnData addObject:playerData];
+            [playerData release];
+
+            if ( [returnData count] == [players count] ) {
+              NSError *jsonError = nil;
+              NSData *jsonData = [NSJSONSerialization dataWithJSONObject:returnData options:0 error:&jsonError];
+              NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+              if (jsonError) {
+                NSLog(@"Could not parse player info : %@",jsonError);
+                Event evt(LOAD_PLAYER_DATA_FAIL);
+                evt.data = "bad player data";
+                evt.code = requestID;
+                nme_extensions_send_event(evt);
+              } else {
+                Event evt(LOAD_PLAYER_DATA_SUCCESS);
+                evt.data = [jsonString UTF8String];
+                evt.code = requestID;
+                nme_extensions_send_event(evt);
+              }
+
+              [jsonString release];
+              [returnData release];
+            }
+          }];
+        }
+      } else {
+        NSLog(@"Could not load player info : %@",error);
+        Event evt(LOAD_PLAYER_DATA_FAIL);
+        evt.data = "couldn't load player data";
+        evt.code = requestID;
+        nme_extensions_send_event(evt);
+      }
+    }];
+
+    [strIds release];
+  }
+
+  char* hxGetPlayerPhotoPNG(const char* idStr, int* len) {
+    *len = 0;
+    if ( playerPhotos == nil ) return NULL;
+    NSString* str = [[NSString alloc] initWithUTF8String:idStr];
+    UIImage* image = [playerPhotos objectForKey:str];
+    if ( image == nil ) return NULL;
+    NSData* pngData = UIImagePNGRepresentation(image);
+    if ( pngData == nil ) return NULL;
+
+    char* buffer = (char*)malloc([pngData length]);
+    [pngData getBytes:buffer length:[pngData length]];
+    *len = [pngData length];
+
+    [str release];
+    return buffer;
+  }
 	
 	/** Report a score to the server for a given category. */
 	void hxReportScoreForCategory(int score, const char *category){
@@ -309,6 +455,392 @@ namespace nmeExtensions{
 		[strCategory release];
 		[pool drain];
 	}
+
+  /** Brings up the GameCenter UI for starting a new turn-based match. */
+  void hxStartTurnBasedMatch() {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    GKMatchRequest* request = [[GKMatchRequest alloc] init];
+    request.minPlayers = 2;
+    request.maxPlayers = 2;
+
+    GKTurnBasedMatchmakerViewController *mmvc = [[GKTurnBasedMatchmakerViewController alloc] initWithMatchRequest:request];
+    mmvc.showExistingMatches = NO;
+    mmvc.turnBasedMatchmakerDelegate = ViewDelegate;
+
+    nme::PauseAnimation();
+    [[window rootViewController] presentModalViewController: mmvc animated:NO];
+    [pool drain];
+  }
+
+  GKTurnBasedMatch* findMatchWithID(const char* matchID) {
+    GKTurnBasedMatch* foundMatch = nil;
+    NSString* matchIDStr = [[NSString alloc] initWithUTF8String:matchID];
+    if ( currentTurnBasedMatch != nil && [currentTurnBasedMatch.matchID isEqualToString:matchIDStr] ) {
+      foundMatch = currentTurnBasedMatch;
+    } else if ( loadedTurnBasedMatches != nil ) {
+      for ( GKTurnBasedMatch* match in loadedTurnBasedMatches ) {
+        if ( [match.matchID isEqualToString:matchIDStr] ) {
+          foundMatch = match;
+          break;
+        }
+      }
+    }
+
+    [matchIDStr release];
+    return foundMatch;
+  }
+
+  void hxGetMatchData(const char* matchID, int requestID) {
+    GKTurnBasedMatch* match = findMatchWithID(matchID); 
+    if ( match != nil ) {
+      [match loadMatchDataWithCompletionHandler:^(NSData* packet, NSError* error){
+        if ( error == nil && packet != nil ) {
+          char* data = (char*)malloc(MAX_PACKET_SIZE);
+          [packet getBytes:data length:MAX_PACKET_SIZE];
+
+          Event evt(GET_MATCH_DATA_SUCCESS);
+          evt.data = data;
+          evt.code = requestID;
+          // need to specify length here, because the packet could contain null values
+          nme_extensions_send_event_with_len(evt, [packet length]);
+
+          free(data);
+        } else {
+          Event evt(GET_MATCH_DATA_FAIL);
+          evt.data = "error getting match data";
+          evt.code = requestID;
+          nme_extensions_send_event(evt);
+        }
+      }];
+    } else {
+      Event evt(GET_MATCH_DATA_FAIL);
+      evt.data = "bad match ID";
+      evt.code = requestID;
+      nme_extensions_send_event(evt);
+    }
+  }
+
+  /** Sets the state for the match and advances it to the next player. The local player must be the current player in the match. */
+  void hxAdvanceTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID) {
+    GKTurnBasedMatch* match = findMatchWithID(matchID);
+    if ( match != nil ) {
+      NSData* packet = [NSData dataWithBytes:matchData length:matchDataLen]; 
+      NSMutableArray* nextPlayers = [[NSMutableArray alloc] init];
+      for (GKTurnBasedParticipant* player in [match participants]) {
+        if ( ![player.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] ) {
+          [nextPlayers addObject:player];
+        }
+      }
+      // [nextPlayers addObject:match.currentParticipant];
+
+      NSString* messageStr = [[NSString alloc] initWithUTF8String:message];
+      match.message = messageStr;
+      [messageStr release];
+
+      [match endTurnWithNextParticipants:nextPlayers turnTimeout:GKTurnTimeoutNone matchData:packet 
+        completionHandler:^(NSError* error) {
+          [nextPlayers release];
+          
+          if ( error != nil ) {
+            NSLog(@"Could not advance match : %@",error);
+            Event evt(UPDATE_MATCH_FAIL);
+            evt.data = "failed to save match data";
+            evt.code = requestID;
+            nme_extensions_send_event(evt);
+          } else {
+            Event evt(UPDATE_MATCH_SUCCESS);
+            evt.data = matchID;
+            evt.code = requestID;
+            nme_extensions_send_event(evt);
+          }
+        }
+      ];
+
+      if ( currentTurnBasedMatch == match ) {
+        [currentTurnBasedMatch release];
+        currentTurnBasedMatch = nil;
+      }
+    } else {
+      Event evt(UPDATE_MATCH_FAIL);
+      evt.data = "bad match ID";
+      evt.code = requestID;
+      nme_extensions_send_event(evt);
+    }
+  }
+
+  /** Uploads the current state of the match without advancing to the next player. */
+  void hxPauseTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID) {
+    GKTurnBasedMatch* match = findMatchWithID(matchID);
+    if ( match != nil ) {
+      NSData* packet = [NSData dataWithBytes:matchData length:matchDataLen];
+      [match saveCurrentTurnWithMatchData:packet completionHandler:^(NSError* error) {
+        if ( error != nil ) {
+          NSLog(@"Could not pause match : %@",error);
+          Event evt(UPDATE_MATCH_FAIL);
+          evt.data = "failed to save match data";
+          evt.code = requestID;
+          nme_extensions_send_event(evt);
+        } else {
+          Event evt(UPDATE_MATCH_SUCCESS);
+          evt.data = matchID;
+          evt.code = requestID;
+          nme_extensions_send_event(evt);
+        }
+      }];
+
+      if ( currentTurnBasedMatch == match ) {
+        [currentTurnBasedMatch release];
+        currentTurnBasedMatch = nil;
+      }
+    } else {
+      Event evt(UPDATE_MATCH_FAIL);
+      evt.data = "bad match ID";
+      evt.code = requestID;
+      nme_extensions_send_event(evt);
+    }
+  }
+
+  void hxEndTurnBasedMatch(const char* matchID, const char* winningPlayerID, const char* matchData, int matchDataLen, int requestID) {
+    GKTurnBasedMatch* match = findMatchWithID(matchID);
+    if ( match != nil ) {
+      NSData* packet = [NSData dataWithBytes:matchData length:matchDataLen];
+      // null winning player means a tie
+      if ( !winningPlayerID || strlen(winningPlayerID) == 0 ) {
+        for ( GKTurnBasedParticipant* player in match.participants ) {
+          player.matchOutcome = GKTurnBasedMatchOutcomeTied; 
+        }
+      } else {
+        NSString* winningPlayer = [[NSString alloc] initWithUTF8String:winningPlayerID];
+        for ( GKTurnBasedParticipant* player in match.participants ) {
+          if ( [player.playerID isEqualToString:winningPlayer] ) {
+            player.matchOutcome = GKTurnBasedMatchOutcomeWon;
+          } else {
+            player.matchOutcome = GKTurnBasedMatchOutcomeLost;
+          }
+        }
+        [winningPlayer release];
+      }
+      [match endMatchInTurnWithMatchData:packet completionHandler:^(NSError *error){
+        if ( error != nil ) {
+          NSLog(@"Could not end match : %@",error);
+          Event evt(UPDATE_MATCH_FAIL);
+          evt.data = "failed to save match data";
+          evt.code = requestID;
+          nme_extensions_send_event(evt);
+        } else {
+          Event evt(UPDATE_MATCH_SUCCESS);
+          evt.data = matchID;
+          evt.code = requestID;
+          nme_extensions_send_event(evt);
+        }
+      }];
+
+      if ( currentTurnBasedMatch == match ) {
+        [currentTurnBasedMatch release];
+        currentTurnBasedMatch = nil;
+      }
+    } else {
+      Event evt(UPDATE_MATCH_FAIL);
+      evt.data = "bad match ID";
+      evt.code = requestID;
+      nme_extensions_send_event(evt);
+    }
+  }
+
+  /** Ends an open match that the player is a participant in. */
+  void hxQuitTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID) {
+    GKTurnBasedMatch* match = findMatchWithID(matchID);
+    if ( match != nil ) {
+      NSString* localPlayer = [GKLocalPlayer localPlayer].playerID;
+      if ( match.currentParticipant != nil && [match.currentParticipant.playerID isEqualToString:localPlayer] ) {
+        NSData* packet = [NSData dataWithBytes:matchData length:matchDataLen];
+        // We are the current player and we're resigning, **OR** the other player resigned and we're formally ending the match.
+        // Set everyone's status and end the game.
+        for ( GKTurnBasedParticipant* player in match.participants ) {
+          if ( [player.playerID isEqualToString:localPlayer] ) {
+            if ( player.matchOutcome == GKTurnBasedMatchOutcomeNone ) {
+              player.matchOutcome = GKTurnBasedMatchOutcomeQuit;
+            }
+          } else {
+            if ( player.matchOutcome == GKTurnBasedMatchOutcomeNone ) {
+              player.matchOutcome = GKTurnBasedMatchOutcomeWon;
+            }
+          }
+        }
+        [match endMatchInTurnWithMatchData:packet completionHandler:^(NSError *error){
+          if ( error != nil ) {
+            NSLog(@"Could not end match : %@",error);
+            Event evt(UPDATE_MATCH_FAIL);
+            evt.data = "failed to save match data";
+            evt.code = requestID;
+            nme_extensions_send_event(evt);
+          } else {
+            Event evt(UPDATE_MATCH_SUCCESS);
+            evt.data = matchID;
+            evt.code = requestID;
+            nme_extensions_send_event(evt);
+          }
+        }];
+      } else {
+        // we are not the current player, and we're resigning.
+        // note that this does not end the match. Only the current player can actually end the match.
+        [match participantQuitOutOfTurnWithOutcome:GKTurnBasedMatchOutcomeQuit withCompletionHandler:^(NSError* error){
+          if ( error != nil ) {
+            NSLog(@"Could not resign match : %@",error);
+            Event evt(UPDATE_MATCH_FAIL);
+            evt.data = "failed to save match data";
+            evt.code = requestID;
+            nme_extensions_send_event(evt);
+          } else {
+            Event evt(UPDATE_MATCH_SUCCESS);
+            evt.data = matchID;
+            evt.code = requestID;
+            nme_extensions_send_event(evt);
+          }
+        }];
+      }
+
+      if ( currentTurnBasedMatch == match ) {
+        [currentTurnBasedMatch release];
+        currentTurnBasedMatch = nil;
+      }
+    } else {
+      Event evt(UPDATE_MATCH_FAIL);
+      evt.data = "bad match ID";
+      evt.code = requestID;
+      nme_extensions_send_event(evt);
+    }
+  }
+
+  void hxRemoveTurnBasedMatch(const char* matchID, int requestID) {
+    GKTurnBasedMatch* match = findMatchWithID(matchID);
+    if ( match != nil ) {
+      [match removeWithCompletionHandler:^(NSError* error) {
+        if ( error != nil ) {
+          NSLog(@"Could not remove match : %@",error);
+          Event evt(UPDATE_MATCH_FAIL);
+          evt.data = "failed to save match data";
+          evt.code = requestID;
+          nme_extensions_send_event(evt);
+        } else {
+          Event evt(UPDATE_MATCH_SUCCESS);
+          evt.data = matchID;
+          evt.code = requestID;
+          nme_extensions_send_event(evt);
+        }
+      }];
+
+      if ( currentTurnBasedMatch == match ) {
+        [currentTurnBasedMatch release];
+        currentTurnBasedMatch = nil;
+      }
+    } else {
+      Event evt(UPDATE_MATCH_FAIL);
+      evt.data = "bad match ID";
+      evt.code = requestID;
+      nme_extensions_send_event(evt);
+    }
+  }
+
+  NSString* turnBasedStatusToString(GKTurnBasedMatchStatus status) {
+    switch(status) {
+    case GKTurnBasedMatchStatusOpen: return @"open";
+    case GKTurnBasedMatchStatusEnded: return @"ended";
+    case GKTurnBasedMatchStatusMatching: return @"matching";
+    default: return @"unknown";
+    }
+  }
+
+  NSString* participantStatusToString(GKTurnBasedParticipantStatus status) {
+    switch (status) {
+    case GKTurnBasedParticipantStatusInvited: return @"invited";
+    case GKTurnBasedParticipantStatusDeclined: return @"declined";
+    case GKTurnBasedParticipantStatusMatching: return @"matching";
+    case GKTurnBasedParticipantStatusActive: return @"active";
+    default: return @"done";
+    }
+  }
+
+  NSString* participantOutcomeToString(GKTurnBasedMatchOutcome outcome) {
+    switch (outcome) {
+    case GKTurnBasedMatchOutcomeNone: return @"none";
+    case GKTurnBasedMatchOutcomeQuit: return @"quit";
+    case GKTurnBasedMatchOutcomeWon: return @"won";
+    case GKTurnBasedMatchOutcomeLost: return @"lost";
+    case GKTurnBasedMatchOutcomeTied: return @"tied";
+    case GKTurnBasedMatchOutcomeTimeExpired: return @"expired";
+    case GKTurnBasedMatchOutcomeFirst: return @"first";
+    case GKTurnBasedMatchOutcomeSecond: return @"second";
+    case GKTurnBasedMatchOutcomeThird: return @"third";
+    case GKTurnBasedMatchOutcomeFourth: return @"fourth";
+    default: return @"unknown";
+    }
+  }
+
+  /** Load match participant/status data for all turn-based matches the player is currently in. */
+  void hxLoadTurnBasedMatches(int requestID) {
+    [GKTurnBasedMatch loadMatchesWithCompletionHandler:^(NSArray *matches, NSError *error) {
+      if ( loadedTurnBasedMatches != nil ) {
+        [loadedTurnBasedMatches release];
+        loadedTurnBasedMatches = nil;
+      }
+
+      if ( error != nil ) {
+        NSLog(@"Failed to load matches: %@",error);
+      }
+
+      NSMutableArray *returnData = [[NSMutableArray alloc] init];
+      if ( matches ) {
+        loadedTurnBasedMatches = matches;
+        [loadedTurnBasedMatches retain];
+
+        for ( GKTurnBasedMatch* match in loadedTurnBasedMatches ) {
+          NSMutableArray* participantsData = [[NSMutableArray alloc] init];
+          for ( GKTurnBasedParticipant* participant in [match participants] ) {
+            NSDictionary* participantData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                [NSNumber numberWithDouble:[[participant lastTurnDate] timeIntervalSince1970]], @"lastTurnDate",
+                                participantStatusToString([participant status]), @"status",
+                                participantOutcomeToString([participant matchOutcome]), @"outcome",
+                                [participant playerID], @"playerID",
+                                nil];
+            [participantsData addObject:participantData];
+            [participantData release];
+          }
+          NSDictionary *matchData = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              [match matchID], @"id",
+                              participantsData, @"participants",
+                              [NSNumber numberWithDouble:[[match creationDate] timeIntervalSince1970]], @"creationDate", 
+                              turnBasedStatusToString([match status]), @"status",
+                              [[match currentParticipant] playerID], @"currentPlayerID",
+                              [match message], @"message", 
+                              nil];
+          [returnData addObject:matchData];
+          [participantsData release];
+          [matchData release];
+        }
+      }
+
+      NSError *e = nil;
+      NSData *jsonData = [NSJSONSerialization dataWithJSONObject:returnData options:0 error:&e];
+      NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+      if (e) {
+        NSLog(@"Could not parse match info : %@",e);
+        Event evt(LOAD_TURN_BASED_MATCHES_FAIL);
+        evt.data = "bad match data";
+        evt.code = requestID;
+        nme_extensions_send_event(evt);
+      }  else {
+        Event evt(LOAD_TURN_BASED_MATCHES_SUCCESS);
+        evt.data = [jsonString UTF8String];
+        evt.code = requestID;
+        nme_extensions_send_event(evt);
+      }
+
+      [jsonString release];
+      [returnData release];
+    }];
+  }
 	
   /** Show the Default iOS matchmaking interface */
   void hxShowMatchmakingUI() {
@@ -386,8 +918,23 @@ namespace nmeExtensions{
 		// TODO: will need to alloc and populate a list in a haxe format and return via another callback
 	}
 	
-  bool hxInMatch() {
-    return ( currentMatch != nil );
+  bool hxInLiveMatch() {
+    return currentMatch != nil;
+  }
+
+  bool hxInTurnBasedMatch() {
+    return currentTurnBasedMatch != nil;
+  }
+
+  void hxSetCurrentTurnBasedMatch(const char* matchID) {
+    GKTurnBasedMatch* match = findMatchWithID(matchID);
+    if ( currentTurnBasedMatch != nil ) {
+      [currentTurnBasedMatch release];
+    }
+    currentTurnBasedMatch = match;
+    if ( currentTurnBasedMatch != nil ) {
+      [currentTurnBasedMatch retain];
+    }
   }
 
   int hxGetNumMatchPlayers() {
@@ -499,20 +1046,46 @@ namespace nmeExtensions{
 	
   void matchmakingFinished(GKMatch* match){
     printf("matchmakingFinished\n");
-    if ( currentMatch != nil ) {
-      [currentMatch release];
+    if ( currentMatch != match ) {
+      if ( currentMatch != nil ) {
+        [currentMatch release];
+      }
+      currentMatch = match;      
+      currentMatchStarted = false;
+      if ( currentMatch != nil ) {
+        [currentMatch retain];
+      }
     }
-    currentMatch = match;      
-    currentMatchStarted = false;
-    if ( currentMatch != nil ) {
-      [currentMatch retain];
-    }
+
     dispatchHaxeEvent(MATCHMAKING_VIEW_CLOSED);
 
-    if ( !currentMatchStarted && match.expectedPlayerCount == 0 ) {
+    if ( !currentMatchStarted && currentMatch != nil && currentMatch.expectedPlayerCount == 0 ) {
       printf("Sending match started event\n");
       currentMatchStarted = true;
       dispatchHaxeEvent(MATCH_STARTED);
+    }
+  }
+
+  void turnBasedMatchmakingFinished(GKTurnBasedMatch* match) {
+    printf("matchmakingFinished\n");
+    if ( currentTurnBasedMatch != match ) {
+      if ( currentTurnBasedMatch != nil ) {
+        [currentTurnBasedMatch release];
+      }
+      currentTurnBasedMatch = match;      
+      if ( currentTurnBasedMatch != nil ) {
+        [currentTurnBasedMatch retain];
+      }
+    }
+
+    dispatchHaxeEvent(MATCHMAKING_VIEW_CLOSED);
+
+    if ( currentTurnBasedMatch != nil ) {
+      Event evt(MATCH_STARTED);
+      char matchID[256];
+      [currentTurnBasedMatch.matchID getCString:matchID maxLength:256 encoding:NSUTF8StringEncoding];
+      evt.data = matchID;
+      nme_extensions_send_event(evt);
     }
   }
 
