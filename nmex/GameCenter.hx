@@ -179,6 +179,10 @@ public function showTurnbasedMatchmakingUI() : Void {
   untyped nmex_start_turn_based_match();
 }
 
+public function rematchTurnBasedGame(matchID:String, requestID:Int) : Void {
+  untyped nmex_start_rematch(matchID, requestID);
+}
+
 public function inTurnBasedMatch() : Bool {
   return untyped nmex_in_turn_based_match();
 }
@@ -199,8 +203,8 @@ public function pauseTurnBasedMatch(matchID:String, matchData:String, requestID:
   untyped nmex_pause_match(matchID, matchData, requestID);
 }
 
-public function endTurnBasedMatch(matchID:String, winningPlayerID:String, matchData:String, requestID:Int) : Void {
-  untyped nmex_end_match(matchID, winningPlayerID, matchData, requestID);
+public function endTurnBasedMatch(matchID:String, winningPlayerID:String, message:String, matchData:String, requestID:Int) : Void {
+  untyped nmex_end_match(matchID, winningPlayerID, message, matchData, requestID);
 }
 
 public function resignFromTurnBasedMatch(matchID:String, matchData:String, requestID:Int) : Void {
@@ -226,6 +230,7 @@ private static var nmex_report_achievement = nme.Loader.load("report_achievement
 private static var nmex_reset_achievements = nme.Loader.load("reset_achievements",0);
 private static var nmex_show_matchmaking_ui = nme.Loader.load("show_matchmaking_ui",0);
 private static var nmex_start_turn_based_match = nme.Loader.load("start_turn_based_match",0);
+private static var nmex_start_rematch = nme.Loader.load("start_rematch",2);
 private static var nmex_load_turn_based_matches = nme.Loader.load("load_turn_based_matches",1);
 private static var nmex_load_player_data = nme.Loader.load("load_player_data", 2);
 private static var nmex_broadcast_match_data = nme.Loader.load("broadcast_match_data",1);
@@ -240,7 +245,7 @@ private static var nmex_get_match_player_id = nme.Loader.load("get_match_player_
 private static var nmex_get_match_data = nme.Loader.load("get_match_data",2);
 private static var nmex_advance_match = nme.Loader.load("advance_match",4);
 private static var nmex_pause_match = nme.Loader.load("pause_match",3);
-private static var nmex_end_match = nme.Loader.load("end_match",4);
+private static var nmex_end_match = nme.Loader.load("end_match",5);
 private static var nmex_quit_match = nme.Loader.load("quit_match",3);
 private static var nmex_remove_match = nme.Loader.load("remove_match",2);
 private static var nmex_get_player_png = nme.Loader.load("get_player_png",1);

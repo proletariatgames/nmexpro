@@ -65,6 +65,11 @@ class NXObject extends EventDispatcher{
       case  29: event = new NXEvent(NXEvent.UPDATE_MATCH_FAIL, code, value, data);
       case  30: event = new NXEvent(NXEvent.GET_MATCH_DATA_SUCCESS, code, value, data);
       case  31: event = new NXEvent(NXEvent.GET_MATCH_DATA_FAIL, code, value, data);
+      case  32: event = new NXEvent(NXEvent.TURN_BASED_MATCH_INVITE, code, value, data);
+      case  33: event = new NXEvent(NXEvent.TURN_BASED_MATCH_ENDED, code, value, data);
+      case  34: event = new NXEvent(NXEvent.TURN_BASED_MATCH_TURN, code, value, data);
+      case  35: event = new NXEvent(NXEvent.REMATCH_STARTED, code, value, data);
+      case  36: event = new NXEvent(NXEvent.REMATCH_FAILED, code, value, data);
 
       // audiosession
       case  23: event = new NXEvent(NXEvent.AUDIO_PLAYBACK_STATE_CHANGED, code, value, data);

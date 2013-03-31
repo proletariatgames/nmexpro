@@ -44,6 +44,13 @@ class NXEvent extends Event{
   public static inline var GET_MATCH_DATA_SUCCESS:String = "getMatchDataSuccess";
   public static inline var GET_MATCH_DATA_FAIL:String = "getMatchDataFail";
 	
+  public static inline var TURN_BASED_MATCH_INVITE:String = "turnBasedMatchInvite";
+  public static inline var TURN_BASED_MATCH_ENDED:String = "turnBasedMatchEnded";
+  public static inline var TURN_BASED_MATCH_TURN:String = "turnBasedMatchTurn";
+
+  public static inline var REMATCH_STARTED:String = "rematchStarted";
+  public static inline var REMATCH_FAILED:String = "rematchFailed";
+
 	public var EventID:Int;
 	public var code:Int;
 	public var value:Int;

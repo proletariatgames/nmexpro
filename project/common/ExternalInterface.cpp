@@ -223,6 +223,12 @@ static value start_turn_based_match(){
 }
 DEFINE_PRIM(start_turn_based_match,0);
 
+static value start_rematch(value matchID, value requestID) {
+  hxRematch(val_string(matchID), val_int(requestID));
+  return alloc_null();
+}
+DEFINE_PRIM(start_rematch,2);
+
 static value load_turn_based_matches(value requestID) {
   hxLoadTurnBasedMatches(val_int(requestID));
   return alloc_null();
@@ -247,11 +253,11 @@ static value pause_match(value matchID, value matchData, value requestID) {
 }
 DEFINE_PRIM(pause_match,3);
 
-static value end_match(value matchID, value winningPlayerID, value matchData, value requestID) {
-  hxEndTurnBasedMatch(val_string(matchID), val_string(winningPlayerID), val_string(matchData), val_strlen(matchData), val_int(requestID));
+static value end_match(value matchID, value winningPlayerID, value message, value matchData, value requestID) {
+  hxEndTurnBasedMatch(val_string(matchID), val_string(winningPlayerID), val_string(message), val_string(matchData), val_strlen(matchData), val_int(requestID));
   return alloc_null();
 }
-DEFINE_PRIM(end_match,4);
+DEFINE_PRIM(end_match,5);
 
 static value quit_match(value matchID, value matchData, value requestID) {
   hxQuitTurnBasedMatch(val_string(matchID), val_string(matchData), val_strlen(matchData), val_int(requestID));
