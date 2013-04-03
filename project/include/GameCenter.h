@@ -35,7 +35,7 @@ namespace nmeExtensions {
 	void hxReportAchievement(const char *achievementId, float percent);
 	void hxShowLeaderBoardForCategory(const char *category);
   void hxShowMatchmakingUI();
-  void hxStartTurnBasedMatch();
+  void hxStartTurnBasedMatch(const char *inviteUserID);
   void hxRematch(const char* matchID, int requestID);
   void hxBroadcastMatchData(const char *data);
   bool hxIsMatchStarted();

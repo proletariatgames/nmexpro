@@ -217,11 +217,11 @@ DEFINE_PRIM(show_matchmaking_ui,0);
 
 // turn based matches
 
-static value start_turn_based_match(){
-  hxStartTurnBasedMatch();
+static value start_turn_based_match(value inviteUserID) {
+  hxStartTurnBasedMatch(val_string(inviteUserID));
   return alloc_null();
 }
-DEFINE_PRIM(start_turn_based_match,0);
+DEFINE_PRIM(start_turn_based_match,1);
 
 static value start_rematch(value matchID, value requestID) {
   hxRematch(val_string(matchID), val_int(requestID));

@@ -175,8 +175,8 @@ public function getLiveMatchPlayers() : Array<String> {
 // Turn-based Multiplayer
 //
 
-public function showTurnbasedMatchmakingUI() : Void {
-  untyped nmex_start_turn_based_match();
+public function showTurnbasedMatchmakingUI(inviteUserId:String=null) : Void {
+  untyped nmex_start_turn_based_match(inviteUserId);
 }
 
 public function rematchTurnBasedGame(matchID:String, requestID:Int) : Void {
@@ -229,7 +229,7 @@ private static var nmex_report_score_for_category = nme.Loader.load("report_scor
 private static var nmex_report_achievement = nme.Loader.load("report_achievement",2);
 private static var nmex_reset_achievements = nme.Loader.load("reset_achievements",0);
 private static var nmex_show_matchmaking_ui = nme.Loader.load("show_matchmaking_ui",0);
-private static var nmex_start_turn_based_match = nme.Loader.load("start_turn_based_match",0);
+private static var nmex_start_turn_based_match = nme.Loader.load("start_turn_based_match",1);
 private static var nmex_start_rematch = nme.Loader.load("start_rematch",2);
 private static var nmex_load_turn_based_matches = nme.Loader.load("load_turn_based_matches",1);
 private static var nmex_load_player_data = nme.Loader.load("load_player_data", 2);

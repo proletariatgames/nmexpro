@@ -243,7 +243,7 @@ namespace nmeExtensions{
 	void hxReportAchievement(const char *achievementId, float percent);
 	void hxShowLeaderBoardForCategory(const char *category);
   void hxShowMatchmakingUI();
-  void hxStartTurnBasedMatch();
+  void hxStartTurnBasedMatch(const char *inviteUserID);
   void hxRematch(const char* matchID, int requestID);
   void hxLoadTurnBasedMatches(int requestID);
   void hxBroadcastMatchData(const char* data);
@@ -497,19 +497,32 @@ namespace nmeExtensions{
 	}
 
   /** Brings up the GameCenter UI for starting a new turn-based match. */
-  void hxStartTurnBasedMatch() {
+  void hxStartTurnBasedMatch(const char* i_inviteUserID) {
+    NSString *inviteUserID = [[NSString alloc] initWithUTF8String:i_inviteUserID];
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     UIWindow* window = [UIApplication sharedApplication].keyWindow;
     GKMatchRequest* request = [[GKMatchRequest alloc] init];
     request.minPlayers = 2;
     request.maxPlayers = 2;
+    if (inviteUserID && [inviteUserID length] > 0 ) {
+      // If we are inviting someone start the match immediately
+      request.playersToInvite = [[NSArray alloc]initWithObjects: inviteUserID, nil];
+      [GKTurnBasedMatch findMatchForRequest:request withCompletionHandler:^(GKTurnBasedMatch *match, NSError *error) {
+        if (error) {
+          NSLog(@"Error starting match");
+          turnBasedMatchmakingFinished(nil);
+        } else {
+          turnBasedMatchmakingFinished(match);
+        }
+      }];
+    } else {
+      GKTurnBasedMatchmakerViewController *mmvc = [[GKTurnBasedMatchmakerViewController alloc] initWithMatchRequest:request];
+      mmvc.showExistingMatches = NO;
+      mmvc.turnBasedMatchmakerDelegate = ViewDelegate;
 
-    GKTurnBasedMatchmakerViewController *mmvc = [[GKTurnBasedMatchmakerViewController alloc] initWithMatchRequest:request];
-    mmvc.showExistingMatches = NO;
-    mmvc.turnBasedMatchmakerDelegate = ViewDelegate;
-
-    nme::PauseAnimation();
-    [[window rootViewController] presentModalViewController: mmvc animated:NO];
+      nme::PauseAnimation();
+      [[window rootViewController] presentModalViewController: mmvc animated:NO];
+    }
     [pool drain];
   }
 
