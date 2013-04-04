@@ -52,7 +52,8 @@ typedef void (*InviteFunctionType)(NSArray*);
               GKMatchmakerViewControllerDelegate,
               GKTurnBasedMatchmakerViewControllerDelegate,
               GKMatchDelegate,
-              GKTurnBasedEventHandlerDelegate>{
+              GKTurnBasedEventHandlerDelegate,
+              GKFriendRequestComposeViewControllerDelegate>{
 }
 
 - (void)achievementViewControllerDidFinish:(GKAchievementViewController *)viewController;
@@ -68,6 +69,7 @@ typedef void (*InviteFunctionType)(NSArray*);
 - (void)handleInviteFromGameCenter:(NSArray *)playersToInvite;
 - (void)handleMatchEnded:(GKTurnBasedMatch *)match;
 - (void)handleTurnEventForMatch:(GKTurnBasedMatch *)match didBecomeActive:(BOOL)didBecomeActive;
+- (void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController *)viewController;
 
 @property (nonatomic) FunctionType onAchievementFinished;
 @property (nonatomic) FunctionType onLeaderboardFinished;
@@ -227,11 +229,17 @@ typedef void (*InviteFunctionType)(NSArray*);
   onTurnEventForMatch(match);
 }
 
+- (void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController *)viewController
+{
+  [viewController dismissViewControllerAnimated:YES completion:nil];
+  [viewController release];
+  nme::ResumeAnimation();
+}
 
 @end
 
 namespace nmeExtensions{
-	
+
 	bool hxInitGameKit();
 	bool hxIsGameCenterAvailable();
 	bool hxIsUserAuthenticated();
@@ -264,6 +272,8 @@ namespace nmeExtensions{
   void hxQuitTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
   void hxRemoveTurnBasedMatch(const char* matchID, int requestID);
   void trackTurnBasedMatch(GKTurnBasedMatch* match);
+  void hxLoadFriendIDs();
+  void hxSendFriendRequest(const char* idsStr);
 
 	static void authenticationChanged(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo);
 	void achievementViewDismissed();
@@ -381,17 +391,46 @@ namespace nmeExtensions{
 			}
 		}];
 	}
-	
+
 	/** Return true if the local player is logged in */
 	bool hxIsUserAuthenticated(){
-		if ([GKLocalPlayer localPlayer].isAuthenticated){      
+		if ([GKLocalPlayer localPlayer].isAuthenticated){
 			return true;
 		}
 		return false;
 	}
-	
+
   void hxGetPlayerID(char* output, int maxLen) {
     [[GKLocalPlayer localPlayer].playerID getCString:output maxLength:maxLen encoding:NSUTF8StringEncoding];
+  }
+
+  void hxLoadFriendIDs() {
+    GKLocalPlayer *lp = [GKLocalPlayer localPlayer];
+    if (lp.authenticated) {
+      [lp loadFriendsWithCompletionHandler:^(NSArray *friendIDs, NSError *error) {
+        if (error == nil) {
+          NSError *jsonError = nil;
+          NSData *jsonData = [NSJSONSerialization dataWithJSONObject:friendIDs options:0 error:&jsonError];
+          NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+          if (jsonError) {
+            NSLog(@"Could not parse player info : %@",jsonError);
+            Event evt(LOAD_FRIEND_IDS_FAIL);
+            evt.data = "bad data";
+            nme_extensions_send_event(evt);
+          } else {
+            Event evt(LOAD_FRIEND_IDS_SUCCESS);
+            evt.data = [jsonString UTF8String];
+            nme_extensions_send_event(evt);
+          }
+          [jsonString release];
+        } else {
+          NSLog(@"Could not load friends : %@",error);
+          Event evt(LOAD_FRIEND_IDS_FAIL);
+          evt.data = "couldn't load friend ids";
+          nme_extensions_send_event(evt);
+        }
+      }];
+    }
   }
 
   void hxLoadPlayerData(const char* idsStr, int requestID) {
@@ -507,6 +546,9 @@ namespace nmeExtensions{
     if (inviteUserID && [inviteUserID length] > 0 ) {
       // If we are inviting someone start the match immediately
       request.playersToInvite = [[NSArray alloc]initWithObjects: inviteUserID, nil];
+    }
+
+    if ([[GKLocalPlayer localPlayer] friends] && [[[GKLocalPlayer localPlayer] friends] containsObject:inviteUserID]) {
       [GKTurnBasedMatch findMatchForRequest:request withCompletionHandler:^(GKTurnBasedMatch *match, NSError *error) {
         if (error) {
           NSLog(@"Error starting match");
@@ -540,6 +582,21 @@ namespace nmeExtensions{
 
     [matchIDStr release];
     return foundMatch;
+  }
+
+  void hxSendFriendRequest(const char* idsStr) {
+    NSString* strIds = [[NSString alloc] initWithUTF8String:idsStr];
+    NSArray* identifiers = [strIds componentsSeparatedByString:@","];
+
+    GKFriendRequestComposeViewController *friendRequestViewController = [[GKFriendRequestComposeViewController alloc] init];
+    friendRequestViewController.composeViewDelegate = ViewDelegate;
+    if (identifiers) {
+      [friendRequestViewController addRecipientsWithPlayerIDs: identifiers];
+    }
+
+    nme::PauseAnimation();
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    [[window rootViewController] presentModalViewController:friendRequestViewController animated:YES];
   }
 
   void hxGetMatchData(const char* matchID, int requestID) {
@@ -1274,14 +1331,13 @@ namespace nmeExtensions{
 		if(!hxIsGameCenterAvailable()){
 			return;
 		}
-		
+
 		if ([GKLocalPlayer localPlayer].isAuthenticated){      
 			printf("CPP Hxgk: You are logged in to game center:onAuthChanged \n");
 		}else{
 			printf("CPP Hxgk: You are NOT logged in to game center!:onAuthChanged \n");
 		}
 	}
-	
 }
 
 

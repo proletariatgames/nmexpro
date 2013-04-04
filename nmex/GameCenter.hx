@@ -14,12 +14,12 @@ public static function getInstance():GameCenter{
 	if(instance == null){
 		instance = new GameCenter();
 	}
-	
-	return instance;
+
+  return instance;
 }
 
 public function authenticateLocalUser():Void{
-	
+
 }
 
 private static var _showAchievements_func:Dynamic;
@@ -101,6 +101,10 @@ public function getPlayerID() : String {
   return untyped nmex_get_player_id();
 }
 
+public function loadFriendIDs() : Void {
+  untyped nmex_load_friend_ids();
+}
+
 public function loadPlayerData(ids:Array<String>, requestID:Int) : Void {
   untyped nmex_load_player_data(ids.join(","), requestID);
 }
@@ -108,6 +112,10 @@ public function loadPlayerData(ids:Array<String>, requestID:Int) : Void {
 public function getLoadedPlayerPNG(id:String) : nme.display.BitmapData {
   var data:String = untyped nmex_get_player_png(id);
   return data != null ? nme.display.BitmapData.loadFromHaxeBytes(haxe.io.Bytes.ofString(data)) : null;
+}
+
+public function sendFriendRequest(ids:Array<String>) : Void {
+  untyped nmex_send_friend_request(ids.join(","));
 }
 
 //
@@ -219,6 +227,7 @@ public function loadTurnBasedMatchData(matchID:String, requestID:Int) : Void {
   untyped nmex_get_match_data(matchID, requestID);
 }
 
+
 // CFFI
 private static var nmex_is_game_center_available = nme.Loader.load("is_game_center_available",0);
 private static var nmex_authenticate_local_user = nme.Loader.load("authenticate_local_user",0);
@@ -232,6 +241,7 @@ private static var nmex_show_matchmaking_ui = nme.Loader.load("show_matchmaking_
 private static var nmex_start_turn_based_match = nme.Loader.load("start_turn_based_match",1);
 private static var nmex_start_rematch = nme.Loader.load("start_rematch",2);
 private static var nmex_load_turn_based_matches = nme.Loader.load("load_turn_based_matches",1);
+private static var nmex_load_friend_ids = nme.Loader.load("load_friend_ids", 0);
 private static var nmex_load_player_data = nme.Loader.load("load_player_data", 2);
 private static var nmex_broadcast_match_data = nme.Loader.load("broadcast_match_data",1);
 private static var nmex_is_match_started = nme.Loader.load("is_match_started",0);
@@ -250,6 +260,7 @@ private static var nmex_quit_match = nme.Loader.load("quit_match",3);
 private static var nmex_remove_match = nme.Loader.load("remove_match",2);
 private static var nmex_get_player_png = nme.Loader.load("get_player_png",1);
 private static var nmex_is_user_authenticated = nme.Loader.load("is_user_authenticated",0);
+private static var nmex_send_friend_request = nme.Loader.load("send_friend_request",1);
 
 }
 #end

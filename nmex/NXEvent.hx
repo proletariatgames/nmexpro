@@ -37,6 +37,8 @@ class NXEvent extends Event{
 
   public static inline var LOAD_TURN_BASED_MATCHES_SUCCESS:String = "loadTurnBasedMatchesSuccess";
   public static inline var LOAD_TURN_BASED_MATCHES_FAIL:String = "loadTurnBasedMatchesFail";
+  public static inline var LOAD_FRIEND_IDS_SUCCESS:String = "loadFriendIDsSuccess";
+  public static inline var LOAD_FRIEND_IDS_FAIL:String = "loadFriendIDsFail";
   public static inline var LOAD_PLAYER_DATA_SUCCESS:String = "loadPlayerDataSuccess";
   public static inline var LOAD_PLAYER_DATA_FAIL:String = "loadPlayerDataFail";
   public static inline var UPDATE_MATCH_SUCCESS:String = "updateMatchSuccess";

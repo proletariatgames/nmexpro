@@ -47,6 +47,9 @@ enum EventType{
 
   REMATCH_STARTED, // 35
   REMATCH_FAILED, // 36
+
+  LOAD_FRIEND_IDS_SUCCESS, // 37
+  LOAD_FRIEND_IDS_FAIL, // 38
 };
 
 struct Event{

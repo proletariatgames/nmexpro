@@ -47,6 +47,8 @@ namespace nmeExtensions {
   int hxGetNumMatchPlayers();
   void hxLoadPlayerData(const char* ids, int requestID);
   char* hxGetPlayerPhotoPNG(const char* idStr, int* len);
+  void hxLoadFriendIDs();
+  void hxSendFriendRequest(const char* idsStr);
 
   void hxLoadTurnBasedMatches(int requestID);
   bool hxGetMatchPlayerID(int index, char* output, int maxLen);

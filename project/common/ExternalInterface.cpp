@@ -215,6 +215,12 @@ static value show_matchmaking_ui(){
 }
 DEFINE_PRIM(show_matchmaking_ui,0);
 
+static value send_friend_request(value idsStr) {
+  hxSendFriendRequest(val_string(idsStr));
+  return alloc_null();
+}
+DEFINE_PRIM(send_friend_request,1);
+
 // turn based matches
 
 static value start_turn_based_match(value inviteUserID) {
@@ -270,6 +276,12 @@ static value remove_match(value matchID, value requestID) {
   return alloc_null();
 }
 DEFINE_PRIM(remove_match,2);
+
+static value load_friend_ids() {
+  hxLoadFriendIDs();
+  return alloc_null();
+}
+DEFINE_PRIM(load_friend_ids,0);
 
 static value load_player_data(value ids, value request_id) {
   hxLoadPlayerData(val_string(ids), val_int(request_id));
