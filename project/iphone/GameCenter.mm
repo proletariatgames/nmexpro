@@ -553,10 +553,13 @@ namespace nmeExtensions{
 
     if ([[GKLocalPlayer localPlayer] friends] && [[[GKLocalPlayer localPlayer] friends] containsObject:inviteUserID]) {
       [GKTurnBasedMatch findMatchForRequest:request withCompletionHandler:^(GKTurnBasedMatch *match, NSError *error) {
+        [request.playersToInvite release];
+        [request release];
         if (error) {
           NSLog(@"Error starting match");
           turnBasedMatchmakingFinished(nil);
         } else {
+          NSLog(@"Found match: %@", match);
           turnBasedMatchmakingFinished(match);
         }
       }];
@@ -567,7 +570,10 @@ namespace nmeExtensions{
 
       nme::PauseAnimation();
       [[window rootViewController] presentModalViewController: mmvc animated:NO];
+      [request release];
     }
+
+    [inviteUserID release];
     [pool drain];
   }
 
@@ -1204,7 +1210,7 @@ namespace nmeExtensions{
   }
 
   void turnBasedMatchmakingFinished(GKTurnBasedMatch* match) {
-    printf("matchmakingFinished\n");
+    NSLog(@"turnBasedMatchmakingFinished: %@", match);
     if ( currentTurnBasedMatch != match ) {
       if ( currentTurnBasedMatch != nil ) {
         [currentTurnBasedMatch release];
