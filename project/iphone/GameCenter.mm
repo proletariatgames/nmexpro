@@ -83,7 +83,7 @@ typedef void (*InviteFunctionType)(NSArray*);
 @property (nonatomic) TurnBasedMatchFunctionType onTurnEventForMatch;
 
 @end
-	
+
 @implementation GKViewDelegate
 
 @synthesize onAchievementFinished;
@@ -231,8 +231,11 @@ typedef void (*InviteFunctionType)(NSArray*);
 
 - (void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController *)viewController
 {
-  [viewController dismissViewControllerAnimated:YES completion:nil];
-  [viewController release];
+  printf("friendRequestComposeViewControllerDidFinish\n");
+  if (![viewController isBeingDismissed]) {
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+  }
+	[viewController release];
   nme::ResumeAnimation();
 }
 
