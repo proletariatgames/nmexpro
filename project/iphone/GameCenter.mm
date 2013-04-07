@@ -42,6 +42,7 @@ namespace nme {
 typedef void (*FunctionType)();
 typedef void (*MatchFunctionType)(GKMatch*);
 typedef void (*TurnBasedMatchFunctionType)(GKTurnBasedMatch*);
+typedef void (*TurnEventFunctionType)(GKTurnBasedMatch*, BOOL);
 typedef void (*MatchPlayerFunctionType)(GKMatch*, NSString*);
 typedef void (*DataFunctionType)(NSString*, NSString*);
 typedef void (*InviteFunctionType)(NSArray*);
@@ -80,7 +81,7 @@ typedef void (*InviteFunctionType)(NSArray*);
 @property (nonatomic) DataFunctionType onDataReceived;
 @property (nonatomic) InviteFunctionType onTurnBasedInviteReceived;
 @property (nonatomic) TurnBasedMatchFunctionType onTurnBasedMatchEnd;
-@property (nonatomic) TurnBasedMatchFunctionType onTurnEventForMatch;
+@property (nonatomic) TurnEventFunctionType onTurnEventForMatch;
 
 @end
 
@@ -226,7 +227,7 @@ typedef void (*InviteFunctionType)(NSArray*);
 - (void)handleTurnEventForMatch:(GKTurnBasedMatch *)match didBecomeActive:(BOOL)didBecomeActive
 {
   printf("handleTurnEventForMatch\n");
-  onTurnEventForMatch(match);
+  onTurnEventForMatch(match, didBecomeActive);
 }
 
 - (void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController *)viewController
@@ -288,7 +289,7 @@ namespace nmeExtensions{
   void turnBasedMatchmakingFinished(GKTurnBasedMatch* match);
   void turnBasedInviteReceived(NSArray* playerIds);
   void turnBasedMatchEnded(GKTurnBasedMatch* match);
-  void turnEvent(GKTurnBasedMatch* match);
+  void turnEvent(GKTurnBasedMatch* match, BOOL didBecomeActive);
 	void dispatchHaxeEvent(EventType eventId);
 	extern "C" void nme_extensions_send_event(Event &inEvent);
 	extern "C" void nme_extensions_send_event_with_len(Event &inEvent, int len);
@@ -1303,10 +1304,11 @@ namespace nmeExtensions{
     nme_extensions_send_event(evt);
   }
 
-  void turnEvent(GKTurnBasedMatch* match) {
+  void turnEvent(GKTurnBasedMatch* match, BOOL didBecomeActive) {
     trackTurnBasedMatch(match);
 
     Event evt(TURN_BASED_MATCH_TURN);
+    evt.code = didBecomeActive;
     evt.data = [match.matchID cStringUsingEncoding:NSUTF8StringEncoding];
     nme_extensions_send_event(evt);
   }
