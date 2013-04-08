@@ -265,11 +265,11 @@ static value end_match(value matchID, value winningPlayerID, value message, valu
 }
 DEFINE_PRIM(end_match,5);
 
-static value quit_match(value matchID, value matchData, value requestID) {
-  hxQuitTurnBasedMatch(val_string(matchID), val_string(matchData), val_strlen(matchData), val_int(requestID));
+static value quit_match(value matchID, value message, value matchData, value requestID) {
+  hxQuitTurnBasedMatch(val_string(matchID), val_string(message), val_string(matchData), val_strlen(matchData), val_int(requestID));
   return alloc_null();
 }
-DEFINE_PRIM(quit_match, 3);
+DEFINE_PRIM(quit_match, 4);
 
 static value remove_match(value matchID, value requestID) {
   hxRemoveTurnBasedMatch(val_string(matchID), val_int(requestID));
@@ -344,6 +344,14 @@ static value get_player_id() {
   return alloc_string(playerID);
 }
 DEFINE_PRIM(get_player_id, 0);
+
+static value get_player_alias() {
+  char playerAlias[256];
+  playerAlias[0] = 0;
+  hxGetPlayerAlias(playerAlias, 256);
+  return alloc_string(playerAlias);
+}
+DEFINE_PRIM(get_player_alias, 0);
 
 static value get_match_num_players() {
   return alloc_int(hxGetNumMatchPlayers());

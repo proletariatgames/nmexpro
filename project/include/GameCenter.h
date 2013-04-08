@@ -43,6 +43,7 @@ namespace nmeExtensions {
   bool hxInTurnBasedMatch();
   void hxSetCurrentTurnBasedMatch(const char* matchID);
   void hxGetPlayerID(char* output, int maxLen);
+  void hxGetPlayerAlias(char* output, int maxLen);
   void hxDisconnectMatch();
   int hxGetNumMatchPlayers();
   void hxLoadPlayerData(const char* ids, int requestID);
@@ -56,7 +57,7 @@ namespace nmeExtensions {
   void hxAdvanceTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID);
   void hxPauseTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
   void hxEndTurnBasedMatch(const char* matchID, const char* winningPlayerID, const char* message, const char* matchData, int matchDataLen, int requestID);
-  void hxQuitTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
+  void hxQuitTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID);
   void hxRemoveTurnBasedMatch(const char* matchID, int requestID);
 }
 

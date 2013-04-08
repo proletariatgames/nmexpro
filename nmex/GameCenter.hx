@@ -101,6 +101,10 @@ public function getPlayerID() : String {
   return untyped nmex_get_player_id();
 }
 
+public function getPlayerAlias() : String {
+  return untyped nmex_get_player_alias();
+}
+
 public function loadFriendIDs() : Void {
   untyped nmex_load_friend_ids();
 }
@@ -215,8 +219,8 @@ public function endTurnBasedMatch(matchID:String, winningPlayerID:String, messag
   untyped nmex_end_match(matchID, winningPlayerID, message, matchData, requestID);
 }
 
-public function resignFromTurnBasedMatch(matchID:String, matchData:String, requestID:Int) : Void {
-  untyped nmex_quit_match(matchID, matchData, requestID);
+public function resignFromTurnBasedMatch(matchID:String, message:String, matchData:String, requestID:Int) : Void {
+  untyped nmex_quit_match(matchID, message, matchData, requestID);
 }
 
 public function removeTurnBasedMatch(matchID:String, requestID:Int) : Void {
@@ -250,13 +254,14 @@ private static var nmex_in_turn_based_match = nme.Loader.load("in_turn_based_mat
 private static var nmex_set_current_turn_based_match = nme.Loader.load("set_current_turn_based_match",1);
 private static var nmex_disconnect_match = nme.Loader.load("disconnect_match",0);
 private static var nmex_get_player_id = nme.Loader.load("get_player_id",0);
+private static var nmex_get_player_alias = nme.Loader.load("get_player_alias",0);
 private static var nmex_get_match_num_players = nme.Loader.load("get_match_num_players",0);
 private static var nmex_get_match_player_id = nme.Loader.load("get_match_player_id",1);
 private static var nmex_get_match_data = nme.Loader.load("get_match_data",2);
 private static var nmex_advance_match = nme.Loader.load("advance_match",4);
 private static var nmex_pause_match = nme.Loader.load("pause_match",3);
 private static var nmex_end_match = nme.Loader.load("end_match",5);
-private static var nmex_quit_match = nme.Loader.load("quit_match",3);
+private static var nmex_quit_match = nme.Loader.load("quit_match",4);
 private static var nmex_remove_match = nme.Loader.load("remove_match",2);
 private static var nmex_get_player_png = nme.Loader.load("get_player_png",1);
 private static var nmex_is_user_authenticated = nme.Loader.load("is_user_authenticated",0);

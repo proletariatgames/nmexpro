@@ -264,6 +264,7 @@ namespace nmeExtensions{
   bool hxInTurnBasedMatch();
   void hxSetCurrentTurnBasedMatch(const char* matchID);
   void hxGetPlayerID(char* output, int maxLen);
+  void hxGetPlayerAlias(char* output, int maxLen);
   void hxLoadPlayerData(const char* ids, int requestID);
   char* hxGetPlayerPhotoPNG(const char* idStr, int* len);
   void hxDisconnectMatch();
@@ -273,7 +274,7 @@ namespace nmeExtensions{
   void hxAdvanceTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID);
   void hxPauseTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
   void hxEndTurnBasedMatch(const char* matchID, const char* winningPlayerID, const char* message, const char* matchData, int matchDataLen, int requestID);
-  void hxQuitTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID);
+  void hxQuitTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID);
   void hxRemoveTurnBasedMatch(const char* matchID, int requestID);
   void trackTurnBasedMatch(GKTurnBasedMatch* match);
   void hxLoadFriendIDs();
@@ -300,6 +301,7 @@ namespace nmeExtensions{
 	
 	/** Initialization State */
 	static int isInitialized=0;
+  static int registeredAuthHandler=0;
 	
 	/** View Delegate */
 	static GKViewDelegate *ViewDelegate;
@@ -309,6 +311,7 @@ namespace nmeExtensions{
   static GKTurnBasedMatch* currentTurnBasedMatch;
   static bool currentMatchStarted = false;
   
+  static UIViewController* s_authViewController = nil;
   static NSMutableArray* loadedTurnBasedMatches;
 
   static int MAX_PACKET_SIZE = 64*1024;
@@ -384,16 +387,40 @@ namespace nmeExtensions{
 		if(!hxIsGameCenterAvailable()){
 			return;
 		}
-		
-		[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {      
-			if (error == nil){
-				registerForAuthenticationNotification();
-				dispatchHaxeEvent(AUTH_SUCCEEDED);
-			}else{
-				NSLog(@"  %@", [error userInfo]);
-				dispatchHaxeEvent(AUTH_FAILED);
-			}
-		}];
+
+    if ( s_authViewController != nil ) {
+      printf("Displaying auth UI\n");
+      UIWindow* window = [UIApplication sharedApplication].keyWindow;
+      [[window rootViewController] presentModalViewController: s_authViewController animated:NO];
+    } else if ( registeredAuthHandler == 0 && [GKLocalPlayer instancesRespondToSelector:@selector(authenticateHandler)] ) {
+      printf("Register for authentication via authenticateHandler\n");
+      registeredAuthHandler = 1;
+      [GKLocalPlayer localPlayer].authenticateHandler = ^(UIViewController* authViewController, NSError* error) {
+        if ( authViewController != nil ) {
+          NSLog(@"Retain auth view controller");
+          s_authViewController = authViewController; 
+          [s_authViewController retain];
+        } else {
+          if ( error != nil ) {
+            NSLog(@"AuthError %@", error);
+            dispatchHaxeEvent(AUTH_FAILED);
+          } else {
+            NSLog(@"Auth success");
+            dispatchHaxeEvent(AUTH_SUCCEEDED);
+          }
+        }
+      };
+    } else {
+      [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {      
+        if (error == nil){
+          registerForAuthenticationNotification();
+          dispatchHaxeEvent(AUTH_SUCCEEDED);
+        }else{
+          NSLog(@"  %@", [error userInfo]);
+          dispatchHaxeEvent(AUTH_FAILED);
+        }
+      }];
+    }
 	}
 
 	/** Return true if the local player is logged in */
@@ -406,6 +433,10 @@ namespace nmeExtensions{
 
   void hxGetPlayerID(char* output, int maxLen) {
     [[GKLocalPlayer localPlayer].playerID getCString:output maxLength:maxLen encoding:NSUTF8StringEncoding];
+  }
+
+  void hxGetPlayerAlias(char* output, int maxLen) {
+    [[GKLocalPlayer localPlayer].alias getCString:output maxLength:maxLen encoding:NSUTF8StringEncoding];
   }
 
   void hxLoadFriendIDs() {
@@ -552,7 +583,7 @@ namespace nmeExtensions{
       request.playersToInvite = [[NSArray alloc]initWithObjects: inviteUserID, nil];
     }
 
-    if ([[GKLocalPlayer localPlayer] friends] && [[[GKLocalPlayer localPlayer] friends] containsObject:inviteUserID]) {
+    if ( true ) { // [[GKLocalPlayer localPlayer] friends] && [[[GKLocalPlayer localPlayer] friends] containsObject:inviteUserID]) {
       [GKTurnBasedMatch findMatchForRequest:request withCompletionHandler:^(GKTurnBasedMatch *match, NSError *error) {
         [request.playersToInvite release];
         [request release];
@@ -774,9 +805,13 @@ namespace nmeExtensions{
   }
 
   /** Ends an open match that the player is a participant in. */
-  void hxQuitTurnBasedMatch(const char* matchID, const char* matchData, int matchDataLen, int requestID) {
+  void hxQuitTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID) {
     GKTurnBasedMatch* match = findMatchWithID(matchID);
     if ( match != nil ) {
+      NSString* messageStr = [[NSString alloc] initWithUTF8String:message];
+      match.message = messageStr;
+      [messageStr release];
+
       NSString* localPlayer = [GKLocalPlayer localPlayer].playerID;
       if ( match.currentParticipant != nil && [match.currentParticipant.playerID isEqualToString:localPlayer] ) {
         NSData* packet = [NSData dataWithBytes:matchData length:matchDataLen];
