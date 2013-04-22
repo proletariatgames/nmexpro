@@ -255,6 +255,7 @@ namespace nmeExtensions{
 	void hxReportAchievement(const char *achievementId, float percent);
 	void hxShowLeaderBoardForCategory(const char *category);
   void hxShowMatchmakingUI();
+  void hxStartTurnBasedMatch(const char *inviteUserID, int requestID);
   void hxStartTurnBasedMatch(const char *inviteUserID);
   void hxRematch(const char* matchID, int requestID);
   void hxLoadTurnBasedMatches(int requestID);
@@ -572,6 +573,9 @@ namespace nmeExtensions{
 
   /** Brings up the GameCenter UI for starting a new turn-based match. */
   void hxStartTurnBasedMatch(const char* i_inviteUserID) {
+    hxStartTurnBasedMatch(i_inviteUserID, 0);
+  }
+  void hxStartTurnBasedMatch(const char* i_inviteUserID, int requestID) {
     NSString *inviteUserID = [[NSString alloc] initWithUTF8String:i_inviteUserID];
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     UIWindow* window = [UIApplication sharedApplication].keyWindow;
@@ -583,7 +587,7 @@ namespace nmeExtensions{
       request.playersToInvite = [[NSArray alloc]initWithObjects: inviteUserID, nil];
     }
 
-    if ( true ) { // [[GKLocalPlayer localPlayer] friends] && [[[GKLocalPlayer localPlayer] friends] containsObject:inviteUserID]) {
+    if ( requestID == 0 ) { // [[GKLocalPlayer localPlayer] friends] && [[[GKLocalPlayer localPlayer] friends] containsObject:inviteUserID]) {
       [GKTurnBasedMatch findMatchForRequest:request withCompletionHandler:^(GKTurnBasedMatch *match, NSError *error) {
         [request.playersToInvite release];
         [request release];
@@ -595,7 +599,41 @@ namespace nmeExtensions{
           turnBasedMatchmakingFinished(match);
         }
       }];
-    } else {
+    } else { // if ( requestID != 0 ) {
+      [GKTurnBasedMatch findMatchForRequest:request withCompletionHandler:^(GKTurnBasedMatch *newMatch, NSError *error) {
+        if (error) {
+          NSLog(@"Error starting match");
+          turnBasedMatchmakingFinished(nil);
+        } 
+        [request.playersToInvite release];
+        [request release];
+          if ( currentTurnBasedMatch != newMatch ) {
+            if ( currentTurnBasedMatch != nil ) {
+              [currentTurnBasedMatch release];
+            }
+            currentTurnBasedMatch = newMatch;
+            if ( currentTurnBasedMatch != nil ) {
+              trackTurnBasedMatch(currentTurnBasedMatch);
+              [currentTurnBasedMatch retain];
+            }
+          }
+
+          if ( currentTurnBasedMatch != nil ) {
+            Event evt(REMATCH_STARTED);
+            char newMatchID[256];
+            [currentTurnBasedMatch.matchID getCString:newMatchID maxLength:256 encoding:NSUTF8StringEncoding];
+            evt.code = requestID;
+            evt.data = newMatchID;
+            nme_extensions_send_event(evt);
+          } else {
+            Event evt(REMATCH_FAILED);
+            evt.code = requestID;
+            nme_extensions_send_event(evt);
+          } 
+      }];
+    }
+    
+    /*else {
       GKTurnBasedMatchmakerViewController *mmvc = [[GKTurnBasedMatchmakerViewController alloc] initWithMatchRequest:request];
       mmvc.showExistingMatches = NO;
       mmvc.turnBasedMatchmakerDelegate = ViewDelegate;
@@ -603,7 +641,7 @@ namespace nmeExtensions{
       nme::PauseAnimation();
       [[window rootViewController] presentModalViewController: mmvc animated:NO];
       [request release];
-    }
+    }*/
 
     [inviteUserID release];
     [pool drain];
@@ -674,38 +712,57 @@ namespace nmeExtensions{
   void hxAdvanceTurnBasedMatch(const char* matchID, const char* message, const char* matchData, int matchDataLen, int requestID) {
     GKTurnBasedMatch* match = findMatchWithID(matchID);
     if ( match != nil ) {
-      NSData* packet = [NSData dataWithBytes:matchData length:matchDataLen]; 
-      NSMutableArray* nextPlayers = [[NSMutableArray alloc] init];
-      for (GKTurnBasedParticipant* player in [match participants]) {
-        if ( ![player.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] ) {
-          NSLog(@"Adding player %@ as next player", player.playerID);
-          [nextPlayers addObject:player];
-        }
-      }
-      // [nextPlayers addObject:match.currentParticipant];
-
       NSString* messageStr = [[NSString alloc] initWithUTF8String:message];
       match.message = messageStr;
       [messageStr release];
 
-      [match endTurnWithNextParticipants:nextPlayers turnTimeout:GKTurnTimeoutNone matchData:packet 
-        completionHandler:^(NSError* error) {
-          [nextPlayers release];
-          
-          if ( error != nil ) {
-            NSLog(@"Could not advance match : %@",error);
-            Event evt(UPDATE_MATCH_FAIL);
-            evt.data = "failed to save match data";
-            evt.code = requestID;
-            nme_extensions_send_event(evt);
-          } else {
-            Event evt(UPDATE_MATCH_SUCCESS);
-            evt.data = matchID;
-            evt.code = requestID;
-            nme_extensions_send_event(evt);
-          }
+      NSData* packet = [NSData dataWithBytes:matchData length:matchDataLen]; 
+      for (GKTurnBasedParticipant* player in [match participants]) {
+        if ( ![player.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID] ) {
+          [match endTurnWithNextParticipant:player matchData:packet 
+            completionHandler:^(NSError* error) {
+
+              if ( error != nil ) {
+                NSLog(@"Could not advance match : %@",error);
+                Event evt(UPDATE_MATCH_FAIL);
+                evt.data = "failed to save match data";
+                evt.code = requestID;
+                nme_extensions_send_event(evt);
+              } else {
+                Event evt(UPDATE_MATCH_SUCCESS);
+                evt.data = matchID;
+                evt.code = requestID;
+                nme_extensions_send_event(evt);
+              }
+            }
+          ];
         }
-      ];
+      }
+      // [nextPlayers addObject:match.currentParticipant];
+
+      
+      
+      
+     /* IOS 6.0 and above ONLY
+        [match endTurnWithNextParticipants:nextPlayers turnTimeout:GKTurnTimeoutNone matchData:packet 
+          completionHandler:^(NSError* error) {
+            [nextPlayers release];
+          
+            if ( error != nil ) {
+              NSLog(@"Could not advance match : %@",error);
+              Event evt(UPDATE_MATCH_FAIL);
+              evt.data = "failed to save match data";
+              evt.code = requestID;
+              nme_extensions_send_event(evt);
+            } else {
+              Event evt(UPDATE_MATCH_SUCCESS);
+              evt.data = matchID;
+              evt.code = requestID;
+              nme_extensions_send_event(evt);
+            }
+          }
+        ];
+      */
 
       if ( currentTurnBasedMatch == match ) {
         [currentTurnBasedMatch release];
@@ -1275,7 +1332,20 @@ namespace nmeExtensions{
       [oldMatch removeWithCompletionHandler:^(NSError* error) {
         if ( error != nil ) {
           NSLog(@"Could not remove old match : %@",error);
-        } 
+        }
+        
+        NSString* localPlayerId = [GKLocalPlayer localPlayer].playerID;
+        NSString* rematchPlayerId;
+
+        for ( GKTurnBasedParticipant* player in oldMatch.participants ) {
+          if ( localPlayerId != [player playerID] ) {
+            rematchPlayerId = [player playerID];
+            break;
+          }
+        }
+
+        hxStartTurnBasedMatch( [rematchPlayerId UTF8String], requestID );
+        /* iOS 6 ONLY
         [oldMatch rematchWithCompletionHandler:^(GKTurnBasedMatch* newMatch, NSError* error) {
           if ( currentTurnBasedMatch != newMatch ) {
             if ( currentTurnBasedMatch != nil ) {
@@ -1300,7 +1370,8 @@ namespace nmeExtensions{
             evt.code = requestID;
             nme_extensions_send_event(evt);
           }
-        }];
+        }];*/
+
       }];
     } else {
       Event evt(REMATCH_FAILED);
